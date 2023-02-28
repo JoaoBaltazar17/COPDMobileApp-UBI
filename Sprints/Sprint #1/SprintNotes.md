@@ -1,18 +1,18 @@
 # Sprint 1 - Notes 
 
-# Tarefas
+# **Tarefas**
 
-- [x]  1. Breve descrição do que é a DPOC e o porquê da importância do problema (alguns números retirados de publicações científicas  que   vão já para a bibliografia do teu relatório). Este material constará do cap. Introdução.
+- [X]  1. Breve descrição do que é a DPOC e o porquê da importância do problema (alguns números retirados de publicações científicas  que   vão já para a bibliografia do teu relatório). Este material constará do cap. Introdução.
    
 - [ ]  2. Datasets existentes e suas características (qual a sua finalidade, quantas amostras, principais atributos,...). Um bom ponto de partida poderá ser pesquisares por "copd dataset". Este material constará do cap. Estado da Arte.
 
-- [ ]  3. Encontrar aplicações que contribuam para o diagnóstico, a gestão e a terapêutica da doença. Este material também constará do cap. Estado da Arte.
+- [X]  3. Encontrar aplicações que contribuam para o diagnóstico, a gestão e a terapêutica da doença. Este material também constará do cap. Estado da Arte.
 
 
 ***
 
 
-## Tarefa 1
+## **Tarefa 1**
 
 ### **O que é a DPOC e causas.**
 
@@ -38,14 +38,16 @@ Cerca de 300 milhões de pessoas têm DPOC atualmente. A doença ainda é 3ª ca
 
 ***
 
-## Tarefa 2
+## **Tarefa 2**
 
+Datasets existentes:
 
+1.
 
 
 ***
 
-## Tarefa 3
+## **Tarefa 3**
 
 
 [Aplicação myCOPD](https://www.atsjournals.org/doi/full/10.1164/rccm.201204-0596PP)
