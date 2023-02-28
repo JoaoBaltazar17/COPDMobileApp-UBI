@@ -38,6 +38,12 @@ Cerca de 300 milhões de pessoas têm DPOC atualmente. A doença ainda é 3ª ca
 
 ***
 
+## Tarefa 2
+
+
+
+
+***
 
 ## Tarefa 3
 
