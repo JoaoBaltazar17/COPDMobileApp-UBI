@@ -2,11 +2,11 @@
 
 # **Tarefas**
 
-- [X]  1. Breve descrição do que é a DPOC e o porquê da importância do problema (alguns números retirados de publicações científicas  que   vão já para a bibliografia do teu relatório). Este material constará do cap. Introdução.
+- [x]  1. Breve descrição do que é a DPOC e o porquê da importância do problema (alguns números retirados de publicações científicas  que   vão já para a bibliografia do teu relatório). Este material constará do cap. Introdução.
    
 - [ ]  2. Datasets existentes e suas características (qual a sua finalidade, quantas amostras, principais atributos,...). Um bom ponto de partida poderá ser pesquisares por "copd dataset". Este material constará do cap. Estado da Arte.
 
-- [X]  3. Encontrar aplicações que contribuam para o diagnóstico, a gestão e a terapêutica da doença. Este material também constará do cap. Estado da Arte.
+- [x]  3. Encontrar aplicações que contribuam para o diagnóstico, a gestão e a terapêutica da doença. Este material também constará do cap. Estado da Arte.
 
 
 ***
@@ -42,7 +42,10 @@ Cerca de 300 milhões de pessoas têm DPOC atualmente. A doença ainda é 3ª ca
 
 Datasets existentes:
 
-1.
+* [COPD Patients Dataset - Kaggle](https://www.kaggle.com/datasets/prakharrathi25/copd-student-dataset?resource=download)
+  * Nº Amostras - 101
+  * Atributos - Serial Number/ ID / Age / Pack History Smoking / COPD SEVERITY / MWT1 / MWT2 / MWTBEST / FEV1 / FEVPred
+
 
 
 ***
