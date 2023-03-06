@@ -1,6 +1,6 @@
 # Sprint 2 - Notes 
 
-# **Tarefas**
+# Tarefas
 
 - [ ]  1. Ver atributos de datasets que ache relevantes.
    
@@ -10,12 +10,9 @@
 
 - [ ]  4. Experimentar machine learning na base de dados.
 
-***
 
-
-## **.**
-
-### ** **
+## 1. Ver atributos de datasets que ache relevantes.
+ - 
 
 
 
@@ -28,13 +25,13 @@
 
 
 
-***
+
 
 ## **.**
 
 
 
-***
+
 
 ## **.**
 
