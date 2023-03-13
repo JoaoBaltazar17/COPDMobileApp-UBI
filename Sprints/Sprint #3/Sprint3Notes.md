@@ -22,7 +22,7 @@ Saturação de oxigênio                 | Baixos níveis de oxigênio no sangue
 Comorbidades                          | Coocorrência com outras condições, como doenças cardiovasculares e diabetes       | P          | (**)
 MWT1                                  | Distância que o paciente percorre em 6 minutos em metros                          | M          | COPD Patients Dataset - Kaggle
 
-
+-------------------------------
 ## Tarefa 2. DATASETS
 
 DATASET               | DESCRIÇÃO                       | URL                                                                                    | TIPOS DE APLICAÇÃO 
@@ -34,7 +34,7 @@ Smoking implications for Pathogenesis in COPD   | Expression data in lung tissue
 
 
 
-
+-------------------------------
 ## Tarefa 3. Aplicações
 
 Aplicação            | Gratuito (S v N) | Disponibilidade |  Recursos
@@ -46,9 +46,9 @@ Air Quality App - BreezoMeter  |S       | IOS         | Informação da qualidad
 COPD Manager         |S                 | IOS           | Gestão de COPD, vídeos educacionais, gestão de pacientes etc...
 
 
-
-[my mhealth](https://mymhealth-email-resources.s3.eu-west-2.amazonaws.com/media/copd/myCOPD+-+Short+Patient+Video+-+MYMC-%5B0009%5D%5BMAR%5D%5B20%5D.mp4)
-[COPD App](https://play.google.com/store/apps/details?id=com.focusmedica.ud.copd&hl=pt_PT)
-[EPA's AirNow](https://play.google.com/store/apps/details?id=com.saic.airnow&hl=en&gl=US&pli=1)
-[Air Quality App](https://apps.apple.com/us/app/air-quality-app-breezometer/id989623380)
-[COPD Manager](https://apps.apple.com/us/app/copd-manager/id875482616?platform=iphone)
+### URL - Apps
+* [my mhealth](https://mymhealth-email-resources.s3.eu-west-2.amazonaws.com/media/copd/myCOPD+-+Short+Patient+Video+-+MYMC-%5B0009%5D%5BMAR%5D%5B20%5D.mp4)
+* [COPD App](https://play.google.com/store/apps/details?id=com.focusmedica.ud.copd&hl=pt_PT)
+* [EPA's AirNow](https://play.google.com/store/apps/details?id=com.saic.airnow&hl=en&gl=US&pli=1)
+* [Air Quality App](https://apps.apple.com/us/app/air-quality-app-breezometer/id989623380)
+* [COPD Manager](https://apps.apple.com/us/app/copd-manager/id875482616?platform=iphone)
