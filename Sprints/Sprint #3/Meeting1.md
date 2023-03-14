@@ -15,7 +15,7 @@
 ### 3. Aplicações
  - Contexto 
  - "Quais é que acham que devem ser os requisitos funcionais patentes na App, de forma a que esta se revele uma grande ajuda para o doente?".
- - "Como será o Login e Registo de um doente de DPOC?"
+ - "Como será o Login e Registo de um doente de DPOC?" - Credenciais FHIR (Ver)
 
 ------------------
 ## Anotações durante a reunião
