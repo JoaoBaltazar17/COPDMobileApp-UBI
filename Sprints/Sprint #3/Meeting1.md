@@ -19,3 +19,26 @@
 
 ------------------
 ## Anotações durante a reunião
+
+### Análise das Apps (MERCADO)
+
+  Apps Secundárias (convidar a instalar, de modo a dar funcionalidades extra):
+   - EPA's AirNow
+   - AirQualitity
+
+### Base de Dados 
+  
+  * Análise:
+    * Eliminar a tabela de diagnosticar e adicionar formulário (doenças, doente responsável).
+    * Mudar nome da tabela Vital Signs -> Clinical Parameters.
+    * Incorporar Self Cast (Estado de Exarbação -> Dá 10 passos  (Mede sinais antes e depois dos passos))
+    * Educação -> Informação atualizada de 1 em 1 mês (Últimas notícias)
+
+
+#### Links Partilhados:
+* [Gravity](www.gravitatehealth.eu)
+* FHIR interoperability HL7 - Ir buscar dados a partir de outras apps do sistema de saúde. (Adicionar infos ao relatório)
+* IPS international patient summary
+
+
+
