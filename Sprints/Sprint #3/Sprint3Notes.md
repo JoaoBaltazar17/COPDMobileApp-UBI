@@ -1,15 +1,7 @@
 # Sprint 3 - Notes 
 
-# Tarefas
 
-- [X]  1. TABELA - VARIÁVEL | DESCRIÇÃO | RELEVÂNCIA (*M*onitorização V *P*revenção V *T*erapêutica V *G*estão) | DATASET DISPONÍVEL (s V n)|
-   
-- [X]  2. TABELA - DATASET | DESCRIÇÃO | URL | TIPOS DE APLICAÇÃO (*M*onitorização V *P*revenção V *T*erapêutica V *G*estão) | ACESSO (*G*ratuito V *S*ubscrição V ...) 
-  
-- [X]  3. TABELA - Comparar as funcionalidades que são oferecidas por aplicação relacionada com a DPOC.
-
--------------------------------
-## Tarefa 1. VARIÁVEIS A TER EM CONTA PARA A DPOC
+## VARIÁVEIS A TER EM CONTA PARA A DPOC
 
 VARIÁVEL                              | DESCRIÇÃO                                                                         | RELEVÂNCIA | DATASET DISPONÍVEL
 ---------------------------------     | --------------------------------------------------------------------------------- | ---------- | ------------------
@@ -23,7 +15,7 @@ Comorbidades                          | Coocorrência com outras condições, co
 MWT1                                  | Distância que o paciente percorre em 6 minutos em metros                          | M          | COPD Patients Dataset - Kaggle
 
 -------------------------------
-## Tarefa 2. DATASETS
+## DATASETS
 
 DATASET               | DESCRIÇÃO                       | URL                                                                                    | TIPOS DE APLICAÇÃO 
 ----------------------|-------------------------------- | -------------------------------------------------------------------------------------- | ------------------
@@ -35,7 +27,7 @@ Smoking implications for Pathogenesis in COPD   | Expression data in lung tissue
 
 
 -------------------------------
-## Tarefa 3. Aplicações
+## Aplicações (Comparações)
 
 Aplicação            | Gratuito (S v N) | Disponibilidade |  Recursos
 -------------------- | ---------------- | --------------- | -------------------
