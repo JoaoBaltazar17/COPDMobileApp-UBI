@@ -2,15 +2,14 @@
 
 # Tarefas
 
-- [ ]  1. 
+- [ ]  1. Estudar FHIR
    
-- [ ]  2. 
-
-- [ ]  3. 
+- [ ]  2. Adicionar tabelas ao relatório
 
 
 
-## 1. 
+
+## 1. FHIR 
 
   
 
