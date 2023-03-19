@@ -33,8 +33,8 @@ Aplicação            | Gratuito (S v N) | Disponibilidade |  Recursos
 -------------------- | ---------------- | --------------- | -------------------
 COPD                 | S                | iOS e Android   | Informação com vídeos explicativos
 my mhealth           | S                | iOS e Android   | Acompanhamento, registo de biosinais(pelo paciente) e questionário
-EPA's AIRNow         |S                 | Android         | Informação da qualidade do ar
-Air Quality App - BreezoMeter  |S       | IOS         | Informação da qualidade do ar
+EPA's AIRNow (Secundária)         |S                 | Android         | Informação da qualidade do ar
+Air Quality App - BreezoMeter (Secundária) |S       | IOS         | Informação da qualidade do ar
 COPD Manager         |S                 | IOS           | Gestão de COPD, vídeos educacionais, gestão de pacientes etc...
 
 
