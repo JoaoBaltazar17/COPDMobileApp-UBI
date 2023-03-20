@@ -11,6 +11,11 @@
 
 ## 1. FHIR
 
+### 1.1 O que é?
+ - É um standart na troca de informação sobre saúde, eletronicamente.
+
+### 1.2 APIs FHIR
+  
 
 
 
