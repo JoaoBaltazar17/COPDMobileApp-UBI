@@ -10,7 +10,12 @@
 
 
 ## Requisitos Funcionais 
-1.  Permitir o registo (nesta primeira fase) manual de dados do paciente, bem como medições, de forma a que o doente consiga analisar o progresso com o passar do tempo. (Medições: O2, C02, RR, T)
-2.  Interop
-  
+1.  Registo e armazenamento de dados do paciente e medições de parâmetros úteis.
+2.  Interoperabilidade - 
+    1.  Dados armazenados em um formato FHIR e compartilhados com o sistema de saúde do paciente ou com um profissional de saúde específico.
+    2.  Acesso a informações sobre medicamentos, dosagens e interações medicamentosas.
+3. Gamificação 
+   1. Material educacional e recursos sobre a sua condição.
+   2. Chat com um __healthcare provider__ artificial.
+   3. Promoção ao exercicio fisico através de testes como o 6 minute walk test (6MWT) e o 1 minute sit to stand (1MSTS), aproveitando até para retirar dados e pós-análise.
 
