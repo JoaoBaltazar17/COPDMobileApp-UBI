@@ -24,5 +24,5 @@
 
 - Interface -> Extremamente Simples
 - Muitas funcionalidades para pouco tempo -> Apostar no que ainda não foi feito!
-- Desenvolver uma aplicação para pessoas com pouco literacia digital.
+- Desenvolver uma aplicação para pessoas com pouco literacia digital. (Investigar!!!)
 - Frequência de testes (6MWT) / 1 minute sit to stand -> Dar várias possibilidades ao doente.
