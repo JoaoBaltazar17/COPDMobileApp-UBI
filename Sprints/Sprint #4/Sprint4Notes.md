@@ -2,9 +2,9 @@
 
 # Tarefas
 
-- [ ]  1. Estudar FHIR
+- [x]  1. Estudar FHIR
    
-- [ ]  2. Adicionar conteúdo ao relatório
+- [x]  2. Adicionar conteúdo ao relatório
 
 
 --------------------------
@@ -28,17 +28,23 @@
    
    1.1 Exemplos:
 
-   * Paciente: Este recurso representa um paciente e contém informações como nome, data de nascimento e informações de contato.
+   * Paciente: Este recurso representa um paciente e contém informações como nome, data de nascimento e informações de contato. 
+     * Paciente(idPaciente, nomePaciente, dataNascimento, informacoesContacto)
 
    * Condição: Este recurso representa uma condição que o paciente possui, como a DPOC. Ele contém informações como a data do diagnóstico, a gravidade e os sintomas relacionados.
-
+      * Condicao(idCondicao, idPaciente, dataDiagnostico, gravidade, sintomasRelacionados)
    * Observação: Este recurso representa uma observação ou medição relacionada à DPOC do paciente, como os resultados dos testes de função pulmonar ou os níveis de saturação de oxigênio.
-
+      * Observacao(idObs, idPaciente, dataObs, observacao)
    * MedicationRequest: Este recurso representa uma solicitação de prescrição de medicamentos ao paciente para a gestão da DPOC. Ele contém informações como o nome do medicamento, dosagem e instruções.
+      * MediRequest(idRequest, idPaciente, nomeMedicamento, dosagem, instrucoes)
+
 
    * ~~DiagnosticReport~~ : Este recurso representa um relatório de testes diagnósticos relacionados à DPOC do paciente, como tomografia computadorizada ou teste de função pulmonar.
+   
+   ![Esquema BD Básico apoiado pelo FHIR](image.png)
 
    Ao identificar os recursos FHIR relevantes para a gestão da DPOC, pode-se garantir que a base de dados da aplicação incluí todas as informações necessárias para oferecer suporte na gestão da DPOC e permitir a interoperabilidade com outros sistemas de assistência médica. 
+
 
 2. Fontes de Dados.
  
