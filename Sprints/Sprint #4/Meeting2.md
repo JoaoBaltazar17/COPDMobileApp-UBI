@@ -6,7 +6,7 @@
 1. Apresentação PowerPoint (BD Corrigida)
 2. Requisitos Funcionais / Requisitos Não Funcionais
 3. Testes na app:
-   1. (6MWT) 6 minute walk test / (6MWT) 1 minute sit to stand
+   1. (6MWT) 6 minute walk test / (1-MSTST) 1 minute sit to stand
 
 
 ## Requisitos Funcionais (Não definitivos)
