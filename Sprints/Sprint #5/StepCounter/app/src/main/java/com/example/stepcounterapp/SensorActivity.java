@@ -44,7 +44,8 @@ public class SensorActivity extends Activity implements SensorEventListener {
                             " Version=" + iVersion);
         }
         else {
-            Log.e("SENSORACTIVITY", "Sensor not found");
+            // Failure! No accelerometer sensor.
+            System.out.println("Sensor not found");
         }
     }
 

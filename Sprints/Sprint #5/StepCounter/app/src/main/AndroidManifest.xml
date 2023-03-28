@@ -12,7 +12,7 @@
         android:theme="@style/Theme.StepCounterApp"
         tools:targetApi="31">
         <activity
-            android:name=".SensorActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
