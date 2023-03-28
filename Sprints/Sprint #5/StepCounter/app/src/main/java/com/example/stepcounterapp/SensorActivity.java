@@ -69,7 +69,6 @@ public class SensorActivity extends Activity implements SensorEventListener {
             if(!bMessage) {
                 System.out.println("X: " + aXX + "\n" + "Y: " + aYY + "\n" + "Z: " + aZZ);
             }
-            bMessage = true;
         }
     }
 
