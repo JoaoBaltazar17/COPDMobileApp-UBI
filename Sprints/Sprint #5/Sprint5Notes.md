@@ -1,12 +1,12 @@
-# Sprint 4 - Notes 
+# Sprint 5 - Notes 
 
 # Tarefas
 
 - [x]  1. Como desenvolver uma aplicação para pessoas com pouco literacia digital.
    
-- [ ]  2. Desenvolver aplicação móvel que use o acelerómetro do telemóvel para contar passos, etc etc
+- [+/-]  2. Desenvolver aplicação móvel que use o acelerómetro do telemóvel para contar passos, etc etc
   
-- [ ]  3. Fazer mockups prévios da app
+- [x]  3. Fazer mockups prévios da app
 
 
 --------------------------
