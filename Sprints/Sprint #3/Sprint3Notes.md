@@ -29,10 +29,10 @@ Smoking implications for Pathogenesis in COPD   | Expression data in lung tissue
 -------------------------------
 ## Aplicações com relação à COPD (Comparações)
 
-Aplicação (P v S)          | Gratuito (S v N) | Disponibilidade |  Recursos
+Aplicação ([P]rincipal v [S]ecundária)          | Gratuito ([S]im v [N]ão) | Disponibilidade |  Recursos
 --------------------- | ---------------- | --------------- | -------------------
 COPD (P)                 | S                | iOS e Android   | Informação com vídeos explicativos
-my mhealth (P)            | S                | iOS e Android   | Acompanhamento, registo de biosinais(pelo paciente) e questionário
+my mhealth (P)            | S                | iOS e Android   | Acompanhamento, registo de biosinais(pelo paciente) e questionário.
 COPD Pocket Consultant Guide (P) | S                 |  Android e (?)            |  Ferramenta para profissionais de saúde que desejam melhorar sua compreensão da COPD e fornecer o melhor cuidado possível aos pacientes com a condição.
 GOLD COPD (P) |  S | Android e (?) | Guia desenvolvido por uma colaboração internacional de especialistas em saúde respiratória, que fornece recomendações atualizadas para o diagnóstico, avaliação, tratamento e gestão da doença.
 NHS Wales: COPDhub (P) | S | iOS e Android | Informações sobre a doença, opções de tratamento, dicas de autogerenciamento, recursos de atividade física e exercícios respiratórios, além de orientações sobre como lidar com exacerbações.
