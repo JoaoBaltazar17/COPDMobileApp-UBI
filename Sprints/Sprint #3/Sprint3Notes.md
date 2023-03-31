@@ -27,15 +27,18 @@ Smoking implications for Pathogenesis in COPD   | Expression data in lung tissue
 
 
 -------------------------------
-## Aplicações (Comparações)
+## Aplicações com relação à COPD (Comparações)
 
-Aplicação            | Gratuito (S v N) | Disponibilidade |  Recursos
--------------------- | ---------------- | --------------- | -------------------
-COPD                 | S                | iOS e Android   | Informação com vídeos explicativos
-my mhealth           | S                | iOS e Android   | Acompanhamento, registo de biosinais(pelo paciente) e questionário
-EPA's AIRNow (Secundária)         |S                 | Android         | Informação da qualidade do ar
-Air Quality App - BreezoMeter (Secundária) |S       | IOS         | Informação da qualidade do ar
-COPD Manager         |S                 | IOS           | Gestão de COPD, vídeos educacionais, gestão de pacientes etc...
+Aplicação (P v S)          | Gratuito (S v N) | Disponibilidade |  Recursos
+--------------------- | ---------------- | --------------- | -------------------
+COPD (P)                 | S                | iOS e Android   | Informação com vídeos explicativos
+my mhealth (P)            | S                | iOS e Android   | Acompanhamento, registo de biosinais(pelo paciente) e questionário
+COPD Pocket Consultant Guide (P) | S                 |  Android e (?)            |  Ferramenta para profissionais de saúde que desejam melhorar sua compreensão da COPD e fornecer o melhor cuidado possível aos pacientes com a condição.
+GOLD COPD (P) |  S | Android e (?) | Guia desenvolvido por uma colaboração internacional de especialistas em saúde respiratória, que fornece recomendações atualizadas para o diagnóstico, avaliação, tratamento e gestão da doença.
+NHS Wales: COPDhub (P) | S | iOS e Android | Informações sobre a doença, opções de tratamento, dicas de autogerenciamento, recursos de atividade física e exercícios respiratórios, além de orientações sobre como lidar com exacerbações.
+EPA's AIRNow (S)         |S                 | Android         | Informação da qualidade do ar
+Quit Genius (S) | S | Android e (?) | Forneçe um programa personalizado para parar de fumar mediante suporte e ferramentas personalizadas; Acompanha o progresso e comemora marcos.
+
 
 
 ### URL - Apps
