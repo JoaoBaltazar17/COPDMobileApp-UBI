@@ -30,10 +30,17 @@
 * Não ser sensível o suficiente para detectar pequenas mudanças na capacidade de exercício.
 * O teste pode não ser apropriado para pacientes incapazes de caminhar por 6 minutos ou que tenham comorbidades significativas que possam confundir os resultados.
 
-**Integração na app móvel**:
-* Desenvolver uma aplicação móvel que seja capaz de medir a distância percorrida pelo paciente e registrar dados como frequência cardíaca, oximetria de pulso e sintomas percebidos.
-* Defina um protocolo para realizar o teste (indicar as diretrizes estabelecidas para o 6MWT e incluir instruções claras para o paciente).
-* Aviso: É importante ressaltar que a utilização de uma aplicação móvel com acelerômetro para realizar o 6MWT requer validação clínica rigorosa antes de ser amplamente utilizada em pacientes com COPD. Além disso, a utilização de uma aplicação móvel não substitui a avaliação médica e o acompanhamento clínico regular.
+**(I) - Integração na app móvel // (D) - Desenvolvimento**:
+* Integração na app móvel:
+  * Desenvolver uma aplicação móvel que seja capaz de medir a distância percorrida pelo paciente e registrar dados como frequência cardíaca, oximetria de pulso e sintomas percebidos.
+  * Defina um protocolo para realizar o teste (indicar as diretrizes estabelecidas para o 6MWT e incluir instruções claras para o paciente).
+  * Aviso: É importante ressaltar que a utilização de uma aplicação móvel com acelerômetro para realizar o 6MWT requer validação clínica rigorosa antes de ser amplamente utilizada em pacientes com COPD. Além disso, a utilização de uma aplicação móvel não substitui a avaliação médica e o acompanhamento clínico regular.
+* Desenvolvimento:
+  * Medir a distância percorrida pelo paciente: 
+    * (?) Através do acelerômetro ou GPS.
+  * Avaliar a fiabilidade do teste, i. e.:
+    * Obter os valores da precisão do sensor, da qualidade da calibração do dispositivo e da presença de movimentos bruscos ou mudanças de direção e segundo estes, dar a conhecer ao doente a % de fiabilidade do mesmo.
+
 
 
 **Processamento dos dados na página web**:
