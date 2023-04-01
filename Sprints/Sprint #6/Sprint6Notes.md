@@ -116,7 +116,7 @@
 
 * Número de repetições: Indicador de desempenho físico.
 
-* Cronómetro: Tempo que demorou a completar determinadas repetições
+* Cronómetro: Tempo que demorou a completar determinadas repetições.
 
 * Avaliar a capacidade da pessoa em realizar atividades diárias que exigem levantar-se e sentar-se repetidamente.
   
