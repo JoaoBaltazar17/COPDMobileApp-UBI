@@ -96,16 +96,28 @@
 **(I) - Integração na app móvel // (D) - Desenvolvimento :**
 
 * Integração na app móvel:
-  * Contar o número de vezes que se fez o movimento.
+  * Contar o número de vezes que se fez o movimento (sentar e levantar).
   * Tempo necessário (cumpriu antes do tempo (quanto em especifico) / ultrapassou o tempo).
   * Definir um protocolo para realizar o teste (indicar as diretrizes estabelecidas para o 6MWT e incluir instruções claras para o paciente).
-* 
-  * Aviso: a precisão dos resultados pode variar e pode não ser confiável o suficiente para fins de avaliação ou monitoramento. A melhor maneira de medir o número de repetições do teste é com a ajuda de um observador humano experiente.
+  
+  * Aviso: A precisão dos resultados pode variar e pode não ser confiável o suficiente para fins de avaliação ou monitoramento. A melhor maneira de medir o número de repetições do teste é com a ajuda de um observador humano experiente.
 
 * Desenvolvimento:
-  * Medir a distância percorrida pelo paciente: 
-    * (?) Através do acelerômetro ou GPS.
-* 
+  * Detetar o movimento de sentar e levantar da cadeira:
+    * Através do acelerómetro.
+  * Crónometro.
+  * O acelerômetro pode ser colocado na parte inferior das costas ou no bolso da pessoa sendo testada, de  
+   forma que o telefone fique na posição vertical, de modo a medir as mudanças de movimento no eixo z.
   * Avaliar a fiabilidade do teste, i. e.:
     * Obter os valores da precisão do sensor, da qualidade da calibração do dispositivo e da presença de movimentos bruscos ou mudanças de direção e segundo estes, dar a conhecer ao doente a % de fiabilidade do mesmo.
 
+
+**Processamento dos dados na página web**:
+
+* Número de repetições: Indicador de desempenho físico.
+
+* Cronómetro: Tempo que demorou a completar determinadas repetições
+
+* Avaliar a capacidade da pessoa em realizar atividades diárias que exigem levantar-se e sentar-se repetidamente.
+  
+* Monitorar o progresso de um programa de treinamento físico e para avaliar o impacto de intervenções terapêutica
