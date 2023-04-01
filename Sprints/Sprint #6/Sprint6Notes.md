@@ -4,7 +4,7 @@
 
 - [x]  1. Estado da Arte (Atualização da tabela e respetivos conteúdos)
 
-- [ ]  2. Abordagem aos testes fisicos: (6MWT) 6 minute walk test / (1-MSTST) 1 minute sit to stand
+- [x]  2. Abordagem aos testes fisicos: (6MWT) 6 minute walk test / (1-MSTST) 1 minute sit to stand
    
 - [ ]  3. Exploração da aplicação do Count Steps 
   - [ ]  Imprimir valores de acelerometria. 
