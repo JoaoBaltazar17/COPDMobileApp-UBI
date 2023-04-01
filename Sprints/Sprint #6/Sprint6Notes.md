@@ -6,10 +6,8 @@
 
 - [x]  2. Abordagem aos testes fisicos: (6MWT) 6 minute walk test / (1-MSTST) 1 minute sit to stand
    
-- [ ]  3. Exploração da aplicação do Count Steps 
-  - [ ]  Imprimir valores de acelerometria. 
-  - [ ]  Elaborar um pequeno gráfico dos valores num espaço de tempo.
-  - [ ]  Finalizar protótipo.
+- [ ]  3. (6MWT) 6 minute walk test:
+  - [ ]  
   
 --------------------------
 
