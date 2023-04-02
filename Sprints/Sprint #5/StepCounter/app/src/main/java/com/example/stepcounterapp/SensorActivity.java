@@ -69,7 +69,6 @@ public class SensorActivity extends Activity implements SensorEventListener {
             if (acceleration < STEP_THRESHOLD && isStepDetected) {
                 isStepDetected = false;
             }
-            txtVPassos.setText("Passos: " + stepCount);
 
         }
     }
