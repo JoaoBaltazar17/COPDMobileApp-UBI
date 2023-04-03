@@ -48,7 +48,7 @@
 * Desenvolvimento:
   * Medir a distância percorrida pelo paciente: 
     * (?) Através do acelerômetro ou GPS.
-* 
+  
   * Avaliar a fiabilidade do teste, i. e.:
     * Obter os valores da precisão do sensor, da qualidade da calibração do dispositivo e da presença de movimentos bruscos ou mudanças de direção e segundo estes, dar a conhecer ao doente a % de fiabilidade do mesmo.
 
