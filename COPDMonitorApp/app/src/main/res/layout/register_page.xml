@@ -46,12 +46,11 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="27dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="50dp"
         android:ems="10"
         android:hint="Full Name"
-        android:inputType="textEmailAddress"
+        android:inputType="none"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/btnGender"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +68,6 @@
         android:layout_marginBottom="50dp"
         android:ems="10"
         android:hint="Gender"
-        android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:textAlignment="textStart"
         app:layout_constraintBottom_toBottomOf="@id/btnTextDateBirth"
@@ -89,7 +87,6 @@
         android:layout_marginBottom="396dp"
         android:ems="10"
         android:hint="Date of Birth"
-        android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:textAlignment="textStart"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -109,7 +106,6 @@
         android:layout_marginBottom="340dp"
         android:ems="10"
         android:hint="Diagonosis of COPD"
-        android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:textAlignment="textStart"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -119,16 +115,110 @@
         app:layout_constraintTop_toBottomOf="@+id/btnTextDateBirth"
         app:layout_constraintVertical_bias="1.0" />
 
+
+    <EditText
+        android:id="@+id/editTextHeight"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="50dp"
+        android:ems="10"
+        android:hint="Height"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCOPDDiagnosis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
+        app:layout_constraintVertical_bias="0.741" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="50dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextHeight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
+        app:layout_constraintVertical_bias="0.741" />
+
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="50dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
+        app:layout_constraintVertical_bias="0.711" />
+
+    <EditText
+        android:id="@+id/editTextRepeatPassword"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="100dp"
+        android:ems="10"
+        android:hint="Repeat Password"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
+        app:layout_constraintVertical_bias="0.558" />
+
+
+    <CheckBox
+        android:id="@+id/checkBoxPolicyData"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="100dp"
+        android:text="I consent to the processing of my data as laid out in the privacy policy"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextRepeatPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
+        app:layout_constraintVertical_bias="0.375" />
+
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="164dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="128dp"
         android:text="Sign Up"
         android:textColor="#424242"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxPolicyData"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
