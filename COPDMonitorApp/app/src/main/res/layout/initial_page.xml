@@ -134,6 +134,7 @@
 
     <Button
         android:id="@+id/btnSignUp"
+        android:onClick="goToSignUpPage"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="158dp"
