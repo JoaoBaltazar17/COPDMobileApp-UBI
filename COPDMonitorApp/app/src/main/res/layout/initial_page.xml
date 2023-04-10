@@ -99,10 +99,10 @@
     <Button
         android:id="@+id/btnForgotPassword"
         android:layout_width="196dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="186dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="170dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="31dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginBottom="206dp"
         android:gravity="center"
         android:text="Forgot your password?"
@@ -110,10 +110,11 @@
         android:textSize="11dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="TextSizeCheck" />
 
     <Button
         android:id="@+id/btnLogIn"
@@ -135,7 +136,7 @@
         android:id="@+id/btnSignUp"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="86dp"
+        android:layout_marginTop="158dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="72dp"
         android:text="Sign Up"
@@ -143,7 +144,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnLogIn"
-        app:layout_constraintTop_toBottomOf="@+id/btnForgotPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
         app:layout_constraintVertical_bias="0.0" />
 
 
