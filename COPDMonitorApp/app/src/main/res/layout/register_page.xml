@@ -1,224 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterPage">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
-        android:id="@+id/txtViewTitle"
+        android:id="@+id/txtViewCOPDTitleRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="COPD Monitor"
-        android:textColor="#252525"
-        android:textColorHint="#353535"
-        android:textSize="50dp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04" />
+        android:layout_marginTop="-100sp"
+        android:layout_marginBottom="80sp"
+        android:text="COPD Monitor App"
+        android:textColor="#009688"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/interbold" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_edit_height"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-30sp"
+        app:boxStrokeColor="@color/purple_200"
+        app:hintTextColor="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/eTxtHeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Height" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:boxStrokeColor="@color/purple_200"
+        app:hintTextColor="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="E-mail" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:endIconMode="password_toggle"
+        app:boxStrokeColor="@color/purple_200"
+        app:hintTextColor="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_repeat_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:endIconMode="password_toggle"
+        app:boxStrokeColor="@color/purple_200"
+        app:hintTextColor="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextPasswordRepeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Repeat password"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBirth"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Date of Birth"
+        android:textColor="@color/login_button_color"
+        app:strokeColor="@color/login_button_color"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonRegister"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Register"
+        android:textColor="@color/login_button_color"
+        app:strokeColor="@color/login_button_color"
+        app:strokeWidth="2dp"
+        android:onClick="onRegisterClicked"
+        />
 
     <TextView
-        android:id="@+id/txtViewRegister"
-        android:layout_width="300dp"
+        android:id="@+id/register_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="10dp"
-        android:text="Sign Up"
-        android:textAlignment="center"
-        android:textColor="#252525"
-        android:textColorHint="#353535"
-        android:textSize="25sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.172" />
+        android:layout_marginTop="20sp"
+        android:text="Already created an account? Login "
+        />
 
-
-    <EditText
-        android:id="@+id/editTextFullName"
-        android:layout_width="350dp"
+    <TextView
+        android:id="@+id/login_link"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="50dp"
-        android:ems="10"
-        android:hint="Full Name"
-        android:inputType="none"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnGender"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewRegister" />
-
-    <Button
-        android:id="@+id/btnGender"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="50dp"
-        android:ems="10"
-        android:hint="Gender"
-        android:minHeight="48dp"
-        android:textAlignment="textStart"
-        app:layout_constraintBottom_toBottomOf="@id/btnTextDateBirth"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextFullName"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/btnTextDateBirth"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="396dp"
-        android:ems="10"
-        android:hint="Date of Birth"
-        android:minHeight="48dp"
-        android:textAlignment="textStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGender"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/btnCOPDDiagnosis"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="340dp"
-        android:ems="10"
-        android:hint="Diagonosis of COPD"
-        android:minHeight="48dp"
-        android:textAlignment="textStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTextDateBirth"
-        app:layout_constraintVertical_bias="1.0" />
+        android:text="here"
+        android:textColor="@color/link_color"
+        android:clickable="true"
+        android:onClick="onLoginLinkClicked"
+        />
 
 
-    <EditText
-        android:id="@+id/editTextHeight"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="50dp"
-        android:ems="10"
-        android:hint="Height"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnCOPDDiagnosis"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
-        app:layout_constraintVertical_bias="0.741" />
-
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="50dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextHeight"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
-        app:layout_constraintVertical_bias="0.741" />
-
-
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="50dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
-        app:layout_constraintVertical_bias="0.711" />
-
-    <EditText
-        android:id="@+id/editTextRepeatPassword"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="100dp"
-        android:ems="10"
-        android:hint="Repeat Password"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
-        app:layout_constraintVertical_bias="0.558" />
-
-
-    <CheckBox
-        android:id="@+id/checkBoxPolicyData"
-        android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="100dp"
-        android:text="I consent to the processing of my data as laid out in the privacy policy"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextRepeatPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
-        app:layout_constraintVertical_bias="0.375" />
-
-    <Button
-        android:id="@+id/btnSignUp"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="128dp"
-        android:text="Sign Up"
-        android:textColor="#424242"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxPolicyData"
-        app:layout_constraintVertical_bias="1.0" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
