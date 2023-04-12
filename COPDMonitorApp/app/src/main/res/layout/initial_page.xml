@@ -1,152 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InitialPage">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
-        android:id="@+id/txtViewMainTitle"
+        android:id="@+id/txtViewCOPDTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="COPD Monitor"
-        android:textColor="#252525"
-        android:textColorHint="#353535"
-        android:textSize="50dp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04" />
+        android:layout_marginBottom="80sp"
+        android:text="COPD Monitor App"
+        android:textColor="#009688"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/interbold" />
 
     <TextView
-        android:id="@+id/txtViewSlogan"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="10dp"
-        android:text="Manage your COPD more effectively with our application."
-        android:textAlignment="center"
-        android:textColor="#252525"
-        android:textColorHint="#353535"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.172" />
-
-    <TextView
-        android:id="@+id/txtViewWelcome"
+        android:id="@+id/txtViewMote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="10dp"
-        android:text="Welcome!"
+        android:layout_marginTop="-30sp"
+        android:layout_marginBottom="80sp"
+        android:text="Manage your COPD more effectively."
         android:textAlignment="center"
-        android:textColor="#252525"
-        android:textColorHint="#353535"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.374" />
+        android:textColor="#474747"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:fontFamily="sans-serif-condensed" />
 
-    <EditText
-        android:id="@+id/editTextEmailAddress"
-        android:layout_width="350dp"
+    <TextView
+        android:id="@+id/txtViewWBack"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="352dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewWelcome"
-        app:layout_constraintVertical_bias="0.0" />
+        android:fontFamily="@font/interbold"
+        android:text="Welcome Back!"
+        android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="350dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewWelcome"
-        app:layout_constraintVertical_bias="0.26" />
-
-    <Button
-        android:id="@+id/btnForgotPassword"
-        android:layout_width="196dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="170dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="206dp"
-        android:gravity="center"
-        android:text="Forgot your password?"
-        android:textColor="#424242"
-        android:textSize="11dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="TextSizeCheck" />
+        app:boxStrokeColor="@color/purple_200"
+        app:hintTextColor="@color/black">
 
-    <Button
-        android:id="@+id/btnLogIn"
-        android:layout_width="150dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/eTxtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="E-mail" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="158dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="72dp"
-        android:text="Log In"
-        android:textColor="#424242"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnSignUp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginTop="16dp"
+        app:endIconMode="password_toggle"
+        app:boxStrokeColor="@color/purple_200"
+        app:hintTextColor="@color/black">
 
-    <Button
-        android:id="@+id/btnSignUp"
-        android:onClick="goToSignUpPage"
-        android:layout_width="150dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/eTxtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="158dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="72dp"
-        android:text="Sign Up"
-        android:textColor="#424242"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnLogIn"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginTop="24dp"
+        android:text="Login"
+        android:textColor="@color/login_button_color"
+        app:strokeColor="@color/login_button_color"
+        app:strokeWidth="2dp"
+        android:onClick="onLoginClicked"
+        />
 
+    <TextView
+        android:id="@+id/txtViewRegisterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40sp"
+        android:text="Don't have an account yet? Register "
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/txtViewRegisterClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="here"
+        android:textColor="@color/link_color"
+        android:clickable="true"
+        android:onClick="onRegisterLinkClicked"
+        />
+
+</LinearLayout>
