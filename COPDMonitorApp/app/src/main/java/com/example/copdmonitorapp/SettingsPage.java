@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class HomePage extends AppCompatActivity {
+public class SettingsPage extends AppCompatActivity {
 
 
     // Navigation Drawer Attributes
@@ -27,7 +27,7 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);
+        setContentView(R.layout.settings_page);
 
 
         // Navigation Drawer Finders
@@ -51,31 +51,31 @@ public class HomePage extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recreate();
+                redirectActivity(SettingsPage.this, HomePage.class);
             }
         });
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(HomePage.this, SettingsPage.class);
+                recreate();
             }
         });
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(HomePage.this, SharePage.class);
+                redirectActivity(SettingsPage.this, SharePage.class);
             }
         });
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(HomePage.this, AboutPage.class);
+                redirectActivity(SettingsPage.this, AboutPage.class);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(HomePage.this, "LogOut", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingsPage.this, "LogOut", Toast.LENGTH_SHORT).show();
             }
         });
 

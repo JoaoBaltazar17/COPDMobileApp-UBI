@@ -16,8 +16,8 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark" >
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="106dp"
+            android:layout_height="92dp"
             android:src="@drawable/logo" />
 
         <TextView
@@ -30,18 +30,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="contact@gmail.com"
             android:textColor="@color/white"
-            android:textSize="14sp"
-            android:layout_marginBottom="16dp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/home"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="17dp"
+        android:padding="10dp"
         android:orientation="horizontal" >
 
         <TextView
@@ -59,8 +60,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/settings"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
         android:orientation="horizontal" >
 
         <TextView
@@ -79,8 +81,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/share"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
         android:orientation="horizontal" >
 
         <TextView
@@ -99,8 +102,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/about"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
         android:orientation="horizontal" >
 
         <TextView
