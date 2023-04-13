@@ -27,7 +27,7 @@ public class SharePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_page);
+        setContentView(R.layout.share_page);
 
 
         // Navigation Drawer Finders

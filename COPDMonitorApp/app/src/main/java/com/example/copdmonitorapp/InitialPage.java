@@ -25,6 +25,11 @@ public class InitialPage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onLoginClicked(View view) {
+        Intent intent = new Intent(this, HomePage.class);
+        startActivity(intent);
+    }
+
 
 
 }
