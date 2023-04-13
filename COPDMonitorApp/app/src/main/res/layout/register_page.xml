@@ -49,7 +49,7 @@
         app:hintTextColor="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/eTxtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="E-mail" />
@@ -69,7 +69,7 @@
         app:hintTextColor="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextPassword"
+            android:id="@+id/eTxtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -90,7 +90,7 @@
         app:hintTextColor="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextPasswordRepeat"
+            android:id="@+id/eTxtPasswordRepeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Repeat password"
@@ -111,7 +111,7 @@
         />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonRegister"
+        android:id="@+id/btnRegister"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
         />
 
     <TextView
-        android:id="@+id/register_text"
+        android:id="@+id/txtViewRegisterText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
@@ -132,7 +132,7 @@
         />
 
     <TextView
-        android:id="@+id/login_link"
+        android:id="@+id/txtViewGoLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="here"
