@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ButtonHomePage">
+        <item name="android:textColor">#4f4f4f</item>
+        <item name="android:background">#ef9a9a</item>
+        <item name="android:textSize">10sp</item>
+        <!-- Defina outros atributos de estilo aqui -->
+    </style>
+</resources>
