@@ -12,6 +12,9 @@
         android:theme="@style/Theme.COPDMonitorApp"
         tools:targetApi="31">
         <activity
+            android:name=".FellingUnwellPage"
+            android:exported="false" />
+        <activity
             android:name=".AboutPage"
             android:exported="false" />
         <activity

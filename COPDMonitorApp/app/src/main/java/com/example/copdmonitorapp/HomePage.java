@@ -18,6 +18,15 @@ import android.widget.Toast;
 public class HomePage extends AppCompatActivity {
 
 
+    // Menu Buttons
+    Button btnMenuDailyRecords;
+    Button btnMenuMedications;
+    Button btnMenuExercise;
+    Button btnMenuChat;
+
+
+
+
     // Navigation Drawer Attributes
     DrawerLayout drawerLayout;
     ImageView menu;
@@ -80,6 +89,14 @@ public class HomePage extends AppCompatActivity {
         });
 
 
+
+
+        // Menu Buttons Finder
+        btnMenuDailyRecords = findViewById(R.id.btnDailyRecords);
+        btnMenuMedications = findViewById(R.id.btnMedication);
+        btnMenuExercise = findViewById(R.id.btnExerciseTests);;
+        btnMenuChat = findViewById(R.id.btnChatLive);;
+
     }
 
     // Navigation Drawer Methods
@@ -98,6 +115,13 @@ public class HomePage extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
         activity.finish();
+    }
+
+
+    // Redirect to Feeling Unwell
+    public void goSOSPage(View view) {
+        Intent intent = new Intent(this, FellingUnwellPage.class);
+        startActivity(intent);
     }
 
 

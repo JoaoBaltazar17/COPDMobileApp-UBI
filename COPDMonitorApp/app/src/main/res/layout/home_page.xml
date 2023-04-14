@@ -19,12 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12sp"
-            android:text="Feeling unweel?"
-            android:fontFamily="@font/interbold"
-            android:textSize="22sp"
-            android:textAlignment="center"
             android:clickable="true"
-            android:onClick="goSOSPage"/>
+            android:fontFamily="@font/interbold"
+            android:onClick="goSOSPage"
+            android:text="Feeling unweel?"
+            android:textAlignment="center"
+            android:textSize="22sp" />
 
         <ProgressBar
             android:id="@+id/progressBar"
