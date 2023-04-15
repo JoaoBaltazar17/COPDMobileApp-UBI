@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
-    tools:context=".FellingUnwellPageQ1">
+    tools:context=".FellingUnwellPageQ2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="110sp"
             android:layout_marginTop="20sp"
-            android:clickable="true"
+            android:clickable="false"
             android:drawableRight="@drawable/ic_sad"
             android:drawablePadding="10dp"
             android:fontFamily="@font/interbold"
@@ -30,21 +30,21 @@
             android:textSize="22sp" />
 
         <TextView
-            android:id="@+id/txtViewQuestion"
+            android:id="@+id/txtViewQuestion2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30sp"
+            android:layout_marginStart="70sp"
             android:layout_marginTop="125sp"
-            android:text="How is your breathlessness today?"
+            android:text="How is your cought today?"
             android:textAlignment="viewStart"
             android:textSize="22sp" />
 
         <com.google.android.material.slider.Slider
-            android:id="@+id/slideQ"
+            android:id="@+id/slideQ2"
             android:layout_width="370sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="55sp"
-            android:layout_marginStart="25sp"
+            android:layout_marginStart="20sp"
             android:stepSize="10.0"
             android:valueFrom="0.0"
             android:valueTo="100.0"  />
@@ -52,16 +52,16 @@
         <View
             android:layout_width="250dp"
             android:layout_height="100dp"
-            android:layout_marginStart="80dp"
+            android:layout_marginStart="75dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/rounded_rectangle_stable"
             /> <!-- Change the color to desired background color -->
 
         <TextView
-            android:id="@+id/txtViewDescriptionSlider"
+            android:id="@+id/txtViewDescriptionSlider2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="170sp"
+            android:layout_marginStart="165sp"
             android:layout_marginTop="-70sp"
             android:fontFamily="@font/interbold"
             android:text="Levels"
@@ -69,7 +69,7 @@
             android:textSize="22sp" />
 
         <Button
-            android:id="@+id/btnConfirmP"
+            android:id="@+id/btnConfirmP2"
             android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:text="Confirm"
@@ -78,38 +78,26 @@
             android:onClick="onConfirmPag2ButtonClick" />
 
         <TextView
-            android:id="@+id/txtViewPageNumeric"
+            android:id="@+id/txtViewPageNumeric2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="160sp"
             android:layout_marginTop="25sp"
             android:fontFamily="@font/interbold"
-            android:text="Page 1/4"
+            android:text="Page 2/4"
             android:textAlignment="viewStart"
             android:textSize="22sp" />
 
-        <TextView
-            android:id="@+id/txtViewNextPage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="270sp"
-            android:visibility="invisible"
-            android:clickable="true"
-            android:onClick="onAdvancePageClick"
-            android:layout_marginTop="-36sp"
-            android:drawableStart="@drawable/ic_navigatenext"
-            android:drawablePadding="100sp" />
-
 
         <TextView
-            android:id="@+id/txtViewBackPage"
+            android:id="@+id/txtViewBackPage2"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="120sp"
-            android:visibility="invisible"
+            android:layout_marginStart="115sp"
+            android:visibility="visible"
             android:clickable="true"
             android:onClick="onBackPageClick"
-            android:layout_marginTop="-39sp"
+            android:layout_marginTop="-35sp"
             android:drawableStart="@drawable/ic_navback"
             android:drawablePadding="100sp" />
 
@@ -130,4 +118,3 @@
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
-

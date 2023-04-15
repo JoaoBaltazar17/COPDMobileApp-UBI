@@ -1,9 +1,5 @@
 package com.example.copdmonitorapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +8,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class FellingUnwellPageQ1 extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+public class FellingUnwellPageQ4 extends AppCompatActivity {
 
         // Navigation Drawer Attributes
         DrawerLayout drawerLayout;
@@ -23,7 +23,7 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.fellingunwell_pageq1);
+            setContentView(R.layout.fellingunwell_pageq4);
 
 
             // Navigation Drawer Finders
@@ -47,31 +47,31 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
             home.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    redirectActivity( FellingUnwellPageQ1.this, HomePage.class);
+                    redirectActivity( FellingUnwellPageQ4.this, HomePage.class);
                 }
             });
             settings.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    redirectActivity( FellingUnwellPageQ1.this, SettingsPage.class);
+                    redirectActivity( FellingUnwellPageQ4.this, SettingsPage.class);
                 }
             });
             share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    redirectActivity( FellingUnwellPageQ1.this, SharePage.class);
+                    redirectActivity( FellingUnwellPageQ4.this, SharePage.class);
                 }
             });
             about.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    redirectActivity( FellingUnwellPageQ1.this, AboutPage.class);
+                    redirectActivity( FellingUnwellPageQ4.this, AboutPage.class);
                 }
             });
             logout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText( FellingUnwellPageQ1.this, "LogOut", Toast.LENGTH_SHORT).show();
+                    Toast.makeText( FellingUnwellPageQ4.this, "LogOut", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -104,8 +104,11 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
             closeDrawer(drawerLayout);
         }
 
+    public void onBackPageClick(View view) {
+            redirectActivity(FellingUnwellPageQ4.this, FellingUnwellPageQ3.class);
+    }
 
-    public void onConfirmPag2ButtonClick(View view) {
-            redirectActivity(FellingUnwellPageQ1.this, FellingUnwellPageQ2.class);
+    public void onConfirmPag4ButtonClick(View view) {
+        redirectActivity(FellingUnwellPageQ4.this, FellingUnwellPageQ5.class);
     }
 }

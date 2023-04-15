@@ -15,9 +15,6 @@
             android:name=".DailyRecordsPage"
             android:exported="false" />
         <activity
-            android:name=".FellingUnwellPageQ1"
-            android:exported="false" />
-        <activity
             android:name=".AboutPage"
             android:exported="false" />
         <activity
@@ -37,6 +34,11 @@
         </activity>
         <activity android:name=".RegisterPage" />
         <activity android:name=".HomePage" />
+        <activity android:name=".FellingUnwellPageQ1" />
+        <activity android:name=".FellingUnwellPageQ2" />
+        <activity android:name=".FellingUnwellPageQ3" />
+        <activity android:name=".FellingUnwellPageQ4" />
+        <activity android:name=".FellingUnwellPageQ5" />
     </application>
 
 </manifest>

@@ -124,7 +124,7 @@ public class HomePage extends AppCompatActivity {
 
     // Redirect to Feeling Unwell
     public void goSOSPage(View view) {
-       redirectActivity(HomePage.this, DailyRecordsPage.class);
+       redirectActivity(HomePage.this, FellingUnwellPageQ1.class);
     }
 
 
