@@ -23,7 +23,7 @@ public class FellingUnwellPage extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.home_page);
+            setContentView(R.layout.fellingunwell_page);
 
 
             // Navigation Drawer Finders

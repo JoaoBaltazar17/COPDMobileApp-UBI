@@ -6,7 +6,7 @@
 
 - [x]  2. Abordagem aos testes fisicos: (6MWT) 6 minute walk test / (1-MSTST) 1 minute sit to stand
    
-- [ ]  3. Protótipo de aplicação
+- [ ]  3. Protótipo de aplicação (https://pr.to/B4X6DP/)
   
 --------------------------
 
