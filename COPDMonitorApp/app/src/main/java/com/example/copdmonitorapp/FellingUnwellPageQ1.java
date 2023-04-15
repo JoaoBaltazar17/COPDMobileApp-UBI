@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class FellingUnwellPage extends AppCompatActivity {
+public class FellingUnwellPageQ1 extends AppCompatActivity {
 
         // Navigation Drawer Attributes
         DrawerLayout drawerLayout;
@@ -23,7 +23,7 @@ public class FellingUnwellPage extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.fellingunwell_page);
+            setContentView(R.layout.fellingunwell_pageq1);
 
 
             // Navigation Drawer Finders
@@ -47,31 +47,31 @@ public class FellingUnwellPage extends AppCompatActivity {
             home.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    redirectActivity( FellingUnwellPage.this, HomePage.class);
+                    redirectActivity( FellingUnwellPageQ1.this, HomePage.class);
                 }
             });
             settings.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    redirectActivity( FellingUnwellPage.this, SettingsPage.class);
+                    redirectActivity( FellingUnwellPageQ1.this, SettingsPage.class);
                 }
             });
             share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    redirectActivity( FellingUnwellPage.this, SharePage.class);
+                    redirectActivity( FellingUnwellPageQ1.this, SharePage.class);
                 }
             });
             about.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    redirectActivity( FellingUnwellPage.this, AboutPage.class);
+                    redirectActivity( FellingUnwellPageQ1.this, AboutPage.class);
                 }
             });
             logout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText( FellingUnwellPage.this, "LogOut", Toast.LENGTH_SHORT).show();
+                    Toast.makeText( FellingUnwellPageQ1.this, "LogOut", Toast.LENGTH_SHORT).show();
                 }
             });
 

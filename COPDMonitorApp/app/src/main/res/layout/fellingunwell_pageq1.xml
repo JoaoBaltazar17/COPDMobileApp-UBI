@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    tools:context=".FellingUnwellPageQ1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <include
+            layout="@layout/toolbar" />
+
+        <TextView
+            android:id="@+id/txtViewSOSClickableTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110sp"
+            android:layout_marginTop="20sp"
+            android:clickable="true"
+            android:drawableRight="@drawable/ic_sad"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/interbold"
+            android:onClick="goSOSPage"
+            android:text="Feeling unweel?"
+            android:textAlignment="center"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/txtViewQuestion1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30sp"
+            android:layout_marginTop="125sp"
+            android:text="How is your breathlessness today?"
+            android:textAlignment="viewStart"
+            android:textSize="22sp" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slideQ1"
+            android:layout_width="370sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55sp"
+            android:layout_marginStart="25sp"
+            android:stepSize="10.0"
+            android:valueFrom="0.0"
+            android:valueTo="100.0"  />
+
+        <View
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/rounded_rectangle_stable"
+            /> <!-- Change the color to desired background color -->
+
+        <TextView
+            android:id="@+id/txtViewDescriptionSlider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="175sp"
+            android:layout_marginTop="-70sp"
+            android:fontFamily="@font/interbold"
+            android:text="Levels"
+            android:textAlignment="viewStart"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/btnConfirmP1"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:text="Confirm"
+            android:layout_marginStart="110sp"
+            android:layout_marginTop="95sp"
+            android:onClick="onConfirmButtonClick" />
+
+        <TextView
+            android:id="@+id/txtViewPageNumeric"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="165sp"
+            android:layout_marginTop="25sp"
+            android:fontFamily="@font/interbold"
+            android:text="Page 1/4"
+            android:textAlignment="viewStart"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/txtViewNextPage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="270sp"
+            android:clickable="true"
+            android:layout_marginTop="-36sp"
+            android:drawableStart="@drawable/ic_navigatenext"
+            android:drawablePadding="100sp" />
+
+
+        <TextView
+            android:id="@+id/txtViewBackPage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="120sp"
+            android:clickable="true"
+            android:layout_marginTop="-39sp"
+            android:drawableStart="@drawable/ic_navback"
+            android:drawablePadding="100sp" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_gravity="start" >
+
+        <include
+            layout="@layout/nav_drawer" />
+    </RelativeLayout>
+
+
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
+

@@ -11,5 +11,8 @@
     <color name="login_button_color">#333333</color>
     <color name="link_color">#1E90FF</color>
     <color name="lavender">#8692f7</color>
-    <color name="vermpastel">#ef9a9a</color>
+    <color name="vermpastel">#fa7470</color>
+    <color name="verdepastel">#a7e0a5</color>
+    <color name="amarpastel">#ffff7a</color>
+    <color name="larangpastel">#fad1a9</color>
 </resources>

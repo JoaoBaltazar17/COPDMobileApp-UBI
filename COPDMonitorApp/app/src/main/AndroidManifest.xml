@@ -15,7 +15,7 @@
             android:name=".DailyRecordsPage"
             android:exported="false" />
         <activity
-            android:name=".FellingUnwellPage"
+            android:name=".FellingUnwellPageQ1"
             android:exported="false" />
         <activity
             android:name=".AboutPage"
