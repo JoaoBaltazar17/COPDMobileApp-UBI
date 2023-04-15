@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 public class HomePage extends AppCompatActivity {
 
+    // SOS TextViewClickable
+    TextView txtViewSOSClick;
 
     // Menu Buttons
     Button btnMenuDailyRecords;
@@ -89,6 +91,8 @@ public class HomePage extends AppCompatActivity {
         });
 
 
+        // SOS Finder
+        txtViewSOSClick = findViewById(R.id.txtViewSOSClickable);
 
 
         // Menu Buttons Finder
