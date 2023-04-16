@@ -8,6 +8,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -20,10 +24,23 @@ public class DailyRecordsPage extends AppCompatActivity {
     LinearLayout home, settings, share, about, logout;
 
 
+
+    // Menu Dropper
+    String[] items = {"Material", "Design", "Components", "Android", "5.0 Lollipop"};
+
+    AutoCompleteTextView autoCompleteTxt;
+
+    ArrayAdapter<String> adapterItems;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dailyrecords_page);
+
+
+        // AutoCompleteText Finder
+        autoCompleteTxt = findViewById(R.id.auto_complete_txt);
 
 
         // Navigation Drawer Finders
@@ -75,6 +92,18 @@ public class DailyRecordsPage extends AppCompatActivity {
             }
         });
 
+        // DropdownMenu  (Adapter Listener)
+
+        adapterItems = new ArrayAdapter<String>(this, R.layout.menulist_item, items);
+        autoCompleteTxt.setAdapter(adapterItems);
+        autoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(getApplicationContext(), "Item: "+item, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 
@@ -95,6 +124,7 @@ public class DailyRecordsPage extends AppCompatActivity {
         activity.startActivity(intent);
         activity.finish();
     }
+
 
 
 

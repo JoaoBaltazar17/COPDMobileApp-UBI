@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">COPDMonitorApp</string>
+    <string name="select">Select Item</string>
 </resources>

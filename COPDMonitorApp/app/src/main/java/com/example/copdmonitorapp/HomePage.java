@@ -135,4 +135,7 @@ public class HomePage extends AppCompatActivity {
         closeDrawer(drawerLayout);
     }
 
+    public void goToDailyRecordsPage(View view) {
+        redirectActivity(HomePage.this, DailyRecordsPage.class);
+    }
 }

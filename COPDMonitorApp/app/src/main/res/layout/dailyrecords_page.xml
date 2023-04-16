@@ -17,11 +17,180 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Felling Unwell"
+            android:text="dd/mm/aaaa"
             android:layout_gravity="center"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="-8dp"
             android:textColor="@color/lavender"
-            android:textSize="36sp" />
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/oxygen_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="350dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="30dp"
+            app:boxStrokeColor="@color/purple_200"
+            app:hintTextColor="@color/black"
+            xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/eTxtOxygen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Oxygen Saturation (%)" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fev_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="350dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="30dp"
+            app:boxStrokeColor="@color/purple_200"
+            app:hintTextColor="@color/black"
+            xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/eTxtFev1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="FEV1 (L)" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fvc_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="350dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="30dp"
+            app:boxStrokeColor="@color/purple_200"
+            app:hintTextColor="@color/black"
+            xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/eTxtFvc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="FVC (%)" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="105dp"
+            android:text="Save"
+            android:textColor="@color/login_button_color"
+            app:strokeColor="@color/login_button_color"
+            app:strokeWidth="2dp"
+            android:onClick="onSaveClicked"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/lavender" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Past records"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="1dp"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="@string/select"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            <AutoCompleteTextView
+                android:id="@+id/auto_complete_txt"
+                android:layout_width="match_parent"
+                android:textSize="15dp"
+                android:layout_height="30dp"
+                android:inputType="none"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/oxygenpast_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="350dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="30dp"
+            app:boxStrokeColor="@color/purple_200"
+            app:hintTextColor="@color/black"
+            xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/eTxtOxygenPast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Oxygen Saturation (%)" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fevpast_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="350dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="30dp"
+            app:boxStrokeColor="@color/purple_200"
+            app:hintTextColor="@color/black"
+            xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/eTxtFev1Past"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="FEV1 (L)" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fvcpast_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="350dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="30dp"
+            app:boxStrokeColor="@color/purple_200"
+            app:hintTextColor="@color/black"
+            xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/eTxtFvcPast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="FVC (%)" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
     </LinearLayout>
 

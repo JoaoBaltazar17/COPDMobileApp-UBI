@@ -15,4 +15,5 @@
     <color name="verdepastel">#a7e0a5</color>
     <color name="amarpastel">#ffff7a</color>
     <color name="larangpastel">#fad1a9</color>
+    <color name="separatorcolor">#FF0000</color>
 </resources>
