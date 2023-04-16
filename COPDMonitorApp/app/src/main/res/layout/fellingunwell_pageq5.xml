@@ -29,11 +29,22 @@
             android:textSize="22sp" />
 
         <TextView
+            android:id="@+id/txtViewIconEmoji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="190sp"
+            android:layout_marginTop="15sp"
+            android:padding="10px"
+            android:drawableStart="@drawable/ic_sentimentdissa"
+            android:textAlignment="viewStart"
+            android:textSize="25sp" />
+
+        <TextView
             android:id="@+id/txtViewTitleInstructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="95sp"
-            android:layout_marginTop="55sp"
+            android:layout_marginTop="65sp"
             android:text="WHAT TO DO NEXT"
             android:textAlignment="viewStart"
             android:textSize="25sp" />
@@ -92,7 +103,7 @@
             android:layout_height="wrap_content"
             android:text="Home"
             android:layout_marginStart="110sp"
-            android:layout_marginTop="145sp"
+            android:layout_marginTop="105sp"
             android:onClick="onHomeButtonClick" />
 
     </LinearLayout>
