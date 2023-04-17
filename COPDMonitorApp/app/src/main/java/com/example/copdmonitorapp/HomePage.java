@@ -122,13 +122,6 @@ public class HomePage extends AppCompatActivity {
     }
 
 
-    // Redirect to Feeling Unwell
-    public void goSOSPage(View view) {
-       redirectActivity(HomePage.this, FellingUnwellPageQ1.class);
-    }
-
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -137,5 +130,13 @@ public class HomePage extends AppCompatActivity {
 
     public void goToDailyRecordsPage(View view) {
         redirectActivity(HomePage.this, DailyRecordsPage.class);
+    }
+
+    public void goToMedicationPage(View view) {
+        redirectActivity(HomePage.this, Page.class);
+    }
+
+    public void goSOSPage(View view) {
+        redirectActivity(HomePage.this, FellingUnwellPageQ1.class);
     }
 }

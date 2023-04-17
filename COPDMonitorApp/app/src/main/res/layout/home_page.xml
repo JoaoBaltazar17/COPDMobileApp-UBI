@@ -83,6 +83,7 @@
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
                 android:drawableRight="@drawable/ic_medication"
+                android:onClick="goToMedicationPage"
                 android:text="Medication" />
 
             <Button
