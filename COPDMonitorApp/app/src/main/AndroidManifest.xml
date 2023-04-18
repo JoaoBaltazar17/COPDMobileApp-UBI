@@ -12,6 +12,9 @@
         android:theme="@style/Theme.COPDMonitorApp"
         tools:targetApi="31">
         <activity
+            android:name=".ChatLivePage"
+            android:exported="false" />
+        <activity
             android:name=".DailyRecordsPage"
             android:exported="false" />
         <activity

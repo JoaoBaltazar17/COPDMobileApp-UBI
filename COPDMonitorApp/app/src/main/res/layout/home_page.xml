@@ -103,6 +103,7 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
+                android:onClick="goToChatLivePage"
                 android:drawableRight="@drawable/ic_chat"
                 android:text="Chat Live" />
 

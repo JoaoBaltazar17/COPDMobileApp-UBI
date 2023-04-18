@@ -15,18 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class HomePage extends AppCompatActivity {
-
-    // SOS TextViewClickable
-    TextView txtViewSOSClick;
-
-    // Menu Buttons
-    Button btnMenuDailyRecords;
-    Button btnMenuMedications;
-    Button btnMenuExercise;
-    Button btnMenuChat;
-
-
+public class ChatLivePage extends AppCompatActivity {
 
 
     // Navigation Drawer Attributes
@@ -38,7 +27,7 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);
+        setContentView(R.layout.settings_page);
 
 
         // Navigation Drawer Finders
@@ -62,44 +51,34 @@ public class HomePage extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recreate();
+                redirectActivity(ChatLivePage.this, HomePage.class);
             }
         });
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(HomePage.this, SettingsPage.class);
+                redirectActivity(ChatLivePage.this, SettingsPage.class);
             }
         });
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(HomePage.this, SharePage.class);
+                redirectActivity(ChatLivePage.this, SharePage.class);
             }
         });
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(HomePage.this, AboutPage.class);
+                redirectActivity(ChatLivePage.this, AboutPage.class);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(HomePage.this, "LogOut", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChatLivePage.this, "LogOut", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-        // SOS Finder
-        txtViewSOSClick = findViewById(R.id.txtViewSOSClickable);
-
-
-        // Menu Buttons Finder
-        btnMenuDailyRecords = findViewById(R.id.btnDailyRecords);
-        btnMenuMedications = findViewById(R.id.btnMedication);
-        btnMenuExercise = findViewById(R.id.btnExerciseTests);;
-        btnMenuChat = findViewById(R.id.btnChatLive);;
 
     }
 
@@ -122,25 +101,10 @@ public class HomePage extends AppCompatActivity {
     }
 
 
+
     @Override
     protected void onPause() {
         super.onPause();
         closeDrawer(drawerLayout);
-    }
-
-    public void goToDailyRecordsPage(View view) {
-        redirectActivity(HomePage.this, DailyRecordsPage.class);
-    }
-
-    public void goToMedicationPage(View view) {
-        redirectActivity(HomePage.this, MedicationPage.class);
-    }
-
-    public void goSOSPage(View view) {
-        redirectActivity(HomePage.this, FellingUnwellPageQ1.class);
-    }
-
-    public void goToChatLivePage(View view) {
-        redirectActivity(HomePage.this, ChatLivePage.class);
     }
 }

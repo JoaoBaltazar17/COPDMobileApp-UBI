@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">COPDMonitorApp</string>
     <string name="select">Select Item</string>
+    <string name="wait_for_the_virtual_provider_answer">Wait for the Virtual Provider Answer</string>
 </resources>
