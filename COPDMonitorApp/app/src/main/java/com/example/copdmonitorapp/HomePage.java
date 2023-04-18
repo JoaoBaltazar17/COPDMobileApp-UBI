@@ -133,7 +133,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void goToMedicationPage(View view) {
-        redirectActivity(HomePage.this, Page.class);
+        redirectActivity(HomePage.this, MedicationPage.class);
     }
 
     public void goSOSPage(View view) {

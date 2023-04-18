@@ -15,17 +15,15 @@
             layout="@layout/toolbar" />
 
         <TextView
-            android:id="@+id/txtViewSOSClickableTitle"
+            android:id="@+id/txtViewMedicationsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="110sp"
-            android:layout_marginTop="20sp"
-            android:clickable="true"
-            android:drawableRight="@drawable/ic_sad"
+            android:layout_marginStart="120sp"
+            android:layout_marginTop="40sp"
+            android:clickable="false"
             android:drawablePadding="10dp"
             android:fontFamily="@font/interbold"
-            android:onClick="goSOSPage"
-            android:text="Feeling unweel?"
+            android:text="Medication List"
             android:textAlignment="center"
             android:textSize="22sp" />
 
@@ -34,24 +32,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#e3f2fd"
-            android:layout_marginTop="95dp"
-            android:padding="80dp">
+            android:layout_marginTop="45dp"
+            android:padding="90dp">
 
-            <!-- Vector Image View in Top Left corner -->
-            <ImageView
-                android:id="@+id/vectorImageView"
+            <TextView
+                android:id="@+id/textViewClickDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_delete"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="-5dp"
-                android:layout_marginTop="-5dp"/>
+                android:text=""
+                android:textSize="24sp"
+                android:layout_marginEnd="10dp"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_delete"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="-10dp"
+                android:gravity="center" />
+
+
 
             <!-- Image View -->
-
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageViewMed"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:src="@drawable/your_image"
@@ -62,13 +63,13 @@
 
             <!-- Text View 1 -->
             <TextView
-                android:id="@+id/textViewTitle"
+                android:id="@+id/textViewNameMed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
                 android:textSize="18sp"
                 android:gravity="center"
-                android:layout_below="@id/imageView"
+                android:layout_below="@id/imageViewMed"
                 android:layout_marginTop="16dp"/>
 
             <!-- Text View 2 -->
@@ -79,32 +80,67 @@
                 android:text="Brief Description"
                 android:textSize="18sp"
                 android:gravity="center"
-                android:layout_below="@id/textViewTitle"
+                android:layout_below="@id/textViewNameMed"
                 android:layout_marginTop="16dp"/>
 
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/textViewPage"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Page n/n"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:layout_below="@id/textViewDescription"
-            android:layout_marginTop="10dp"/>
+            android:layout_height="50dp" >
+
+            <TextView
+                android:id="@+id/textViewPage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Page n/n"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:fontFamily="@font/interbold"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/textViewClickBack"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="24sp"
+                android:layout_marginStart="70dp"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_back"
+                android:layout_marginTop="11dp"
+                android:gravity="center"
+                android:fontFamily="@font/interbold" />
+
+            <TextView
+                android:id="@+id/textViewClickNext"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text=""
+                android:textSize="24sp"
+                android:layout_marginStart="300dp"
+                android:drawableStart="@drawable/ic_navigatenext"
+                android:layout_marginTop="11dp"
+                android:gravity="center"
+                android:fontFamily="@font/interbold" />
+
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textViewPlus"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_add"
+            android:layout_marginStart="175dp"
             android:padding="10dp"
             android:textSize="8sp"
             android:gravity="center"
             android:layout_below="@id/textViewDescription"
             android:layout_marginTop="10dp"/>
+
 
     </LinearLayout>
 
@@ -123,3 +159,4 @@
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
+
