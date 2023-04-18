@@ -27,7 +27,7 @@ public class ChatLivePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_page);
+        setContentView(R.layout.chatlive_page);
 
 
         // Navigation Drawer Finders
