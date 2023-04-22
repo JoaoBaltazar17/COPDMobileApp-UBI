@@ -42,6 +42,7 @@
         <activity android:name=".FellingUnwellPageQ3" />
         <activity android:name=".FellingUnwellPageQ4" />
         <activity android:name=".FellingUnwellPageQ5" />
+        <activity android:name=".ExerciseMenuPage" />
     </application>
 
 </manifest>

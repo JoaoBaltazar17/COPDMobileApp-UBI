@@ -94,6 +94,7 @@
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
                 android:drawableRight="@drawable/ic_exercise"
+                android:onClick="goToExerciseMenuPage"
                 android:text="Exercise Tests" />
 
             <Button

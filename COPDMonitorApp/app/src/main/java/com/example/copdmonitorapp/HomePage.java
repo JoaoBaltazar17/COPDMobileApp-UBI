@@ -143,4 +143,13 @@ public class HomePage extends AppCompatActivity {
     public void goToChatLivePage(View view) {
         redirectActivity(HomePage.this, ChatLivePage.class);
     }
+
+    public void goToExerciseMenuPage(View view) {
+        redirectActivity(HomePage.this, ExerciseMenuPage.class);
+    }
+
+
+
+
+
 }

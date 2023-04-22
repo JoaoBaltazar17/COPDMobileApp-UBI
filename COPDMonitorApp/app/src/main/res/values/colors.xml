@@ -16,4 +16,6 @@
     <color name="amarpastel">#ffff7a</color>
     <color name="larangpastel">#fad1a9</color>
     <color name="separatorcolor">#FF0000</color>
+    <color name="greybackground">#EBEBEB</color>
+    <color name="blueexercisetests">#2196f3</color>
 </resources>

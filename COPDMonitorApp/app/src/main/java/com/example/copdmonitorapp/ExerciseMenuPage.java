@@ -1,22 +1,20 @@
 package com.example.copdmonitorapp;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
-public class SettingsPage extends AppCompatActivity {
+public class ExerciseMenuPage extends AppCompatActivity {
 
 
     // Navigation Drawer Attributes
@@ -25,10 +23,15 @@ public class SettingsPage extends AppCompatActivity {
     LinearLayout home, settings, share, about, logout;
 
 
+    // Slider's
+    LinearProgressIndicator progressBar6MWT;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_page);
+        setContentView(R.layout.exercisemenu_page);
 
 
         // Navigation Drawer Finders
@@ -39,6 +42,11 @@ public class SettingsPage extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         settings = findViewById(R.id.settings);
         share = findViewById(R.id.share);
+
+
+        // Slider's Finder
+        progressBar6MWT = findViewById(R.id.progressBar6MWT);
+
 
 
         // Menu Navigation and Components Listener's
@@ -52,33 +60,36 @@ public class SettingsPage extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(SettingsPage.this, HomePage.class);
+                redirectActivity(ExerciseMenuPage.this, HomePage.class);
             }
         });
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recreate();
+                redirectActivity(ExerciseMenuPage.this, SettingsPage.class);
             }
         });
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(SettingsPage.this, SharePage.class);
+                redirectActivity(ExerciseMenuPage.this, SharePage.class);
             }
         });
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(SettingsPage.this, AboutPage.class);
+                redirectActivity(ExerciseMenuPage.this, AboutPage.class);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SettingsPage.this, "LogOut", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExerciseMenuPage.this, "LogOut", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Slider's Initialize Values
+        progressBar6MWT.show();
 
 
     }
@@ -107,15 +118,5 @@ public class SettingsPage extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         closeDrawer(drawerLayout);
-    }
-
-
-
-    // URL Method to access COPD Web App
-    public void openUrl(View view) {
-        TextView urlTextView = (TextView) view;
-        String url = urlTextView.getText().toString();
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        startActivity(intent);
     }
 }
