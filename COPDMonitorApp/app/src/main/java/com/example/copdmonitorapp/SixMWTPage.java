@@ -1,10 +1,14 @@
 package com.example.copdmonitorapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,7 +20,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class SixMWTPage extends AppCompatActivity {
+
+    // Timer Variables
+    private TextView txtViewTimerText;
+    private Button btnStopStart;
+
+    private Timer timer;
+    private TimerTask timerTask;
+    private Double time = 0.0;
+
+    private boolean timerStarted = false;
 
 
     // Navigation Drawer Attributes
@@ -29,6 +46,12 @@ public class SixMWTPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sixmwt_page);
+
+        // Timer Finders
+        txtViewTimerText = (TextView) findViewById(R.id.txtViewTimerText);
+        btnStopStart = (Button) findViewById(R.id.btn6MWTStartStop);
+
+        timer = new Timer();
 
 
         // Navigation Drawer Finders
@@ -109,4 +132,101 @@ public class SixMWTPage extends AppCompatActivity {
         closeDrawer(drawerLayout);
     }
 
+
+    // Timer Methods
+
+    public void onResetClick(View view)
+    {
+        AlertDialog.Builder resetAlert = new AlertDialog.Builder(this);
+        resetAlert.setTitle("Reset Timer");
+        resetAlert.setMessage("Are you sure you want to reset the timer?");
+        resetAlert.setPositiveButton("Reset", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                if(timerTask != null)
+                {
+                    timerTask.cancel();
+                    setButtonUI("START", R.color.green);
+                    time = 0.0;
+                    timerStarted = false;
+                    txtViewTimerText.setText(formatTime(0,0,0));
+
+                }
+            }
+        });
+
+        resetAlert.setNeutralButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                //do nothing
+            }
+        });
+
+        resetAlert.show();
+
+    }
+
+    public void onStartStopClick(View view) {
+        if(timerStarted == false)
+        {
+            timerStarted = true;
+            setButtonUI("STOP", R.color.red);
+
+            startTimer();
+        }
+        else
+        {
+            timerStarted = false;
+            setButtonUI("START", R.color.green);
+
+            timerTask.cancel();
+        }
+    }
+
+    private void startTimer()
+    {
+        timerTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        time++;
+                        txtViewTimerText.setText(getTimerText());
+                    }
+                });
+            }
+
+        };
+        timer.scheduleAtFixedRate(timerTask, 0 ,1000);
+    }
+
+    private String getTimerText()
+    {
+        int rounded = (int) Math.round(time);
+
+        int seconds = ((rounded % 86400) % 3600) % 60;
+        int minutes = ((rounded % 86400) % 3600) / 60;
+        int hours = ((rounded % 86400) / 3600);
+
+        return formatTime(seconds, minutes, hours);
+    }
+
+    private String formatTime(int seconds, int minutes, int hours)
+    {
+        return String.format("%02d",hours) + " : " + String.format("%02d",minutes) + " : " + String.format("%02d",seconds);
+    }
+
+    private void setButtonUI(String start, int color) {
+        btnStopStart.setText(start);
+        btnStopStart.setTextColor(ContextCompat.getColor(this, color));
+    }
 }

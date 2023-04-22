@@ -19,4 +19,7 @@
     <color name="greybackground">#EBEBEB</color>
     <color name="blueexercisetests">#2196f3</color>
     <color name="greysolid">#454545</color>
+    <color name="redSOLID">#8B0000</color>
+    <color name="green">#006400</color>
+    <color name="grey">#D7D7D7</color>
 </resources>

@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="Welcome to our, "
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:textStyle="bold"
             android:textColor="@color/greysolid"
             android:textSize="20sp" />
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="Instructions"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="1dp"
             android:textStyle="bold"
             android:textAlignment="center"
@@ -88,9 +88,7 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:dividerInsetStart="16dp"
-            android:dividerInsetEnd="16dp" />
+            android:layout_marginTop="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,19 +96,19 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn6MWTStart"
+                android:id="@+id/btn6MWTStartStop"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="100dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="37dp"
                 android:text="Start"
-                android:textColor="@color/verdepastel"
+                android:textColor="@color/green"
                 android:textSize="15dp"
                 android:textStyle="bold"
-                app:strokeColor="@color/verdepastel"
+                app:strokeColor="@color/greysolid"
                 app:strokeWidth="2dp"
-                android:onClick="on6MWTClick"
+                android:onClick="onStartStopClick"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 />
 
@@ -127,29 +125,47 @@
                 android:textStyle="bold"
                 app:strokeColor="@color/greysolid"
                 app:strokeWidth="2dp"
-                android:onClick="on6MWTClick"
+                android:onClick="onResetClick"
 
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 />
 
         </LinearLayout>
 
-        <Chronometer
-            android:id="@+id/chronometer"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="95dp"
-            android:textSize="45sp"
-            android:format="00:%s" />
+            android:id="@+id/txtViewTimerText"
+            android:textSize="60sp"
+            android:text="00 : 00 : 00"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressBar6MWT"
-            android:layout_width="330dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="20dp"
-            app:indicatorColor="@color/blueexercisetests" />
+        <TextView
+            android:id="@+id/txtViewTitleDifficultyFelt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Difficulty Level"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slideQ4"
+            android:layout_width="370sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-1sp"
+            android:layout_marginStart="20sp"
+            android:visibility=""
+            android:stepSize="1.0"
+            android:valueFrom="0.0"
+            android:valueTo="5.0"  />
+
+
+
 
 
     </LinearLayout>
