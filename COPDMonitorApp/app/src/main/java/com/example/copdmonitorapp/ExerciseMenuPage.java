@@ -2,10 +2,12 @@ package com.example.copdmonitorapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -118,5 +120,18 @@ public class ExerciseMenuPage extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         closeDrawer(drawerLayout);
+    }
+
+    // URL Method to access COPD Web App
+    public void openUrl(View view) {
+        TextView urlTextView = (TextView) view;
+        String url = urlTextView.getText().toString();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
+    }
+
+
+    public void on6MWTClick(View view) {
+        redirectActivity(ExerciseMenuPage.this, SixMWTPage.class);
     }
 }

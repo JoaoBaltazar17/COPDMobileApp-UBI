@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SettingsPage extends AppCompatActivity {
+public class SixMWTPage extends AppCompatActivity {
 
 
     // Navigation Drawer Attributes
@@ -28,7 +28,7 @@ public class SettingsPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_page);
+        setContentView(R.layout.sixmwt_page);
 
 
         // Navigation Drawer Finders
@@ -52,31 +52,31 @@ public class SettingsPage extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(SettingsPage.this, HomePage.class);
+                redirectActivity(SixMWTPage.this, HomePage.class);
             }
         });
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recreate();
+                redirectActivity(SixMWTPage.this, SettingsPage.class);
             }
         });
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(SettingsPage.this, SharePage.class);
+                redirectActivity(SixMWTPage.this, SharePage.class);
             }
         });
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(SettingsPage.this, AboutPage.class);
+                redirectActivity(SixMWTPage.this, AboutPage.class);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SettingsPage.this, "LogOut", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SixMWTPage.this, "LogOut", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -108,6 +108,5 @@ public class SettingsPage extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawerLayout);
     }
-
 
 }
