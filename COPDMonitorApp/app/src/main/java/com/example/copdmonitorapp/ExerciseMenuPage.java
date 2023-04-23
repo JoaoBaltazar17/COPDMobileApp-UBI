@@ -134,4 +134,8 @@ public class ExerciseMenuPage extends AppCompatActivity {
     public void on6MWTClick(View view) {
         redirectActivity(ExerciseMenuPage.this, SixMWTPage.class);
     }
+
+    public void on1MSTSTClick(View view) {
+        redirectActivity(ExerciseMenuPage.this, OneMSTSTPage.class);
+    }
 }

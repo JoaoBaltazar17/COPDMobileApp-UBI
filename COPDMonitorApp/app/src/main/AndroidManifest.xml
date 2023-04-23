@@ -12,6 +12,9 @@
         android:theme="@style/Theme.COPDMonitorApp"
         tools:targetApi="31">
         <activity
+            android:name=".OneMSTSTPage"
+            android:exported="false" />
+        <activity
             android:name=".SixMWTPage"
             android:exported="false" />
         <activity
@@ -46,6 +49,7 @@
         <activity android:name=".FellingUnwellPageQ4" />
         <activity android:name=".FellingUnwellPageQ5" />
         <activity android:name=".ExerciseMenuPage" />
+        <activity android:name=".MedicationPage" />
     </application>
 
 </manifest>

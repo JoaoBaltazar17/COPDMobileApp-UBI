@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
-    tools:context=".SixMWTPage">
+    tools:context=".OneMSTSTPage">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,10 +26,10 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/txtViewTitleTest"
+            android:id="@+id/txtViewTitleTest1MSTST"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6 Minute Walk Test (6MWT)"
+            android:text="1 Minute Sit to Stand (1-MSTST) "
             android:layout_gravity="center"
             android:layout_marginTop="1dp"
             android:textStyle="bold"
@@ -37,10 +37,10 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/txtViewDescriptionTest"
+            android:id="@+id/txtViewDescriptionTest1MSTST"
             android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:text="The test measures how far a patient can walk in 6 minutes on a flat, hard surface,  such as a hospital hallway or track."
+            android:text="Test that assesses a person's functional capacity to perform repetitive movements of sitting down and standing up from a chair in one minute."
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"
@@ -62,10 +62,10 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/txtViewInstruction1"
+            android:id="@+id/txtViewInstruction11MSTST"
             android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:text="1. Find a flat, open space to walk for 6 minutes without stopping."
+            android:text="1. Find a sturdy chair and a clear, open space to perform the test."
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"
@@ -74,10 +74,10 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/txtViewInstruction2"
+            android:id="@+id/txtViewInstruction21MSTST"
             android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:text="2. Walk at a comfortable pace, but don't run or jog. Rest if needed, but try to keep walking as much as possible."
+            android:text="2. Stand up and sit down as many times as you can in one minute, making sure to fully sit down each time before standing up again."
             android:layout_marginStart="5dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
@@ -97,7 +97,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn6MWTStartStop"
+                android:id="@+id/btn1MSTSTStartStop"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="100dp"
                 android:layout_height="60dp"
@@ -109,12 +109,12 @@
                 android:textStyle="bold"
                 app:strokeColor="@color/greysolid"
                 app:strokeWidth="2dp"
-                android:onClick="onStartStopClick"
+                android:onClick="onStartStopClick1MSTST"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn6MWTReset"
+                android:id="@+id/btn1MSTSTReset"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="100dp"
                 android:layout_height="60dp"
@@ -126,7 +126,7 @@
                 android:textStyle="bold"
                 app:strokeColor="@color/greysolid"
                 app:strokeWidth="2dp"
-                android:onClick="onResetClick"
+                android:onClick="onResetClick1MSTST"
 
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 />
@@ -136,7 +136,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtViewTimerText"
+            android:id="@+id/txtViewTimerText1MSTST"
             android:textSize="60sp"
             android:text="00 : 00 : 00"
             android:textColor="@color/black"
@@ -160,7 +160,7 @@
             android:textSize="20sp" />
 
         <com.google.android.material.slider.Slider
-            android:id="@+id/slide6MWT"
+            android:id="@+id/slide1MSTST"
             android:layout_width="370sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="-1sp"
@@ -171,10 +171,10 @@
             android:valueTo="5.0"  />
 
         <TextView
-            android:id="@+id/txtViewDistanceTracker"
+            android:id="@+id/txtViewCounter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Distance tracker:  X m"
+            android:text="Counter (number of times you stood up and sat down) :  X times"
             android:layout_gravity="left"
             android:layout_marginStart="37dp"
             android:layout_marginTop="1dp"
@@ -182,17 +182,7 @@
             android:textColor="@color/greysolid"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/txtViewSpeedometer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Speedometer: X m/m"
-            android:layout_gravity="left"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="1dp"
-            android:textStyle="bold"
-            android:textColor="@color/greysolid"
-            android:textSize="20sp" />
+
 
         <Button
             android:id="@+id/btnShareResults"

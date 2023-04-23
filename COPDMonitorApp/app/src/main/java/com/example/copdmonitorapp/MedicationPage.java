@@ -27,7 +27,7 @@ public class MedicationPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_page);
+        setContentView(R.layout.medication_page);
 
 
         // Navigation Drawer Finders

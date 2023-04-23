@@ -23,7 +23,7 @@ import android.widget.Toast;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SixMWTPage extends AppCompatActivity {
+public class OneMSTSTPage extends AppCompatActivity {
 
     // Share Variables
     Button btnShareWhatsApp;
@@ -48,7 +48,7 @@ public class SixMWTPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sixmwt_page);
+        setContentView(R.layout.onemstst_page);
 
         // Share Button Finder and Listener
         btnShareWhatsApp = findViewById(R.id.btnShareResults);
@@ -65,8 +65,8 @@ public class SixMWTPage extends AppCompatActivity {
         });
 
         // Timer Finders
-        txtViewTimerText = (TextView) findViewById(R.id.txtViewTimerText);
-        btnStopStart = (Button) findViewById(R.id.btn6MWTStartStop);
+        txtViewTimerText = (TextView) findViewById(R.id.txtViewTimerText1MSTST);
+        btnStopStart = (Button) findViewById(R.id.btn1MSTSTStartStop);
 
         timer = new Timer();
 
@@ -92,31 +92,31 @@ public class SixMWTPage extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(SixMWTPage.this, HomePage.class);
+                redirectActivity(OneMSTSTPage.this, HomePage.class);
             }
         });
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(SixMWTPage.this, SettingsPage.class);
+                redirectActivity(OneMSTSTPage.this, SettingsPage.class);
             }
         });
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(SixMWTPage.this, SharePage.class);
+                redirectActivity(OneMSTSTPage.this, SharePage.class);
             }
         });
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(SixMWTPage.this, AboutPage.class);
+                redirectActivity(OneMSTSTPage.this, AboutPage.class);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SixMWTPage.this, "LogOut", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OneMSTSTPage.this, "LogOut", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -152,7 +152,7 @@ public class SixMWTPage extends AppCompatActivity {
 
     // Timer Methods
 
-    public void onResetClick(View view)
+    public void onResetClick1MSTST(View view)
     {
         AlertDialog.Builder resetAlert = new AlertDialog.Builder(this);
         resetAlert.setTitle("Reset Timer");
@@ -187,7 +187,7 @@ public class SixMWTPage extends AppCompatActivity {
 
     }
 
-    public void onStartStopClick(View view) {
+    public void onStartStopClick1MSTST(View view) {
         if(timerStarted == false)
         {
             timerStarted = true;

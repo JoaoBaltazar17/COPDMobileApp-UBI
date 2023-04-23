@@ -54,7 +54,7 @@
             android:textStyle="bold"
             app:strokeColor="@color/greybackground"
             app:strokeWidth="2dp"
-            android:onClick="onLoginClicked"
+            android:onClick="on1MSTSTClick"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             />
 
