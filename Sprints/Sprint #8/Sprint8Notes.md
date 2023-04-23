@@ -7,3 +7,25 @@
 - [ ]  2. Refinar aplicação dos passos.
 
 - [ ]  3. Fazer a BD e respetivo login.
+
+
+# 1. Views
+
+Falta:
+  - Views para redefinir variáveis associados ao perfil do user
+  - Views dos testes fisicos -> Depois de concluir o teste...
+
+
+
+
+# 2. Refinar aplicação dos passos
+
+
+
+
+
+
+
+# 3. Fazer a BD e respetivo login.
+
+
