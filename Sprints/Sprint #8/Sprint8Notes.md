@@ -6,7 +6,7 @@
 
 - [ ]  2. Refinar aplicação dos passos.
 
-- [ ]  3. Fazer a BD e respetivo login.
+- [ + / -]  3. Fazer a BD e respetivo login.
 
 
 # 1. Views
@@ -20,12 +20,13 @@ Falta:
 
 # 2. Refinar aplicação dos passos
 
-
-
+- Está a counter um passo cada vez que o utilizador faz o movimento circular com o telemóvel (PROBLEMA!!)
 
 
 
 
 # 3. Fazer a BD e respetivo login.
+
+
 
 
