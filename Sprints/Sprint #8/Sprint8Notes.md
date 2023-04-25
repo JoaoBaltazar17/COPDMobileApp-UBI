@@ -2,7 +2,7 @@
 
 # Order of The Week
 
-- [ ]  1. Acabar views da app.
+- [x]  1. Acabar views da app.
 
 - [ ]  2. Refinar aplicação dos passos.
 
@@ -18,7 +18,7 @@ Falta:
 
 
 
-# 2. Refinar aplicação dos passos
+# 2. Refinar aplicação dos passos 
 
 - Está a counter um passo cada vez que o utilizador faz o movimento circular com o telemóvel (PROBLEMA!!)
 
@@ -26,6 +26,8 @@ Falta:
 
 
 # 3. Fazer a BD e respetivo login.
+
+ - Esquema e diagrama feito, falta implementação.
 
 
 
