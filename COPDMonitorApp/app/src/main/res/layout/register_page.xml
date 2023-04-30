@@ -11,7 +11,7 @@
         android:id="@+id/txtViewCOPDTitleRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-100sp"
+        android:layout_marginTop="20sp"
         android:layout_marginBottom="80sp"
         android:text="COPD Monitor App"
         android:textColor="#009688"
@@ -21,30 +21,11 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_edit_height"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-30sp"
-        app:boxStrokeColor="@color/purple_200"
-        app:hintTextColor="@color/black">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eTxtHeight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Height" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="-40dp"
         app:boxStrokeColor="@color/purple_200"
         app:hintTextColor="@color/black">
 
@@ -55,6 +36,35 @@
             android:hint="E-mail" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_edit_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        app:boxStrokeColor="@color/purple_200"
+        app:hintTextColor="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/eTxtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCOPDSev"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="COPD Severity"
+        android:textAlignment="textStart"
+        android:textColor="@color/login_button_color"
+        app:strokeColor="@color/login_button_color"
+        />
 
 
 
@@ -106,6 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Date of Birth"
+        android:textAlignment="textStart"
         android:textColor="@color/login_button_color"
         app:strokeColor="@color/login_button_color"
         />
