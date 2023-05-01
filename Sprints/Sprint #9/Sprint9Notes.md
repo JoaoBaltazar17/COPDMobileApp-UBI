@@ -8,4 +8,4 @@
   - [ ]  Analisar o sinal.
   - [ ]  Montares o algoritmo de contagem de passos.
 
-- [ ]  2. Criar BD e fazer processo login
+- [x]  2. Criar BD e fazer processo login
