@@ -27,6 +27,7 @@ public class RegisterPage extends AppCompatActivity {
     TextView TextVClickableGoLogin;
 
     TextInputEditText editTextEmail;
+    TextInputEditText editTextName;
     TextInputEditText editTextPassword;
     TextInputEditText editTextPasswordRepeat;
 
@@ -37,12 +38,14 @@ public class RegisterPage extends AppCompatActivity {
         setContentView(R.layout.register_page);
         TextVClickableGoLogin = findViewById(R.id.txtViewGoLogin);
         editTextEmail = findViewById(R.id.eTxtEmail);
+        editTextName = findViewById(R.id.eTxtName);
         editTextPassword = findViewById(R.id.eTxtPassword);
         editTextPasswordRepeat = findViewById(R.id.eTxtPasswordRepeat);
     }
 
     public void onRegisterClicked(View view) {
         String email = editTextEmail.getText().toString().trim();
+        String name = editTextName.getText().toString();
         String password = editTextPassword.getText().toString().trim();
         String passwordRepeat = editTextPasswordRepeat.getText().toString().trim();
 
@@ -58,7 +61,7 @@ public class RegisterPage extends AppCompatActivity {
             return;
         }
 
-        new UserRegistrationTask().execute(email, password);
+        new UserRegistrationTask().execute(email, password, name);
     }
 
     private class UserRegistrationTask extends AsyncTask<String, Void, Boolean> {
@@ -79,10 +82,11 @@ public class RegisterPage extends AppCompatActivity {
         protected Boolean doInBackground(String... params) {
             String email = params[0];
             String password = params[1];
+            String name = params[2];
+
             String salt = BCrypt.gensalt();
             String hashedPassword = BCrypt.hashpw(password, salt);
 
-            System.out.println("Email " + email + "\n Pass " + password +  "\n Salt " +  salt +  "\n Hashed " + hashedPassword);
 
             String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
             String svusername = "postgres";
@@ -100,11 +104,12 @@ public class RegisterPage extends AppCompatActivity {
                         int count = rs.getInt(1);
                         if (count == 0) {
                             // User does not exist, insert into database
-                            String insertQuery = "INSERT INTO Pacient (email, password, salt) VALUES (?, ?, ?)";
+                            String insertQuery = "INSERT INTO Pacient (email, password, salt, name) VALUES (?, ?, ?, ?)";
                             try (PreparedStatement pstmt2 = conn.prepareStatement(insertQuery)) {
                                 pstmt2.setString(1, email);
                                 pstmt2.setString(2, hashedPassword);
                                 pstmt2.setString(3, salt);
+                                pstmt2.setString(4, name);
                                 pstmt2.executeUpdate();
                             }
                             return true;

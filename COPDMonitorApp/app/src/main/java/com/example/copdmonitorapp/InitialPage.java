@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,7 +30,11 @@ public class InitialPage extends AppCompatActivity {
     TextInputEditText editTextEmail;
     TextInputEditText editTextPassword;
 
+
+
     private static String TAG = "Initial Page";
+    private String pacientNameLogged;
+    private String pacientEmailLogged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +42,6 @@ public class InitialPage extends AppCompatActivity {
         setContentView(R.layout.initial_page);
 
         txtViewGoRegister = findViewById(R.id.txtViewRegisterClick);
-
         editTextEmail = findViewById(R.id.eTxtEmail);
         editTextPassword = findViewById(R.id.eTxtPassword);
 
@@ -46,7 +50,6 @@ public class InitialPage extends AppCompatActivity {
         String email = sharedPreferences.getString("email", "");
         String password = sharedPreferences.getString("password", "");
 
-        Log.e(TAG, "Saved - Email: " + email + " Password: " + password);
 
         // Check if the username and password are not empty before using them to log the user in
         if (!email.isEmpty() && !password.isEmpty()) {
@@ -103,6 +106,8 @@ public class InitialPage extends AppCompatActivity {
 
                 if (rs.next()) {
                     String salt = rs.getString("salt");
+                    pacientNameLogged = rs.getString("name");
+                    pacientEmailLogged = email;
                     String hashedPassword = BCrypt.hashpw(password, salt);
 
                     if (hashedPassword.equals(rs.getString("password"))) {
@@ -134,6 +139,8 @@ public class InitialPage extends AppCompatActivity {
 
     public void goToHomePage(){
         Intent intent = new Intent(this, HomePage.class);
+        intent.putExtra("nameLogged", pacientNameLogged);
+        intent.putExtra("emailLogged", pacientEmailLogged);
         startActivity(intent);
     }
 

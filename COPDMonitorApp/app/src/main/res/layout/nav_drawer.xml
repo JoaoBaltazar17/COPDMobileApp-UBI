@@ -21,6 +21,7 @@
             android:src="@drawable/logo" />
 
         <TextView
+            android:id="@+id/eTxtNavBarName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="COPD Monitor App"
@@ -28,6 +29,7 @@
             android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/eTxtNavBarEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"

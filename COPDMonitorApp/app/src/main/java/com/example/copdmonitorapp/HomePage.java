@@ -36,11 +36,23 @@ public class HomePage extends AppCompatActivity {
     ImageView menu;
     LinearLayout home, settings, share, about, logout;
 
+    TextView txtViewNavBarName;
+    TextView txtViewNavBarEmail;
+
+
+    private String pacientLoggedEmail;
+    private String pacientLoggedName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
+
+        // Receive intent data
+        Intent intent = getIntent();
+        pacientLoggedEmail = intent.getStringExtra("emailLogged");
+        pacientLoggedName = intent.getStringExtra("nameLogged");
 
 
         // Navigation Drawer Finders
@@ -51,6 +63,10 @@ public class HomePage extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         settings = findViewById(R.id.settings);
         share = findViewById(R.id.share);
+        txtViewNavBarEmail = findViewById(R.id.eTxtNavBarEmail);
+        txtViewNavBarEmail.setText(pacientLoggedEmail);
+        txtViewNavBarName = findViewById(R.id.eTxtNavBarName);
+        txtViewNavBarName.setText(pacientLoggedName);
 
 
         // Menu Navigation and Components Listener's
