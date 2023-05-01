@@ -29,6 +29,8 @@ public class RegisterPage extends AppCompatActivity {
     TextInputEditText editTextEmail;
     TextInputEditText editTextPassword;
     TextInputEditText editTextPasswordRepeat;
+
+    private static String TAG = "Register Page";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +85,12 @@ public class RegisterPage extends AppCompatActivity {
             System.out.println("Email " + email + "\n Pass " + password +  "\n Salt " +  salt +  "\n Hashed " + hashedPassword);
 
             String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
-            String svurl = "jdbc:postgresql://nothing2lose-db.carkfyqrpaoi.eu-north-1.rds.amazonaws.com:5432/NOTHING2LOSEDB";
             String svusername = "postgres";
             String svpassword = "copdproject";
 
 
             try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
+                Log.e(TAG, "Connection to BD succesfull!");
                 // Check if there is another user with the same username
                 String selectQuery = "SELECT COUNT(*) FROM Pacient WHERE email = ?";
                 try (PreparedStatement pstmt = conn.prepareStatement(selectQuery)) {

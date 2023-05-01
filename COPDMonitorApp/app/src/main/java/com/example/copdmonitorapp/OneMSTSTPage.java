@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -116,7 +117,14 @@ public class OneMSTSTPage extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(OneMSTSTPage.this, "LogOut", Toast.LENGTH_SHORT).show();
+                SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("username");
+                editor.remove("password");
+                editor.apply();
+
+                Intent intent = new Intent(OneMSTSTPage.this, InitialPage.class);
+                startActivity(intent);
             }
         });
 

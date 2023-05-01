@@ -1,7 +1,9 @@
 package com.example.copdmonitorapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -86,7 +88,14 @@ public class ExerciseMenuPage extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ExerciseMenuPage.this, "LogOut", Toast.LENGTH_SHORT).show();
+                SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("username");
+                editor.remove("password");
+                editor.apply();
+
+                Intent intent = new Intent(ExerciseMenuPage.this, InitialPage.class);
+                startActivity(intent);
             }
         });
 

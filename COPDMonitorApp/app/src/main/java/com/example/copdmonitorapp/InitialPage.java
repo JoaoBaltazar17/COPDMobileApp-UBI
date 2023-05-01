@@ -29,6 +29,8 @@ public class InitialPage extends AppCompatActivity {
     TextInputEditText editTextEmail;
     TextInputEditText editTextPassword;
 
+    private static String TAG = "Initial Page";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,8 @@ public class InitialPage extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String email = sharedPreferences.getString("email", "");
         String password = sharedPreferences.getString("password", "");
+
+        Log.e(TAG, "Saved - Email: " + email + " Password: " + password);
 
         // Check if the username and password are not empty before using them to log the user in
         if (!email.isEmpty() && !password.isEmpty()) {
@@ -93,7 +97,7 @@ public class InitialPage extends AppCompatActivity {
 
             try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
 
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM users WHERE email = ?");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Pacient WHERE email = ?");
                 pstmt.setString(1, email);
                 ResultSet rs = pstmt.executeQuery();
 
@@ -129,7 +133,7 @@ public class InitialPage extends AppCompatActivity {
     }
 
     public void goToHomePage(){
-        Intent intent = new Intent(this, InitialPage.class);
+        Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
     }
 

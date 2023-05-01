@@ -1,7 +1,9 @@
 package com.example.copdmonitorapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -71,7 +73,14 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
             logout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText( FellingUnwellPageQ5.this, "LogOut", Toast.LENGTH_SHORT).show();
+                    SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.remove("username");
+                    editor.remove("password");
+                    editor.apply();
+
+                    Intent intent = new Intent(FellingUnwellPageQ5.this, InitialPage.class);
+                    startActivity(intent);
                 }
             });
 
