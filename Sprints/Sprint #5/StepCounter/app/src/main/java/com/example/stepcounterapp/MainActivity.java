@@ -12,7 +12,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener, View.OnClickListener {
@@ -21,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor accelerometer;
     private float[] accelerationValues = new float[3];
     private ArrayList<Float> normAccelerationValues = new ArrayList<Float>();
+    private  ArrayList<Long> tempo = new ArrayList<Long>();
     private boolean isRecording = false;
     private Button buttonStart, buttonStop;
 
@@ -35,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         buttonStart = findViewById(R.id.buttonStart);
@@ -72,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             accelerationValues[2]*accelerationValues[2]
             );
             normAccelerationValues.add(normAcceleration);
+            tempo.add(System.currentTimeMillis());
         }
     }
 
@@ -93,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void startRecording() {
+        Toast.makeText(this, "Test has been started", Toast.LENGTH_LONG).show();
         normAccelerationValues.clear();
         isRecording = true;
         Handler handler = new Handler();
@@ -104,9 +111,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void stopRecording() {
+        Toast.makeText(this, "Test has been finished!", Toast.LENGTH_LONG).show();
         isRecording = false;
-        System.out.println(normAccelerationValues);
-        Log.d(TAG, "Acc size: " + normAccelerationValues.size());
-        // save the normAccelerationValues array to storage
+        try {
+            // Get the internal storage directory
+            File directory = getFilesDir();
+            // Create a new file in the directory
+            File file = new File(directory, "dados_aceleracao.csv");
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            // Write the data to the file
+            for (int i = 0; i < normAccelerationValues.size(); i++) {
+                bw.write(tempo.get(i) + "," + normAccelerationValues.get(i) + "\n");
+            }
+            bw.close();
+            Log.e(TAG, "File saved to: " + file.getAbsolutePath());
+            } catch (IOException e) {
+                Log.e(TAG, "Error writing to file: " + e.getMessage());
+            }
     }
 }
