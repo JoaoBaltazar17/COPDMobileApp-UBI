@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_1"
+        android:title="Mild" />
+    <item android:id="@+id/menu_2"
+        android:title="Moderate" />
+    <item android:id="@+id/menu_3"
+        android:title="Severe" />
+    <item android:id="@+id/menu_4"
+        android:title="Very Severe" />
+</menu>

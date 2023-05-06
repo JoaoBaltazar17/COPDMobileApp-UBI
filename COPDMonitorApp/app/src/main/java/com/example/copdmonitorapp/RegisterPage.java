@@ -7,12 +7,15 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -31,6 +34,8 @@ public class RegisterPage extends AppCompatActivity {
     TextInputEditText editTextPassword;
     TextInputEditText editTextPasswordRepeat;
 
+    MaterialButton btnSeverity;
+
     private static String TAG = "Register Page";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class RegisterPage extends AppCompatActivity {
         editTextName = findViewById(R.id.eTxtName);
         editTextPassword = findViewById(R.id.eTxtPassword);
         editTextPasswordRepeat = findViewById(R.id.eTxtPasswordRepeat);
+        btnSeverity = findViewById(R.id.btnCOPDSev);
     }
 
     public void onRegisterClicked(View view) {
@@ -138,6 +144,46 @@ public class RegisterPage extends AppCompatActivity {
         }
     }
 
+    // Popup to choose severity level
+
+
+    public void clickSelectSeverity(View view) {
+        btnSeverity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(RegisterPage.this, btnSeverity);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+
+                // Set a click listener for the menu items
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_1:
+                                btnSeverity.setText("Mild");
+                                return true;
+                            case R.id.menu_2:
+                                btnSeverity.setText("Moderate");
+                                return true;
+                            case R.id.menu_3:
+                                btnSeverity.setText("Severe");
+                                return true;
+                            case R.id.menu_4:
+                                btnSeverity.setText("Very Severe");
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+
+                // Show the popup menu
+                popupMenu.show();
+            }
+        });
+
+
+    }
 
     public void goToHomePage(){
         Intent intent = new Intent(this, InitialPage.class);
