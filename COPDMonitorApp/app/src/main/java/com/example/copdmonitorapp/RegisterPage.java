@@ -66,6 +66,8 @@ public class RegisterPage extends AppCompatActivity {
         String name = editTextName.getText().toString();
         String password = editTextPassword.getText().toString().trim();
         String passwordRepeat = editTextPasswordRepeat.getText().toString().trim();
+        String severity = btnSeverity.getText().toString();
+        String dateB = dateButton.getText().toString();
 
         if (email.isEmpty() || password.isEmpty() || passwordRepeat.isEmpty()) {
             // Empty fields
@@ -79,7 +81,7 @@ public class RegisterPage extends AppCompatActivity {
             return;
         }
 
-        new UserRegistrationTask().execute(email, password, name);
+        new UserRegistrationTask().execute(email, password, name, dateB, severity);
     }
 
     private class UserRegistrationTask extends AsyncTask<String, Void, Boolean> {
@@ -101,6 +103,8 @@ public class RegisterPage extends AppCompatActivity {
             String email = params[0];
             String password = params[1];
             String name = params[2];
+            String age = params[3];
+            String copd = params[4];
 
             String salt = BCrypt.gensalt();
             String hashedPassword = BCrypt.hashpw(password, salt);
@@ -114,7 +118,7 @@ public class RegisterPage extends AppCompatActivity {
             try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
                 Log.e(TAG, "Connection to BD succesfull!");
                 // Check if there is another user with the same username
-                String selectQuery = "SELECT COUNT(*) FROM Pacient WHERE email = ?";
+                String selectQuery = "SELECT COUNT(*) FROM Patient WHERE email = ?";
                 try (PreparedStatement pstmt = conn.prepareStatement(selectQuery)) {
                     pstmt.setString(1, email);
                     try (ResultSet rs = pstmt.executeQuery()) {
@@ -122,12 +126,14 @@ public class RegisterPage extends AppCompatActivity {
                         int count = rs.getInt(1);
                         if (count == 0) {
                             // User does not exist, insert into database
-                            String insertQuery = "INSERT INTO Pacient (email, password, salt, name) VALUES (?, ?, ?, ?)";
+                            String insertQuery = "INSERT INTO Patient (email, password, salt, name, age, copd_severity) VALUES (?, ?, ?, ?, ?, ?)";
                             try (PreparedStatement pstmt2 = conn.prepareStatement(insertQuery)) {
                                 pstmt2.setString(1, email);
                                 pstmt2.setString(2, hashedPassword);
                                 pstmt2.setString(3, salt);
                                 pstmt2.setString(4, name);
+                                pstmt2.setString(5, age);
+                                pstmt2.setString(6, copd);
                                 pstmt2.executeUpdate();
                             }
                             return true;
@@ -194,7 +200,7 @@ public class RegisterPage extends AppCompatActivity {
 
 
     }
-    
+
     // Date Picker
     private void initDatePicker()
     {

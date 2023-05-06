@@ -100,7 +100,7 @@ public class InitialPage extends AppCompatActivity {
 
             try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
 
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Pacient WHERE email = ?");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Patient WHERE email = ?");
                 pstmt.setString(1, email);
                 ResultSet rs = pstmt.executeQuery();
 
