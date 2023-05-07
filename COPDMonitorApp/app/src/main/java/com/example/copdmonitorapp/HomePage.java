@@ -41,6 +41,7 @@ public class HomePage extends AppCompatActivity {
 
 
     private String pacientLoggedName;
+    private String pacientLoggedEmail;
 
 
     @Override
@@ -48,18 +49,10 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
 
-        // Receive intent data
-        Intent intent = getIntent();
-        pacientLoggedName = intent.getStringExtra("nameLogged");
-
         // Retrieve user's login credentials
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String email = sharedPreferences.getString("email", "");
-
-        // Store user's name in share preferences
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("name", pacientLoggedName);
-        editor.commit();
+        pacientLoggedEmail = sharedPreferences.getString("email", "");
+        pacientLoggedName = sharedPreferences.getString("name", "");
 
 
         // Navigation Drawer Finders
@@ -71,8 +64,8 @@ public class HomePage extends AppCompatActivity {
         settings = findViewById(R.id.settings);
         share = findViewById(R.id.share);
         txtViewNavBarEmail = findViewById(R.id.eTxtNavBarEmail);
-        txtViewNavBarEmail.setText(email);
         txtViewNavBarName = findViewById(R.id.eTxtNavBarName);
+        txtViewNavBarEmail.setText(pacientLoggedEmail);
         txtViewNavBarName.setText(pacientLoggedName);
 
 

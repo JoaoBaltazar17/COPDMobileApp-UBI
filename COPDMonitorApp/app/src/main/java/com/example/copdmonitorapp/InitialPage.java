@@ -139,8 +139,6 @@ public class InitialPage extends AppCompatActivity {
 
     public void goToHomePage(){
         Intent intent = new Intent(this, HomePage.class);
-        intent.putExtra("nameLogged", pacientNameLogged);
-        intent.putExtra("emailLogged", pacientEmailLogged);
         startActivity(intent);
     }
 
@@ -155,6 +153,7 @@ public class InitialPage extends AppCompatActivity {
 
         editor.putString("email", editTextEmail.getText().toString());
         editor.putString("password", editTextPassword.getText().toString());
+        editor.putString("name", pacientNameLogged);
         editor.commit();
     }
 
