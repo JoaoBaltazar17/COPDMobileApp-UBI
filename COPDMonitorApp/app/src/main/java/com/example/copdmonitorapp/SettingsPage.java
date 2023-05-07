@@ -225,9 +225,24 @@ public class SettingsPage extends AppCompatActivity {
             progressDialog.dismiss();
             nameLogged.setText(name);
             emailLogged.setText(email);
-            date_birthLogged.setText(date);
-            heightLogged.setText(height);
-            weightLogged.setText(weight);
+            if (date.equals("Date of Birth")) {
+                date_birthLogged.setText("undefined");
+            }
+            else {
+                date_birthLogged.setText(date);
+            }
+            if(height == null) {
+                heightLogged.setText("undefined");
+            }
+            else {
+                heightLogged.setText(height);
+            }
+            if(weight == null) {
+                weightLogged.setText("undefined");
+            }
+            else {
+                weightLogged.setText(weight);
+            }
             copd_sevLogged.setText(copd_sev);
 
         }
