@@ -119,4 +119,7 @@ public class SettingsPage extends AppCompatActivity {
     }
 
 
+    public void goToChangeUsername(View view) {
+        redirectActivity(SettingsPage.this, SettingsUsernamePage.class);
+    }
 }
