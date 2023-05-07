@@ -151,7 +151,8 @@ public class InitialPage extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString("email", editTextEmail.getText().toString());
+        Log.e(TAG, "Saved:" + pacientEmailLogged + pacientNameLogged);
+        editor.putString("email", pacientEmailLogged);
         editor.putString("password", editTextPassword.getText().toString());
         editor.putString("name", pacientNameLogged);
         editor.commit();
