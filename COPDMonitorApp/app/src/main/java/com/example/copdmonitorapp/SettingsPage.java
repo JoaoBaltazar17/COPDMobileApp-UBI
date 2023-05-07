@@ -50,6 +50,7 @@ public class SettingsPage extends AppCompatActivity {
 
     String email_shared;
 
+    private static String TAG = "Setting Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,6 +226,7 @@ public class SettingsPage extends AppCompatActivity {
             progressDialog.dismiss();
             nameLogged.setText(name);
             emailLogged.setText(email);
+            Log.e(TAG, "Date: " + date);
             if (date.equals("Date of Birth")) {
                 date_birthLogged.setText("undefined");
             }
