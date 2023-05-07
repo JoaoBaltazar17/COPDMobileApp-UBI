@@ -40,7 +40,6 @@ public class HomePage extends AppCompatActivity {
     TextView txtViewNavBarEmail;
 
 
-    private String pacientLoggedEmail;
     private String pacientLoggedName;
 
 
@@ -51,8 +50,16 @@ public class HomePage extends AppCompatActivity {
 
         // Receive intent data
         Intent intent = getIntent();
-        pacientLoggedEmail = intent.getStringExtra("emailLogged");
         pacientLoggedName = intent.getStringExtra("nameLogged");
+
+        // Retrieve user's login credentials
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
+
+        // Store user's name in share preferences
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("name", pacientLoggedName);
+        editor.commit();
 
 
         // Navigation Drawer Finders
@@ -64,7 +71,7 @@ public class HomePage extends AppCompatActivity {
         settings = findViewById(R.id.settings);
         share = findViewById(R.id.share);
         txtViewNavBarEmail = findViewById(R.id.eTxtNavBarEmail);
-        txtViewNavBarEmail.setText(pacientLoggedEmail);
+        txtViewNavBarEmail.setText(email);
         txtViewNavBarName = findViewById(R.id.eTxtNavBarName);
         txtViewNavBarName.setText(pacientLoggedName);
 

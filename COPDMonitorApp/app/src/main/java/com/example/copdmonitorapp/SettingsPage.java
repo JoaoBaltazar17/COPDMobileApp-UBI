@@ -35,9 +35,16 @@ public class SettingsPage extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, settings, share, about, logout;
+    TextView txtViewNavBarName;
+    TextView txtViewNavBarEmail;
+    String emailShared;
+    String nameShared;
 
 
     // TextViews
+    private TextView txtViewNickname;
+    private TextView txtViewEmail;
+
     private TextView nameLogged;
     private TextView emailLogged;
     private TextView date_birthLogged;
@@ -46,10 +53,6 @@ public class SettingsPage extends AppCompatActivity {
     private TextView copd_sevLogged;
 
 
-    // Variables
-
-    String email_shared;
-
     private static String TAG = "Setting Activity";
 
     @Override
@@ -57,12 +60,14 @@ public class SettingsPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_page);
 
-        // SharedPreferences
-
+        // Retrieve user's login credentials
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        email_shared = sharedPreferences.getString("email", "");
+        emailShared = sharedPreferences.getString("email", "");
+        nameShared = sharedPreferences.getString("name", "");
 
         // TextViews's
+        txtViewNickname = findViewById(R.id.nickname);
+        txtViewEmail = findViewById(R.id.email);
         nameLogged = findViewById(R.id.txtViewUsernameLogged);
         emailLogged = findViewById(R.id.txtViewEmailLogged);
         date_birthLogged = findViewById(R.id.txtViewDatelogged);
@@ -79,6 +84,10 @@ public class SettingsPage extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         settings = findViewById(R.id.settings);
         share = findViewById(R.id.share);
+        txtViewNavBarEmail = findViewById(R.id.eTxtNavBarEmail);
+        txtViewNavBarName = findViewById(R.id.eTxtNavBarName);
+        txtViewNavBarName.setText(nameShared);
+        txtViewNavBarEmail.setText(emailShared);
 
 
         // Menu Navigation and Components Listener's
@@ -196,21 +205,19 @@ public class SettingsPage extends AppCompatActivity {
             String svpassword = "copdproject";
 
 
-
-
             try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
 
                 PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Patient WHERE email = ?");
-                pstmt.setString(1, email_shared);
+                pstmt.setString(1, emailShared);
                 ResultSet rs = pstmt.executeQuery();
 
                 if (rs.next()) {
                     name = rs.getString("name");
-                    date = rs.getString("date_birth mm/dd/aaaa");
+                    date = rs.getString("date_birth_mmddaaaa");
                     copd_sev = rs.getString("copd_severity");
-                    height = rs.getString("height (cm)");
-                    weight = rs.getString("weight (kg)");
-                    email = email_shared;
+                    height = rs.getString("heightincm");
+                    weight = rs.getString("weightinkg");
+                    email = emailShared;
                 }
 
                 return false;
@@ -224,29 +231,14 @@ public class SettingsPage extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean result) {
             progressDialog.dismiss();
+            txtViewNickname.setText(name);
+            txtViewEmail.setText(email);
             nameLogged.setText(name);
             emailLogged.setText(email);
-            Log.e(TAG, "Date: " + date);
-            if (date.equals("Date of Birth")) {
-                date_birthLogged.setText("undefined");
-            }
-            else {
-                date_birthLogged.setText(date);
-            }
-            if(height == null) {
-                heightLogged.setText("undefined");
-            }
-            else {
-                heightLogged.setText(height);
-            }
-            if(weight == null) {
-                weightLogged.setText("undefined");
-            }
-            else {
-                weightLogged.setText(weight);
-            }
+            date_birthLogged.setText(date);
+            heightLogged.setText(height);
+            weightLogged.setText(weight);
             copd_sevLogged.setText(copd_sev);
-
         }
 
     }
