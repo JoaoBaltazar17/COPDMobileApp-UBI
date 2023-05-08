@@ -184,6 +184,10 @@ public class SettingsPage extends AppCompatActivity {
         redirectActivity(SettingsPage.this, SettingsHeightPage.class);
     }
 
+    public void goToChangeWeight(View view) {
+        redirectActivity(SettingsPage.this, SettingsWeightPage.class);
+    }
+
 
     private class ProfileInformationTask extends AsyncTask<String, Void, Boolean> {
         private Exception exception;

@@ -203,6 +203,7 @@
                 android:layout_height="wrap_content"
                 android:text="Weight(kg)"
                 android:clickable="true"
+                android:onClick="goToChangeWeight"
                 android:layout_marginTop="10dp"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -213,6 +214,7 @@
                 android:layout_height="wrap_content"
                 android:text="x kg"
                 android:clickable="true"
+                android:onClick="goToChangeWeight"
                 android:layout_marginTop="2dp"
                 android:textSize="16sp"
                 android:textColor="@android:color/darker_gray" />
@@ -229,6 +231,7 @@
                 android:layout_height="wrap_content"
                 android:text="COPD Severity"
                 android:clickable="true"
+
                 android:layout_marginTop="10dp"
                 android:textSize="24sp"
                 android:textStyle="bold" />

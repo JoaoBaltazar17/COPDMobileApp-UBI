@@ -24,23 +24,23 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class SettingsEmailPage extends AppCompatActivity {
+public class SettingsWeightPage extends AppCompatActivity {
 
-    private TextInputEditText txtViewNewEmail;
+    private TextInputEditText txtViewNewWeight;
 
     private String emailShared;
     private String nameShared;
 
-    private String new_email;
+    private static String TAG = "SettingWeightActivity";
 
-    private static String TAG = "SettingEmailActivity";
+    private double new_weight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settingsemail_page);
+        setContentView(R.layout.settingsweight_page);
 
-        txtViewNewEmail = findViewById(R.id.eTxtUserEmailChange);
+        txtViewNewWeight = findViewById(R.id.eTxtWeight);
 
         // Retrieve user's login credentials
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -57,24 +57,24 @@ public class SettingsEmailPage extends AppCompatActivity {
     }
 
     public void goBackToSettingsMenu (View view) {
-        redirectActivity(SettingsEmailPage.this, SettingsPage.class);
+        redirectActivity(SettingsWeightPage.this, SettingsPage.class);
     }
 
-    public void saveChangesEmail(View view) {
+    public void saveChangesWeight(View view) {
 
-        String new_email = txtViewNewEmail.getText().toString().trim();
+        new_weight = Double.parseDouble(txtViewNewWeight.getText().toString().trim());
 
-        if (new_email.trim().isEmpty()) {
+        if (new_weight == 0.0) {
             // Empty fields
-            Toast.makeText(SettingsEmailPage.this, "Hey there! It seems like you left some fields empty!", Toast.LENGTH_LONG).show();
+            Toast.makeText(SettingsWeightPage.this, "Hey there! It seems like you left some fields empty!", Toast.LENGTH_LONG).show();
             return;
         }
 
-        Log.e(TAG, "New email: " + new_email + "For the patient with Email: " + emailShared + ".");
-        new ChangeEmail().execute(new_email);
+        Log.e(TAG, "New Height: " + new_weight + "For the patient with Email: " + emailShared);
+        new ChangeWeight().execute(String.valueOf(new_weight));
     }
 
-    private class ChangeEmail extends AsyncTask<String, Void, Boolean> {
+    private class ChangeWeight extends AsyncTask<String, Void, Boolean> {
         private Exception exception;
 
         private ProgressDialog progressDialog;
@@ -82,7 +82,7 @@ public class SettingsEmailPage extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(SettingsEmailPage.this);
+            progressDialog = new ProgressDialog(SettingsWeightPage.this);
             progressDialog.setMessage("Processing, please wait...");
             progressDialog.setCancelable(false);
             progressDialog.show();
@@ -90,7 +90,7 @@ public class SettingsEmailPage extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            new_email = params[0];
+            new_weight = Double.parseDouble(params[0]);
 
             String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
             String svusername = "postgres";
@@ -98,8 +98,8 @@ public class SettingsEmailPage extends AppCompatActivity {
 
             try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
 
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE patient SET email = ? WHERE email = ?");
-                pstmt.setString(1, new_email);
+                PreparedStatement pstmt = conn.prepareStatement("UPDATE patient SET weightinkg = ? WHERE email = ?");
+                pstmt.setDouble(1, new_weight);
                 pstmt.setString(2, emailShared);
                 pstmt.executeUpdate();
                 return true;
@@ -115,15 +115,10 @@ public class SettingsEmailPage extends AppCompatActivity {
             progressDialog.dismiss();
 
             if (result) {
-                Toast.makeText(SettingsEmailPage.this, "Successful change!", Toast.LENGTH_LONG).show();
-                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Log.e(TAG, "Saved:" + new_email + "/" + nameShared + ".");
-                editor.putString("email", new_email);
-                editor.putString("name", nameShared);
-                editor.commit();
+                Toast.makeText(SettingsWeightPage.this, "Successful change!", Toast.LENGTH_LONG).show();
+                Log.e(TAG, "Saved:" + emailShared + "/ New Height:" + new_weight + ".");
             } else {
-                Toast.makeText(SettingsEmailPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
+                Toast.makeText(SettingsWeightPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
             }
         }
 

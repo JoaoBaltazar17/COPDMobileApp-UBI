@@ -71,10 +71,10 @@ public class SettingsHeightPage extends AppCompatActivity {
         }
 
         Log.e(TAG, "New Height: " + new_height + "For the patient with Email: " + emailShared);
-        new ChangeUsername().execute(String.valueOf(new_height));
+        new ChangeHeight().execute(String.valueOf(new_height));
     }
 
-    private class ChangeUsername extends AsyncTask<String, Void, Boolean> {
+    private class ChangeHeight extends AsyncTask<String, Void, Boolean> {
         private Exception exception;
 
         private ProgressDialog progressDialog;
