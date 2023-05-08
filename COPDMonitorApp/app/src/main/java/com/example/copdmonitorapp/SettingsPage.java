@@ -172,6 +172,10 @@ public class SettingsPage extends AppCompatActivity {
         redirectActivity(SettingsPage.this, SettingsUsernamePage.class);
     }
 
+    public void goToChangeEmail(View view) {
+        redirectActivity(SettingsPage.this, SettingsEmailPage.class);
+    }
+
 
 
     private class ProfileInformationTask extends AsyncTask<String, Void, Boolean> {

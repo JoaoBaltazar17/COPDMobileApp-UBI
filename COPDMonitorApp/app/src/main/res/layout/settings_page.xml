@@ -115,6 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Email"
+                android:onClick="goToChangeEmail"
                 android:clickable="true"
                 android:layout_marginTop="10dp"
                 android:textSize="24sp"
@@ -126,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:text="Email Logged"
                 android:clickable="true"
+                android:onClick="goToChangeEmail"
                 android:textSize="16sp"
                 android:layout_marginTop="2dp"
                 android:textColor="@android:color/darker_gray" />

@@ -103,13 +103,12 @@ public class InitialPage extends AppCompatActivity {
                 PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Patient WHERE email = ?");
                 pstmt.setString(1, email);
                 ResultSet rs = pstmt.executeQuery();
-
+                Log.e(TAG, pstmt.toString());
                 if (rs.next()) {
                     String salt = rs.getString("salt");
                     pacientNameLogged = rs.getString("name");
                     pacientEmailLogged = email;
                     String hashedPassword = BCrypt.hashpw(password, salt);
-
                     if (hashedPassword.equals(rs.getString("password"))) {
                         return true;
                     }

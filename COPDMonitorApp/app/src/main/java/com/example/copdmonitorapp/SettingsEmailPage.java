@@ -24,23 +24,23 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class SettingsUsernamePage extends AppCompatActivity {
+public class SettingsEmailPage extends AppCompatActivity {
 
-    private TextInputEditText txtViewNewUsername;
+    private TextInputEditText txtViewNewEmail;
 
     private String emailShared;
     private String nameShared;
 
-    private static String TAG = "SettingUsernameActivity";
+    private String new_email;
 
-    private String new_username;
+    private static String TAG = "SettingEmailActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settingsusername_page);
+        setContentView(R.layout.settingsemail_page);
 
-        txtViewNewUsername = findViewById(R.id.eTxtUserName);
+        txtViewNewEmail = findViewById(R.id.eTxtUserEmailChange);
 
         // Retrieve user's login credentials
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -57,21 +57,21 @@ public class SettingsUsernamePage extends AppCompatActivity {
     }
 
     public void goBackToSettingsMenu (View view) {
-        redirectActivity(SettingsUsernamePage.this, SettingsPage.class);
+        redirectActivity(SettingsEmailPage.this, SettingsPage.class);
     }
 
-    public void saveChangesUsername(View view) {
+    public void saveChangesEmail(View view) {
 
-        String new_username = txtViewNewUsername.getText().toString();
+        String new_email = txtViewNewEmail.getText().toString().trim();
 
-        if (new_username.trim().isEmpty()) {
+        if (new_email.trim().isEmpty()) {
             // Empty fields
-            Toast.makeText(SettingsUsernamePage.this, "Hey there! It seems like you left some fields empty!", Toast.LENGTH_LONG).show();
+            Toast.makeText(SettingsEmailPage.this, "Hey there! It seems like you left some fields empty!", Toast.LENGTH_LONG).show();
             return;
         }
 
-        Log.e(TAG, "New Username: " + new_username + "For the patient with Email: " + emailShared);
-        new ChangeUsername().execute(new_username);
+        Log.e(TAG, "New email: " + new_email + "For the patient with Email: " + emailShared + ".");
+        new ChangeUsername().execute(new_email);
     }
 
     private class ChangeUsername extends AsyncTask<String, Void, Boolean> {
@@ -82,7 +82,7 @@ public class SettingsUsernamePage extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(SettingsUsernamePage.this);
+            progressDialog = new ProgressDialog(SettingsEmailPage.this);
             progressDialog.setMessage("Processing, please wait...");
             progressDialog.setCancelable(false);
             progressDialog.show();
@@ -90,7 +90,7 @@ public class SettingsUsernamePage extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            new_username = params[0];
+            new_email = params[0];
 
             String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
             String svusername = "postgres";
@@ -98,8 +98,8 @@ public class SettingsUsernamePage extends AppCompatActivity {
 
             try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
 
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE patient SET name = ? WHERE email = ?");
-                pstmt.setString(1, new_username);
+                PreparedStatement pstmt = conn.prepareStatement("UPDATE patient SET email = ? WHERE email = ?");
+                pstmt.setString(1, new_email);
                 pstmt.setString(2, emailShared);
                 pstmt.executeUpdate();
                 return true;
@@ -115,16 +115,15 @@ public class SettingsUsernamePage extends AppCompatActivity {
             progressDialog.dismiss();
 
             if (result) {
-                Toast.makeText(SettingsUsernamePage.this, "Successful change!", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(SettingsEmailPage.this, "Successful change!", Toast.LENGTH_LONG).show();
                 SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                Log.e(TAG, "Saved:" + emailShared + "/" + new_username + ".");
-                editor.putString("email", emailShared);
-                editor.putString("name", new_username);
+                Log.e(TAG, "Saved:" + new_email + "/" + nameShared + ".");
+                editor.putString("email", new_email);
+                editor.putString("name", nameShared);
                 editor.commit();
             } else {
-                Toast.makeText(SettingsUsernamePage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
+                Toast.makeText(SettingsEmailPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
             }
         }
 
