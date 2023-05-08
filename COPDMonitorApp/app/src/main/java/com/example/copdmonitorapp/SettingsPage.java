@@ -14,10 +14,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +52,8 @@ public class SettingsPage extends AppCompatActivity {
     private TextView date_birthLogged;
     private TextView heightLogged;
     private TextView weightLogged;
-    private TextView copd_sevLogged;
+    private TextView copd_sevLoggedTitle;
+    private TextView copd_sevLoggedValue;
 
 
     private static String TAG = "Setting Activity";
@@ -73,7 +76,8 @@ public class SettingsPage extends AppCompatActivity {
         date_birthLogged = findViewById(R.id.txtViewDatelogged);
         heightLogged = findViewById(R.id.txtViewHeightUserlogged);
         weightLogged = findViewById(R.id.txtViewWeightUserlogged);
-        copd_sevLogged = findViewById(R.id.txtViewCOPDSeverityValue);
+        copd_sevLoggedValue = findViewById(R.id.txtViewCOPDSeverityValue);
+        copd_sevLoggedTitle = findViewById(R.id.txtViewCOPDSeverity);
 
 
         // Navigation Drawer Finders
@@ -189,6 +193,44 @@ public class SettingsPage extends AppCompatActivity {
     }
 
 
+    public void changeCOPDSeverity(View view) {
+        PopupMenu popupMenu = new PopupMenu(SettingsPage.this, copd_sevLoggedTitle);
+        popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+
+        // Set a click listener for the menu items
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_1:
+                        copd_sevLoggedValue.setText("Mild");
+                        new ProfileInformationTaskUpdateCOPDSeverity().execute("Mild");
+                        return true;
+                    case R.id.menu_2:
+                        copd_sevLoggedValue.setText("Moderate");
+                        new ProfileInformationTaskUpdateCOPDSeverity().execute("Moderate");
+                        return true;
+                    case R.id.menu_3:
+                        copd_sevLoggedValue.setText("Severe");
+                        new ProfileInformationTaskUpdateCOPDSeverity().execute("Severe");
+                        return true;
+                    case R.id.menu_4:
+                        copd_sevLoggedValue.setText("Very Severe");
+                        new ProfileInformationTaskUpdateCOPDSeverity().execute("Very Severe");
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        // Show the popup menu
+        popupMenu.show();
+    }
+
+
+
+
     private class ProfileInformationTask extends AsyncTask<String, Void, Boolean> {
         private Exception exception;
 
@@ -263,7 +305,58 @@ public class SettingsPage extends AppCompatActivity {
             else {
                 weightLogged.setText(weight);
             }
-            copd_sevLogged.setText(copd_sev);
+            copd_sevLoggedValue.setText(copd_sev);
+        }
+
+    }
+
+    private class ProfileInformationTaskUpdateCOPDSeverity extends AsyncTask<String, Void, Boolean> {
+        private Exception exception;
+
+        private ProgressDialog progressDialog;
+
+        String new_copdsev;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(SettingsPage.this);
+            progressDialog.setMessage("Processing, please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            new_copdsev = params[0];
+            String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
+            String svusername = "postgres";
+            String svpassword = "copdproject";
+
+
+            try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
+
+                PreparedStatement pstmt = conn.prepareStatement("UPDATE patient SET copd_severity = ? WHERE email = ?");
+                pstmt.setString(1, new_copdsev);
+                pstmt.setString(2, emailShared);
+                pstmt.executeUpdate();
+                return true;
+            } catch (Exception e) {
+                Log.e("MyApp", "Error executing query", e);
+                exception = e;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            progressDialog.dismiss();
+            if (result) {
+                Toast.makeText(SettingsPage.this, "Successful change!", Toast.LENGTH_LONG).show();
+                Log.e(TAG, "Saved:" + emailShared + "/ New copd sev:" + new_copdsev + ".");
+            } else {
+                Toast.makeText(SettingsPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
+            }
         }
 
     }
