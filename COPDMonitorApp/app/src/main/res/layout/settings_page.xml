@@ -260,6 +260,7 @@
                 android:layout_height="wrap_content"
                 android:text="Reset Password"
                 android:clickable="true"
+                android:onClick="goToChangePassword"
                 android:layout_marginTop="10dp"
                 android:textSize="24sp"
                 android:textStyle="bold" />

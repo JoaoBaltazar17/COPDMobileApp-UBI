@@ -229,6 +229,12 @@ public class SettingsPage extends AppCompatActivity {
     }
 
 
+    public void goToChangePassword(View view) {
+        redirectActivity(SettingsPage.this, SettingsPasswordPage.class);
+    }
+
+
+
 
 
     private class ProfileInformationTask extends AsyncTask<String, Void, Boolean> {
