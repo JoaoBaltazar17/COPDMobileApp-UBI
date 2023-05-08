@@ -180,6 +180,10 @@ public class SettingsPage extends AppCompatActivity {
         redirectActivity(SettingsPage.this, SettingsDateBirthPage.class);
     }
 
+    public void goToChangeHeight(View view) {
+        redirectActivity(SettingsPage.this, SettingsHeightPage.class);
+    }
+
 
     private class ProfileInformationTask extends AsyncTask<String, Void, Boolean> {
         private Exception exception;
@@ -191,8 +195,8 @@ public class SettingsPage extends AppCompatActivity {
         String email;
         String date;
         String copd_sev;
-        String height;
-        String weight;
+        String height = "";
+        String weight = "";
 
 
         @Override
@@ -243,8 +247,18 @@ public class SettingsPage extends AppCompatActivity {
             nameLogged.setText(name);
             emailLogged.setText(email);
             date_birthLogged.setText(date);
-            heightLogged.setText(height);
-            weightLogged.setText(weight);
+            if(height == null) {
+                heightLogged.setText("Register your height!");
+            }
+            else {
+                heightLogged.setText(height);
+            }
+            if(weight == null) {
+                weightLogged.setText("Register your weight!");
+            }
+            else {
+                weightLogged.setText(weight);
+            }
             copd_sevLogged.setText(copd_sev);
         }
 
