@@ -145,6 +145,7 @@
                 android:layout_height="wrap_content"
                 android:text="Date of Birth"
                 android:clickable="true"
+                android:onClick="goToChangeDateBirth"
                 android:layout_marginTop="10dp"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -155,6 +156,7 @@
                 android:layout_height="wrap_content"
                 android:text="dd/mm/aaaa"
                 android:clickable="true"
+                android:onClick="goToChangeDateBirth"
                 android:layout_marginTop="2dp"
                 android:textSize="16sp"
                 android:textColor="@android:color/darker_gray" />

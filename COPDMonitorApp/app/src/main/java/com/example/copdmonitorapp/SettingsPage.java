@@ -176,6 +176,9 @@ public class SettingsPage extends AppCompatActivity {
         redirectActivity(SettingsPage.this, SettingsEmailPage.class);
     }
 
+    public void goToChangeDateBirth(View view) {
+        redirectActivity(SettingsPage.this, SettingsDateBirthPage.class);
+    }
 
 
     private class ProfileInformationTask extends AsyncTask<String, Void, Boolean> {

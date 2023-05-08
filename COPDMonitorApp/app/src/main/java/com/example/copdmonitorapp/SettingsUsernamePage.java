@@ -62,7 +62,7 @@ public class SettingsUsernamePage extends AppCompatActivity {
 
     public void saveChangesUsername(View view) {
 
-        String new_username = txtViewNewUsername.getText().toString();
+        new_username = txtViewNewUsername.getText().toString();
 
         if (new_username.trim().isEmpty()) {
             // Empty fields
