@@ -3,8 +3,9 @@
 # Order of The Week
 
 - [ ]  1. Aplicação Count Steps 
-  - [ ]  Instalar a app do googleplay e ver se os sensores estão a funcionar.
-  - [ ]  Criar csv com norma da aceleracao e respetivas componentes
+  - [x]  Instalar a app do googleplay e ver se os sensores estão a funcionar.
+  - [x]  Criar csv com norma da aceleracao e respetivas componentes
+  - [ ]  Colocar vibração no telemóvel ou som para saber quando o teste terminou.
   - [ ]  Traçar gráficos com diferentes tipos de passadas
   - [ ]  Montares o algoritmo de contagem de passos.
 
