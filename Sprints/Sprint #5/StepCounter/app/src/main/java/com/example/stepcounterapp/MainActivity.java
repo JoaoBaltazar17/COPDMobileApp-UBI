@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor accelerometer;
     private float[] accelerationValues = new float[3];
     private ArrayList<Float> normAccelerationValues = new ArrayList<Float>();
+    private ArrayList<Float> accX = new ArrayList<Float>();
+    private ArrayList<Float> accY = new ArrayList<Float>();
+    private ArrayList<Float> accZ = new ArrayList<Float>();
     private  ArrayList<Long> tempo = new ArrayList<Long>();
     private boolean isRecording = false;
     private Button buttonStart, buttonStop;
@@ -69,8 +72,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent event) {
         if (isRecording) {
             accelerationValues[0] = event.values[0];
+            accX.add(accelerationValues[0]);
             accelerationValues[1] = event.values[1];
+            accY.add(accelerationValues[0]);
             accelerationValues[2] = event.values[2];
+            accZ.add(accelerationValues[0]);
             float normAcceleration = (float) Math.sqrt(
                     accelerationValues[0]*accelerationValues[0] +
                             accelerationValues[1]*accelerationValues[1] +
@@ -122,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             BufferedWriter bw = new BufferedWriter(fw);
             // Write the data to the file
             for (int i = 0; i < normAccelerationValues.size(); i++) {
-                bw.write(tempo.get(i) + "," + normAccelerationValues.get(i) + "\n");
+                bw.write(tempo.get(i) + "," + accX.get(i) + "," +  accY.get(i) + "," + accZ.get(i) + "," + normAccelerationValues.get(i) + "\n");
             }
             bw.close();
             Log.e(TAG, "File saved to: " + file.getAbsolutePath());
