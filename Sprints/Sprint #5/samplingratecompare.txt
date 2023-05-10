@@ -1,0 +1,4 @@
+emulador: entre 65 e 70
+redmin: 190 a 220
+
+Diferença na diferença de amostras!!

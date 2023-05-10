@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private boolean isRecording = false;
     private Button buttonStart, buttonStop;
 
+    private long previousTimeStamp = 0;
+
+
 
     private static final String TAG = "MainActivity";
 
@@ -84,6 +87,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             );
             normAccelerationValues.add(normAcceleration);
             tempo.add(System.currentTimeMillis());
+
+
+            // Checking the actual sampling rate of the accelerometer sensor
+            long currentTimestamp = System.currentTimeMillis();
+            if(previousTimeStamp != 0) {
+                long timeDifference = currentTimestamp - previousTimeStamp;
+                Log.d(TAG, "Time difference between sensor events: " + timeDifference);
+            }
+            previousTimeStamp = currentTimestamp;
         }
     }
 
@@ -108,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Toast.makeText(this, "Test has been started", Toast.LENGTH_LONG).show();
         normAccelerationValues.clear();
         isRecording = true;
+        buttonStart.setVisibility(View.INVISIBLE);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -119,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void stopRecording() {
         Toast.makeText(this, "Test has been finished!", Toast.LENGTH_LONG).show();
         isRecording = false;
+        buttonStart.setVisibility(View.VISIBLE);
         try {
             // Get the internal storage directory
             File directory = getFilesDir();
