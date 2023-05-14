@@ -10,7 +10,7 @@
   - [ ]  Montares o algoritmo de contagem de passos.
 
 - [ ]  2. Daily Records
-  - [ ] Ajustar as variáveis (Ajustar Layout (Retirar a comparação) e BD) 
+  - [x] Ajustar as variáveis (Ajustar Layout (Retirar a comparação) e BD) 
   - [ ] Colocar operacional para serem registados valores e guardados na bd 
   
 - [ ] 3. Perguntas SOS

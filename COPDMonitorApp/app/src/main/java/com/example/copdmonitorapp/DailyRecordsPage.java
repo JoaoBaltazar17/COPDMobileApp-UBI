@@ -5,10 +5,13 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -19,7 +22,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DailyRecordsPage extends AppCompatActivity {
+
+    TextView txtViewDateAtual;
 
     // Navigation Drawer Attributes
     DrawerLayout drawerLayout;
@@ -31,15 +46,18 @@ public class DailyRecordsPage extends AppCompatActivity {
     String nameShared;
 
 
+    // Record TextView's
+    TextInputEditText etxtViewPaCO2;
+    TextInputEditText etxtViewPaO2;
+    TextInputEditText etxtViewRespiratoryFreq;
+    TextInputEditText etxtViewTemperature;
 
-    // Menu Dropper
-    String[] items = {"Material", "Design", "Components", "Android", "5.0 Lollipop"};
-
-    AutoCompleteTextView autoCompleteTxt;
-
-    ArrayAdapter<String> adapterItems;
 
     private static String TAG = "Daily Records Activity";
+
+
+
+
 
 
     @Override
@@ -53,8 +71,22 @@ public class DailyRecordsPage extends AppCompatActivity {
         nameShared = sharedPreferences.getString("name", "");
 
 
-        // AutoCompleteText Finder
-        autoCompleteTxt = findViewById(R.id.auto_complete_txt);
+        // Actual Date
+        txtViewDateAtual = findViewById(R.id.txtViewCurrentDate);
+        // Create a Date object representing the current date and time
+        Date date = new Date();
+        // Create a SimpleDateFormat object to format the date as desired
+        SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy HH:mm:ss");
+        // Format the date as a String
+        String dateString = dateFormat.format(date);
+        txtViewDateAtual.setText(dateString);
+
+        // Variables TextView's
+        etxtViewPaCO2 = findViewById(R.id.eTxtPressaoCO2);
+        etxtViewPaO2 = findViewById(R.id.eTxtPaO2);
+        etxtViewRespiratoryFreq = findViewById(R.id.eTxtFreqResp);
+        etxtViewTemperature= findViewById(R.id.eTxtTemp);
+
 
 
         // Navigation Drawer Finders
@@ -117,17 +149,6 @@ public class DailyRecordsPage extends AppCompatActivity {
             }
         });
 
-        // DropdownMenu  (Adapter Listener)
-
-        adapterItems = new ArrayAdapter<String>(this, R.layout.menulist_item, items);
-        autoCompleteTxt.setAdapter(adapterItems);
-        autoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String item = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(getApplicationContext(), "Item: "+item, Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
     }
@@ -150,12 +171,101 @@ public class DailyRecordsPage extends AppCompatActivity {
         activity.finish();
     }
 
-
-
-
     @Override
     protected void onPause() {
         super.onPause();
         closeDrawer(drawerLayout);
     }
+
+
+    // Save Variable Value's into Database
+    public void onSaveClicked(View view) {
+        if (etxtViewPaCO2.getText().toString().isEmpty() || etxtViewPaO2.getText().toString().isEmpty() || etxtViewRespiratoryFreq.getText().toString().isEmpty() || etxtViewTemperature.getText().toString().isEmpty()) {
+            // Empty fields
+            Toast.makeText(DailyRecordsPage.this, "Hey there! It seems like you left some fields empty!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        new SaveDailyRecords().execute(etxtViewPaCO2.getText().toString().trim(), etxtViewPaO2.getText().toString().trim(), etxtViewRespiratoryFreq.getText().toString().trim(), etxtViewTemperature.getText().toString().trim());
+    }
+
+
+    private class SaveDailyRecords extends AsyncTask<String, Void, Boolean> {
+        private Exception exception;
+
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(DailyRecordsPage.this);
+            progressDialog.setMessage("Processing, please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            float PaCO2 = Float.parseFloat(params[0]);
+            float PaO2 = Float.parseFloat(params[1]);
+            int RespiratoryFreq= Integer.parseInt(params[2]);
+            float Temperature = Float.parseFloat(params[3]);
+
+
+            String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
+            String svusername = "postgres";
+            String svpassword = "copdproject";
+
+            try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
+                int patientId = 0;
+                Log.e(TAG, "Connection to BD succesfull!");
+                // Check if there is another user with the same username
+                String selectQuery = "SELECT id FROM Patient WHERE email = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(selectQuery)) {
+                    pstmt.setString(1, emailShared);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        if (rs.next()) {
+                            patientId = rs.getInt("id");
+                            Log.e(TAG, "The ID of the patient is: " + patientId);
+                        } else {
+                            System.out.println("No patient found with that email address.");
+                            return false;
+                        }
+                        Log.e(TAG, "Cheguei");
+                        String sql = "INSERT INTO dailyrecords (paco2, pao2, respiratory_freq, temperature, timestamp, idpatient) VALUES (?, ?, ?, ?, ?, ?)";
+                        try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
+                                // set the parameter values
+                                pstmt2.setFloat(1, PaCO2);
+                                pstmt2.setFloat(2, PaO2);
+                                pstmt2.setInt(3, RespiratoryFreq);
+                                pstmt2.setFloat(4, Temperature);
+                                pstmt2.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+                                pstmt2.setInt(6, patientId);
+                                pstmt2.executeUpdate();
+                        }
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("MyApp", "Error executing query", e);
+                exception = e;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            progressDialog.dismiss();
+
+            if (result) {
+                Toast.makeText(DailyRecordsPage.this, "Recorded Sucessfully", Toast.LENGTH_LONG).show();
+                Log.e(TAG, "" + etxtViewPaCO2.getText().toString().trim() + "etxtViewPaO2.getText().toString().trim()" + "etxtViewRespiratoryFreq.getText().toString().trim()" + "etxtViewTemperature.getText().toString().trim()");
+            } else {
+                Toast.makeText(DailyRecordsPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+
+
 }
