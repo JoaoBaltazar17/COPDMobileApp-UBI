@@ -42,6 +42,7 @@
                 android:id="@+id/eTxtPressaoCO2"
                 android:layout_width="match_parent"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:layout_height="wrap_content"
                 android:hint="PaCO2 (mmHg)" />
 
@@ -62,6 +63,7 @@
                 android:id="@+id/eTxtPaO2"
                 android:layout_width="match_parent"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:layout_height="wrap_content"
                 android:hint="PaO2 (mmHg)" />
 
@@ -83,6 +85,7 @@
                 android:id="@+id/eTxtFreqResp"
                 android:layout_width="match_parent"
                 android:inputType="number"
+                android:maxLength="2"
                 android:layout_height="wrap_content"
                 android:hint="Respiratory Frequency (mrm)" />
 
@@ -104,6 +107,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/eTxtTemp"
             android:layout_width="match_parent"
+            android:maxLength="4"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:hint="Temperature (ºC)" />
