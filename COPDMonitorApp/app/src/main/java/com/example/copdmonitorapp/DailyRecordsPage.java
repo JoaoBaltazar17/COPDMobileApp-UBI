@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DailyRecordsPage extends AppCompatActivity {
@@ -24,6 +25,10 @@ public class DailyRecordsPage extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, settings, share, about, logout;
+    TextView txtViewNavBarName;
+    TextView txtViewNavBarEmail;
+    String emailShared;
+    String nameShared;
 
 
 
@@ -34,11 +39,18 @@ public class DailyRecordsPage extends AppCompatActivity {
 
     ArrayAdapter<String> adapterItems;
 
+    private static String TAG = "Daily Records Activity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dailyrecords_page);
+
+        // Retrieve user's login credentials
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        emailShared = sharedPreferences.getString("email", "");
+        nameShared = sharedPreferences.getString("name", "");
 
 
         // AutoCompleteText Finder
@@ -53,6 +65,10 @@ public class DailyRecordsPage extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         settings = findViewById(R.id.settings);
         share = findViewById(R.id.share);
+        txtViewNavBarEmail = findViewById(R.id.eTxtNavBarEmail);
+        txtViewNavBarName = findViewById(R.id.eTxtNavBarName);
+        txtViewNavBarName.setText(nameShared);
+        txtViewNavBarEmail.setText(emailShared);
 
 
         // Menu Navigation and Components Listener's
