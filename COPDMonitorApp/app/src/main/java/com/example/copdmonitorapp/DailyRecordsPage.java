@@ -260,6 +260,10 @@ public class DailyRecordsPage extends AppCompatActivity {
             if (result) {
                 Toast.makeText(DailyRecordsPage.this, "Recorded Sucessfully", Toast.LENGTH_LONG).show();
                 Log.e(TAG,  etxtViewPaCO2.getText().toString().trim() + etxtViewPaO2.getText().toString().trim() + etxtViewRespiratoryFreq.getText().toString().trim() + etxtViewTemperature.getText().toString().trim());
+                etxtViewPaCO2.setText("");
+                etxtViewPaO2.setText("");
+                etxtViewRespiratoryFreq.setText("");
+                etxtViewTemperature.setText("");
             } else {
                 Toast.makeText(DailyRecordsPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
             }
