@@ -9,9 +9,9 @@
   - [ ]  Traçar gráficos com diferentes tipos de passadas
   - [ ]  Montares o algoritmo de contagem de passos.
 
-- [ ]  2. Daily Records
+- [x]  2. Daily Records
   - [x] Ajustar as variáveis (Ajustar Layout (Retirar a comparação) e BD) 
-  - [ ] Colocar operacional para serem registados valores e guardados na bd 
+  - [x] Colocar operacional para serem registados valores e guardados na bd 
   
 - [ ] 3. Perguntas SOS
   - [ ] Ajustar layout 
