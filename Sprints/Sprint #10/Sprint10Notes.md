@@ -13,7 +13,7 @@
   - [x] Ajustar as variáveis (Ajustar Layout (Retirar a comparação) e BD) 
   - [x] Colocar operacional para serem registados valores e guardados na bd 
   
-- [ ] 3. Perguntas SOS
+- [x] 3. Perguntas SOS
   - [x] Ajustar layout 
   - [x] Através de cada opção selecionada -> Definir um nível (Guardar na BD) -> Registar esse nível na bd
 
