@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -45,6 +47,7 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
 
 
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -113,8 +116,36 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
                 public void onValueChange(Slider slider, float value, boolean fromUser) {
                     // Perform actions with the new Slider value
                     Log.d("Slider Example", "New value: " + value);
+                    int intValue = (int) value; // Convert float value to int
+
+                    int color = getResources().getColor(R.color.lavender);
+                    btnConfirm.setBackgroundTintList(ColorStateList.valueOf(color));
+
+                    switch (intValue) {
+                        case 1:
+                            txtViewDescription.setText("Stable");
+                            rectangle.setBackgroundResource(R.drawable.rounded_rectangle_stable);
+                            btnConfirm.setClickable(true);
+                            break;
+                        case 2:
+                            txtViewDescription.setText("Slightly Increased");
+                            rectangle.setBackgroundResource(R.drawable.rounded_rectangle_slightlyincreased);
+                            break;
+                        case 3:
+                            txtViewDescription.setText("Moderately Increased");
+                            rectangle.setBackgroundResource(R.drawable.rounded_rectangle_modeincreased);
+                            break;
+                        case 4:
+                            txtViewDescription.setText("Significantly Increased");
+                            rectangle.setBackgroundResource(R.drawable.rounded_rectangle_signincreased);
+                            break;
+                        default:
+                            // Action for other values outside the range 1 to 4
+                            break;
+                    }
                 }
             });
+
 
 
             // Navigation Drawer Finders

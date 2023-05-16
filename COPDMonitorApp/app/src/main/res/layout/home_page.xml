@@ -16,17 +16,19 @@
 
         <TextView
             android:id="@+id/txtViewSOSClickable"
-            android:layout_width="wrap_content"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="110sp"
+            android:layout_marginStart="90sp"
             android:layout_marginTop="12sp"
+            android:background="@drawable/button_focused"
             android:clickable="true"
             android:drawableRight="@drawable/ic_sad"
             android:drawablePadding="10dp"
-            android:fontFamily="@font/interbold"
+            android:fontFamily="sans-serif-medium"
             android:onClick="goSOSPage"
             android:text="Feeling unweel?"
             android:textAlignment="center"
+            android:textColor="@color/lavender"
             android:textSize="22sp" />
 
         <ProgressBar
