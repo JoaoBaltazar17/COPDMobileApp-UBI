@@ -8,13 +8,26 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.slider.Slider;
+
 public class FellingUnwellPageQ1 extends AppCompatActivity {
+
+        private static String TAG = "Q1 Page";
 
         // Navigation Drawer Attributes
         DrawerLayout drawerLayout;
@@ -22,10 +35,86 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
         LinearLayout home, settings, share, about, logout;
 
 
+        // Components
+        Slider slider;
+        View rectangle;
+        TextView txtViewDescription;
+        TextView txtViewInfo1;
+        TextView txtViewInfo2;
+        Button btnConfirm;
+
+
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.fellingunwell_pageq1);
+
+
+            // Component's Finders
+            slider = findViewById(R.id.slideQ);
+            rectangle = findViewById(R.id.rectangle);
+            txtViewDescription = findViewById(R.id.txtViewDescriptionSlider);
+            txtViewInfo1 = findViewById(R.id.txtViewInformation1);
+            txtViewInfo2 = findViewById(R.id.txtViewInformation2);
+            btnConfirm = findViewById(R.id.btnConfirmP);
+
+
+            // Link in text information
+            SpannableString spannableString = new SpannableString(txtViewInfo1.getText());
+
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    Uri uri = Uri.parse("https://www.thoracic.org/");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            };
+
+            int startIndex = txtViewInfo1.getText().toString().indexOf("American Thoracic Society");
+            int endIndex = startIndex + "American Thoracic Society".length();
+
+            spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            txtViewInfo1.setText(spannableString);
+            txtViewInfo1.setMovementMethod(LinkMovementMethod.getInstance());
+
+            // Slider
+            final boolean[] isSliderClicked = {false};
+            slider.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            isSliderClicked[0] = true;
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            if (isSliderClicked[0]) {
+                                // Handle the "click" event on the Slider
+                                Log.d("Slider Example", "Slider clicked");
+                                txtViewInfo1.setVisibility(View.INVISIBLE);
+                                txtViewInfo2.setVisibility(View.INVISIBLE);
+
+                                rectangle.setVisibility(View.VISIBLE);
+                                txtViewDescription.setVisibility(View.VISIBLE);
+                                btnConfirm.setClickable(true);
+                                btnConfirm.setBackgroundResource(R.color.lavender);
+                                isSliderClicked[0] = false;
+                            }
+                            break;
+                    }
+                    return false;
+                }
+            });
+
+            slider.addOnChangeListener(new Slider.OnChangeListener() {
+                @Override
+                public void onValueChange(Slider slider, float value, boolean fromUser) {
+                    // Perform actions with the new Slider value
+                    Log.d("Slider Example", "New value: " + value);
+                }
+            });
 
 
             // Navigation Drawer Finders
@@ -117,4 +206,11 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
     public void onConfirmPag2ButtonClick(View view) {
             redirectActivity(FellingUnwellPageQ1.this, FellingUnwellPageQ2.class);
     }
+
+    public void onBackPageClick(View view) {
+            redirectActivity(FellingUnwellPageQ1.this, HomePage.class);
+    }
+
+
+
 }
