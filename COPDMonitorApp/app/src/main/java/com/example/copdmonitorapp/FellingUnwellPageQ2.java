@@ -42,8 +42,12 @@ public class FellingUnwellPageQ2 extends AppCompatActivity {
     View rectangle;
     TextView txtViewDescription;
     TextView txtViewInfo1;
-    TextView txtViewInfo2;
     Button btnConfirm;
+
+
+    // Variables
+    int slide1_value;
+    int slideValue;
 
 
 
@@ -59,7 +63,13 @@ public class FellingUnwellPageQ2 extends AppCompatActivity {
         rectangle = findViewById(R.id.rectangle);
         txtViewDescription = findViewById(R.id.txtViewDescriptionSlider);
         txtViewInfo1 = findViewById(R.id.txtViewInformation1);
-        btnConfirm = findViewById(R.id.btnConfirmP);
+        btnConfirm = findViewById(R.id.btnConfirm);
+
+
+        // Receiving value of past slider
+        Intent intent = getIntent();
+        slide1_value = intent.getIntExtra("slide_value1", 0);
+        Log.e(TAG, "Past slide value: " + slide1_value);
 
         // Slider
         final boolean[] isSliderClicked = {false};
@@ -75,11 +85,11 @@ public class FellingUnwellPageQ2 extends AppCompatActivity {
                             // Handle the "click" event on the Slider
                             Log.d("Slider Example", "Slider clicked");
                             txtViewInfo1.setVisibility(View.INVISIBLE);
-
                             rectangle.setVisibility(View.VISIBLE);
                             txtViewDescription.setVisibility(View.VISIBLE);
                             btnConfirm.setClickable(true);
                             btnConfirm.setBackgroundResource(R.color.lavender);
+
                             isSliderClicked[0] = false;
                         }
                         break;
@@ -93,16 +103,15 @@ public class FellingUnwellPageQ2 extends AppCompatActivity {
             public void onValueChange(Slider slider, float value, boolean fromUser) {
                 // Perform actions with the new Slider value
                 Log.d("Slider Example", "New value: " + value);
-                int intValue = (int) value; // Convert float value to int
+                slideValue = (int) value; // Convert float value to int
 
                 int color = getResources().getColor(R.color.lavender);
                 btnConfirm.setBackgroundTintList(ColorStateList.valueOf(color));
 
-                switch (intValue) {
+                switch (slideValue) {
                     case 1:
                         txtViewDescription.setText("Stable");
                         rectangle.setBackgroundResource(R.drawable.rounded_rectangle_stable);
-                        btnConfirm.setClickable(true);
                         break;
                     case 2:
                         txtViewDescription.setText("Slightly Increased");
@@ -211,8 +220,13 @@ public class FellingUnwellPageQ2 extends AppCompatActivity {
     }
 
 
-    public void onConfirmPag2ButtonClick(View view) {
-        redirectActivity(FellingUnwellPageQ2.this, FellingUnwellPageQ2.class);
+    public void onConfirmPagButtonClick(View view) {
+        if(slideValue != 0) {
+            Intent intent = new Intent(FellingUnwellPageQ2.this, FellingUnwellPageQ3.class);
+            intent.putExtra("slide_value1", slide1_value);
+            intent.putExtra("slide_value2", slideValue);
+            startActivity(intent);
+        }
     }
 
     public void onBackPageClick(View view) {

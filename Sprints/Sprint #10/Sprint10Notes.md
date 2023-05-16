@@ -14,7 +14,7 @@
   - [x] Colocar operacional para serem registados valores e guardados na bd 
   
 - [ ] 3. Perguntas SOS
-  - [ ] Ajustar layout 
-  - [ ] Através de cada opção selecionada -> Definir um nível (Guardar na BD) -> Registar esse nível na bd
+  - [x] Ajustar layout 
+  - [x] Através de cada opção selecionada -> Definir um nível (Guardar na BD) -> Registar esse nível na bd
 
 

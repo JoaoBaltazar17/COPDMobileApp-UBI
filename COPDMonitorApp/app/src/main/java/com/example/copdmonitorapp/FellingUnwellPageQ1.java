@@ -46,6 +46,10 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
         Button btnConfirm;
 
 
+        // Variables
+        int slideValue = 0;
+
+
 
         @SuppressLint("ClickableViewAccessibility")
         @Override
@@ -60,7 +64,7 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
             txtViewDescription = findViewById(R.id.txtViewDescriptionSlider);
             txtViewInfo1 = findViewById(R.id.txtViewInformation1);
             txtViewInfo2 = findViewById(R.id.txtViewInformation2);
-            btnConfirm = findViewById(R.id.btnConfirmP);
+            btnConfirm = findViewById(R.id.btnConfirm);
 
 
             // Link in text information
@@ -116,12 +120,12 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
                 public void onValueChange(Slider slider, float value, boolean fromUser) {
                     // Perform actions with the new Slider value
                     Log.d("Slider Example", "New value: " + value);
-                    int intValue = (int) value; // Convert float value to int
+                    slideValue = (int) value; // Convert float value to int
 
                     int color = getResources().getColor(R.color.lavender);
                     btnConfirm.setBackgroundTintList(ColorStateList.valueOf(color));
 
-                    switch (intValue) {
+                    switch (slideValue) {
                         case 1:
                             txtViewDescription.setText("Stable");
                             rectangle.setBackgroundResource(R.drawable.rounded_rectangle_stable);
@@ -234,8 +238,12 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
         }
 
 
-    public void onConfirmPag2ButtonClick(View view) {
-            redirectActivity(FellingUnwellPageQ1.this, FellingUnwellPageQ2.class);
+    public void onConfirmPagButtonClick(View view) {
+        if(slideValue != 0) {
+            Intent intent = new Intent(FellingUnwellPageQ1.this, FellingUnwellPageQ2.class);
+            intent.putExtra("slide_value1", slideValue);
+            startActivity(intent);
+        }
     }
 
     public void onBackPageClick(View view) {

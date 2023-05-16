@@ -73,7 +73,7 @@
             android:layout_gravity="center"
             android:stepSize="1.0"
             android:valueFrom="1.0"
-            android:valueTo="5.0" />
+            android:valueTo="4.0" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -129,15 +129,17 @@
         </FrameLayout>
 
         <Button
-            android:id="@+id/btnConfirmP"
+            android:id="@+id/btnConfirm"
             android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:text="Confirm"
             android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:backgroundTint="@color/grey"
             android:layout_marginStart="95sp"
             android:layout_marginTop="15sp"
-            android:onClick="onConfirmPag2ButtonClick" />
+            android:onClick="onConfirmPagButtonClick" />
 
         <TextView
             android:id="@+id/txtViewPageNumeric"
@@ -150,17 +152,7 @@
             android:textAlignment="viewStart"
             android:textSize="22sp" />
 
-        <TextView
-            android:id="@+id/txtViewNextPage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="260sp"
-            android:visibility="invisible"
-            android:clickable="true"
-            android:onClick="onAdvancePageClick"
-            android:layout_marginTop="-36sp"
-            android:drawableStart="@drawable/ic_navigatenext"
-            android:drawablePadding="100sp" />
+
 
 
 
