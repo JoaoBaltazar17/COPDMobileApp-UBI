@@ -47,7 +47,8 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
 
 
         // Variables
-        int slideValue = 0;
+        int slideValueClick = 0;
+        int slideValue;
 
 
 
@@ -103,6 +104,7 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
                                 txtViewInfo1.setVisibility(View.INVISIBLE);
                                 txtViewInfo2.setVisibility(View.INVISIBLE);
 
+                                slideValueClick = 1;
                                 rectangle.setVisibility(View.VISIBLE);
                                 txtViewDescription.setVisibility(View.VISIBLE);
                                 btnConfirm.setClickable(true);
@@ -126,20 +128,31 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
                     btnConfirm.setBackgroundTintList(ColorStateList.valueOf(color));
 
                     switch (slideValue) {
+                        case 0:
+                            txtViewDescription.setText("Very Stable");
+                            rectangle.setBackgroundResource(R.drawable.rounded_rectangle_verystable);
+                            btnConfirm.setClickable(true);
+                            break;
                         case 1:
                             txtViewDescription.setText("Stable");
                             rectangle.setBackgroundResource(R.drawable.rounded_rectangle_stable);
                             btnConfirm.setClickable(true);
                             break;
                         case 2:
+                            txtViewDescription.setText("Moderate");
+                            rectangle.setBackgroundResource(R.drawable.rounded_rectangle_moderate);
+                            Log.e("BUG", "BOAS");
+                            btnConfirm.setClickable(true);
+                            break;
+                        case 3:
                             txtViewDescription.setText("Slightly Increased");
                             rectangle.setBackgroundResource(R.drawable.rounded_rectangle_slightlyincreased);
                             break;
-                        case 3:
+                        case 4:
                             txtViewDescription.setText("Moderately Increased");
                             rectangle.setBackgroundResource(R.drawable.rounded_rectangle_modeincreased);
                             break;
-                        case 4:
+                        case 5:
                             txtViewDescription.setText("Significantly Increased");
                             rectangle.setBackgroundResource(R.drawable.rounded_rectangle_signincreased);
                             break;
@@ -239,7 +252,8 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
 
 
     public void onConfirmPagButtonClick(View view) {
-        if(slideValue != 0) {
+            Log.e(TAG, "Slide value while confirm: " + slideValue);
+        if(slideValueClick != 0) {
             Intent intent = new Intent(FellingUnwellPageQ1.this, FellingUnwellPageQ2.class);
             intent.putExtra("slide_value1", slideValue);
             startActivity(intent);

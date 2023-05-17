@@ -10,6 +10,6 @@
   - [ ]  Modificação tabela (sensor 1 / sensor 2 / sensor 3 / sensor 4) -> Criar uma tabela que a cada sensor esteja a corresponder o nome de uma variável .
   - [ ]  Modificar código
   
-- [ ] 3. Perguntas SOS
-  - [ ] Modificar tabela para guardar o score de cada pergunta
+- [x] 3. Perguntas SOS
+  - [x] Modificar tabela para guardar o score de cada pergunta
   - [ ] Melhorar página final

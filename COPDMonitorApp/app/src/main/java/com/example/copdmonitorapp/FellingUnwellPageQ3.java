@@ -49,6 +49,7 @@ public class FellingUnwellPageQ3 extends AppCompatActivity {
     int slide2_value;
     int slide1_value;
     int slideValue;
+    int slideValueClick = 0;
 
 
 
@@ -91,6 +92,7 @@ public class FellingUnwellPageQ3 extends AppCompatActivity {
                             txtViewDescription.setVisibility(View.VISIBLE);
                             btnConfirm.setClickable(true);
                             btnConfirm.setBackgroundResource(R.color.lavender);
+                            slideValueClick = 1;
 
                             isSliderClicked[0] = false;
                         }
@@ -111,20 +113,31 @@ public class FellingUnwellPageQ3 extends AppCompatActivity {
                 btnConfirm.setBackgroundTintList(ColorStateList.valueOf(color));
 
                 switch (slideValue) {
+                    case 0:
+                        txtViewDescription.setText("Very Stable");
+                        rectangle.setBackgroundResource(R.drawable.rounded_rectangle_verystable);
+                        btnConfirm.setClickable(true);
+                        break;
                     case 1:
-                        txtViewDescription.setText("Normal");
+                        txtViewDescription.setText("Stable");
                         rectangle.setBackgroundResource(R.drawable.rounded_rectangle_stable);
+                        btnConfirm.setClickable(true);
                         break;
                     case 2:
-                        txtViewDescription.setText("Yellow");
-                        rectangle.setBackgroundResource(R.drawable.rounded_rectangle_slightlyincreased);
+                        txtViewDescription.setText("Moderate");
+                        rectangle.setBackgroundResource(R.drawable.rounded_rectangle_moderate);
+                        btnConfirm.setClickable(true);
                         break;
                     case 3:
-                        txtViewDescription.setText("Light Green");
-                        rectangle.setBackgroundResource(R.drawable.rounded_rectangle_modeincreased);
+                        txtViewDescription.setText("Slightly Increased");
+                        rectangle.setBackgroundResource(R.drawable.rounded_rectangle_slightlyincreased);
                         break;
                     case 4:
-                        txtViewDescription.setText("Green / Brown");
+                        txtViewDescription.setText("Moderately Increased");
+                        rectangle.setBackgroundResource(R.drawable.rounded_rectangle_modeincreased);
+                        break;
+                    case 5:
+                        txtViewDescription.setText("Significantly Increased");
                         rectangle.setBackgroundResource(R.drawable.rounded_rectangle_signincreased);
                         break;
                     default:

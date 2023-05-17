@@ -17,7 +17,6 @@
             android:id="@+id/txtViewSOSClickableTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="110sp"
             android:layout_marginTop="20sp"
             android:clickable="false"
             android:drawableRight="@drawable/ic_sad"
@@ -25,26 +24,41 @@
             android:fontFamily="@font/interbold"
             android:onClick="goSOSPage"
             android:text="Feeling unweel?"
-            android:textAlignment="center"
+            android:layout_gravity="center"
             android:textSize="22sp" />
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
         <TextView
-            android:id="@+id/txtViewIconEmoji"
+            android:id="@+id/txtViewImageVector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="190sp"
-            android:layout_marginTop="15sp"
-            android:padding="10px"
-            android:drawableStart="@drawable/ic_sentimentdissa"
-            android:textAlignment="viewStart"
-            android:textSize="25sp" />
+            android:drawableLeft="@drawable/ic_questionhappy"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:drawablePadding="20dp"/>
+
+        <TextView
+            android:id="@+id/txtViewtTestResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Test Result %"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:layout_gravity="center" />
+
 
         <TextView
             android:id="@+id/txtViewTitleInstructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="95sp"
-            android:layout_marginTop="65sp"
+            android:layout_marginTop="25sp"
             android:text="WHAT TO DO NEXT"
             android:textAlignment="viewStart"
             android:textSize="25sp" />
@@ -53,9 +67,9 @@
             android:id="@+id/textViewInst1"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30sp"
             android:layout_marginTop="45sp"
             android:text="Instruction 1"
+            android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textColor="#000000"
@@ -65,9 +79,9 @@
             android:id="@+id/textViewInst2"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30sp"
             android:layout_marginTop="45sp"
             android:text="Instruction 2"
+            android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textColor="#000000"
@@ -77,9 +91,9 @@
             android:id="@+id/textViewInst3"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30sp"
             android:layout_marginTop="45sp"
             android:text="Instruction 3"
+            android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textColor="#000000"
@@ -89,22 +103,26 @@
             android:id="@+id/textViewInst4"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30sp"
             android:layout_marginTop="45sp"
             android:text="Instruction 4"
             android:textAlignment="center"
+            android:layout_gravity="center"
             android:textSize="18sp"
             android:textColor="#000000"
             />
 
         <Button
-            android:id="@+id/btnGoHome"
-            android:layout_width="200sp"
+            android:id="@+id/btnShareResultsQuestion"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Home"
-            android:layout_marginStart="110sp"
-            android:layout_marginTop="105sp"
-            android:onClick="onHomeButtonClick" />
+            android:text="SHARE DETAILED REPORT"
+            android:layout_gravity="center"
+            android:background="@drawable/rectangle_background"
+            android:onClick="sendDetailedReportQuestionnaire"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:layout_marginTop="70dp"
+            />
 
     </LinearLayout>
 

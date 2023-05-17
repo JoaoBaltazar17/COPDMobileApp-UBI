@@ -22,4 +22,10 @@
     <color name="redSOLID">#8B0000</color>
     <color name="green">#006400</color>
     <color name="grey">#D7D7D7</color>
+    <color name="larangesolid">#FF6347</color>
+    <color name="yellowsolid">#FFFF00</color>
+    <color name="greensolid">#7CFC00</color>
+    <color name="greenpastelight">#cff6c8</color>
+    <color name="greylight">#ffffef</color>
+    <color name="lightyellow">#FFFFE0</color>
 </resources>

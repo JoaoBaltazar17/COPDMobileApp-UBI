@@ -60,6 +60,7 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
     int slide_sumValues;
 
     int slideValue;
+    int slideValueClick = 0;
     String emailShared;
     String nameShared;
 
@@ -110,6 +111,7 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
                             txtViewDescription.setVisibility(View.VISIBLE);
                             btnConfirm.setClickable(true);
                             btnConfirm.setBackgroundResource(R.color.lavender);
+                            slideValueClick = 1;
 
                             isSliderClicked[0] = false;
                         }
@@ -130,19 +132,30 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
                 btnConfirm.setBackgroundTintList(ColorStateList.valueOf(color));
 
                 switch (slideValue) {
+                    case 0:
+                        txtViewDescription.setText("Very Stable");
+                        rectangle.setBackgroundResource(R.drawable.rounded_rectangle_verystable);
+                        btnConfirm.setClickable(true);
+                        break;
                     case 1:
                         txtViewDescription.setText("Stable");
                         rectangle.setBackgroundResource(R.drawable.rounded_rectangle_stable);
+                        btnConfirm.setClickable(true);
                         break;
                     case 2:
+                        txtViewDescription.setText("Moderate");
+                        rectangle.setBackgroundResource(R.drawable.rounded_rectangle_moderate);
+                        btnConfirm.setClickable(true);
+                        break;
+                    case 3:
                         txtViewDescription.setText("Slightly Increased");
                         rectangle.setBackgroundResource(R.drawable.rounded_rectangle_slightlyincreased);
                         break;
-                    case 3:
+                    case 4:
                         txtViewDescription.setText("Moderately Increased");
                         rectangle.setBackgroundResource(R.drawable.rounded_rectangle_modeincreased);
                         break;
-                    case 4:
+                    case 5:
                         txtViewDescription.setText("Significantly Increased");
                         rectangle.setBackgroundResource(R.drawable.rounded_rectangle_signincreased);
                         break;
@@ -242,9 +255,8 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
 
 
     public void onConfirmPagButtonClick(View view) {
-        if (slideValue != 0) {
-            slide_sumValues = slide1_value + slide2_value + slide3_value + slideValue;
-            new SaveQuestionnaireAnswers().execute(String.valueOf(slide_sumValues));
+        if (slideValueClick != 0) {
+            new SaveQuestionnaireAnswers().execute(String.valueOf(slide1_value), String.valueOf(slide2_value), String.valueOf(slide3_value), String.valueOf(slideValue));
         }
     }
 
@@ -265,8 +277,11 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            int sumAnswers = Integer.parseInt(params[0]);
-            Log.e(TAG, "Valor recebido da soma: " + slide_sumValues);
+            int slide1 = Integer.parseInt(params[0]);
+            int slide2 = Integer.parseInt(params[1]);
+            int slide3 = Integer.parseInt(params[2]);
+            int slide4 = Integer.parseInt(params[3]);
+            Log.e(TAG, "Slide 1: " + slide1 + "\n Slide 2:" + slide2 +  "\n Slide 3:" + slide3 +  "\n Slide 4:" + slide4);
 
 
             String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
@@ -289,12 +304,15 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
                             return false;
                         }
                         Log.e(TAG, "Cheguei");
-                        String sql = "INSERT INTO questionnairesos (date, sumquestions, idpatient) VALUES (?, ?, ?)";
+                        String sql = "INSERT INTO questionnairesos (date, q1_pont, q2_pont, q3_pont, q4_pont , idpatient) VALUES (?, ?, ?, ?, ?, ?)";
                         try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
                             // set the parameter values
                             pstmt2.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
-                            pstmt2.setInt(2, sumAnswers);
-                            pstmt2.setInt(3, patientId);
+                            pstmt2.setInt(2, slide1);
+                            pstmt2.setInt(3, slide2);
+                            pstmt2.setInt(4, slide3);
+                            pstmt2.setInt(5, slide4);
+                            pstmt2.setInt(6, patientId);
                             pstmt2.executeUpdate();
                         }
                         return true;
@@ -313,7 +331,10 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
 
             if (result) {
                 Intent intent = new Intent(FellingUnwellPageQ4.this, FellingUnwellPageQ5.class);
-                intent.putExtra("sumAnwsers", slide_sumValues);
+                intent.putExtra("slide_value1", slide1_value);
+                intent.putExtra("slide_value2", slide2_value);
+                intent.putExtra("slide_value3", slide3_value);
+                intent.putExtra("slide_value4", slideValue);
                 startActivity(intent);
             } else {
                 Toast.makeText(FellingUnwellPageQ4.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
