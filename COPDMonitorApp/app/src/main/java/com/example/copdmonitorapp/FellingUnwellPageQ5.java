@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +35,7 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
         TextView txtViewInstruction3;
         TextView txtViewInstruction4;
         Button btnShareResultsQuestionnaire;
+        Drawable drawable;
 
 
         // Slide Values
@@ -66,11 +68,158 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
             slide2_value = intent.getIntExtra("slide_value2", 0);
             slide3_value = intent.getIntExtra("slide_value3", 0);
             slide4_value = intent.getIntExtra("slide_value4", 0);
-            Log.e("VALUE SLIDES", "SLIDE 1: " + slide1_value + "\nSLIDE 2: " + slide2_value + "\nSLIDE 3: " + slide3_value + "\nSLIDE 4: " + slide4_value);
 
             // Display percentage, drawable and instructions depending on information:
             sumSlides = slide1_value + slide2_value + slide3_value + slide4_value;
+            Log.e("VALUE SLIDES", "SLIDE 1: " + slide1_value + "\nSLIDE 2: " + slide2_value + "\nSLIDE 3: " + slide3_value + "\nSLIDE 4: " + slide4_value + "\nSUM: " + sumSlides);
 
+            switch (sumSlides) {
+                case 0:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionhappy);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.noimpact_inst1));
+                    txtViewInstruction2.setText(getString(R.string.noimpact_inst2));
+                    txtViewInstruction3.setText(getString(R.string.noimpact_inst3));
+                    txtViewInstruction4.setText(getString(R.string.noimpact_inst4));
+                    */
+                    break;
+                case 1:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionhappy);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.noimpact_inst1));
+                    txtViewInstruction2.setText(getString(R.string.noimpact_inst2));
+                    txtViewInstruction3.setText(getString(R.string.noimpact_inst3));
+                    txtViewInstruction4.setText(getString(R.string.noimpact_inst4));
+                    */
+                    break;
+                case 2:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionhappy);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.noimpact_inst1));
+                    txtViewInstruction2.setText(getString(R.string.noimpact_inst2));
+                    txtViewInstruction3.setText(getString(R.string.noimpact_inst3));
+                    txtViewInstruction4.setText(getString(R.string.noimpact_inst4));
+                    */
+                    break;
+                case 3:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionmoderate);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.moderate_inst1));
+                    txtViewInstruction2.setText(getString(R.string.moderate_inst2));
+                    txtViewInstruction3.setText(getString(R.string.moderate_inst3));
+                    txtViewInstruction4.setText(getString(R.string.moderate_inst4));
+                    */
+                    break;
+                case 4:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionmoderate);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.moderate_inst1));
+                    txtViewInstruction2.setText(getString(R.string.moderate_inst2));
+                    txtViewInstruction3.setText(getString(R.string.moderate_inst3));
+                    txtViewInstruction4.setText(getString(R.string.moderate_inst4));
+                    */
+                    break;
+                case 5:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionmoderate);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.moderate_inst1));
+                    txtViewInstruction2.setText(getString(R.string.moderate_inst2));
+                    txtViewInstruction3.setText(getString(R.string.moderate_inst3));
+                    txtViewInstruction4.setText(getString(R.string.moderate_inst4));
+                    */
+                    break;
+                case 6:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionmoderate);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.moderate_inst1));
+                    txtViewInstruction2.setText(getString(R.string.moderate_inst2));
+                    txtViewInstruction3.setText(getString(R.string.moderate_inst3));
+                    txtViewInstruction4.setText(getString(R.string.moderate_inst4));
+                    */
+                    break;
+                case 7:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionsad);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.sad_inst1));
+                    txtViewInstruction2.setText(getString(R.string.sad_inst2));
+                    txtViewInstruction3.setText(getString(R.string.sad_inst3));
+                    txtViewInstruction4.setText(getString(R.string.sad_inst4));
+                    */
+                    break;
+                case 8:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionsad);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.sad_inst1));
+                    txtViewInstruction2.setText(getString(R.string.sad_inst2));
+                    txtViewInstruction3.setText(getString(R.string.sad_inst3));
+                    txtViewInstruction4.setText(getString(R.string.sad_inst4));
+                    */
+                    break;
+                case 9:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionsad);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.sad_inst1));
+                    txtViewInstruction2.setText(getString(R.string.sad_inst2));
+                    txtViewInstruction3.setText(getString(R.string.sad_inst3));
+                    txtViewInstruction4.setText(getString(R.string.sad_inst4));
+                    */
+                    break;
+                case 10:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionsad);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.sad_inst1));
+                    txtViewInstruction2.setText(getString(R.string.sad_inst2));
+                    txtViewInstruction3.setText(getString(R.string.sad_inst3));
+                    txtViewInstruction4.setText(getString(R.string.sad_inst4));
+                    */
+                    break;
+                case 11:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionverysad);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.verysad_inst1));
+                    txtViewInstruction2.setText(getString(R.string.verysad_inst2));
+                    txtViewInstruction3.setText(getString(R.string.verysad_inst3));
+                    txtViewInstruction4.setText(getString(R.string.verysad_inst4));
+                    */
+                    break;
+                case 12:
+                    drawable = getResources().getDrawable(R.drawable.ic_questionverysad);
+                    txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    txtViewTestResult.setText("Test Result: " + sumSlides + "/ [0 - 12]");
+                    /*
+                    txtViewInstruction1.setText(getString(R.string.verysad_inst1));
+                    txtViewInstruction2.setText(getString(R.string.verysad_inst2));
+                    txtViewInstruction3.setText(getString(R.string.verysad_inst3));
+                    txtViewInstruction4.setText(getString(R.string.verysad_inst4));
+                    */
+                    break;
+                default:
+                    break;
+            }
 
 
 

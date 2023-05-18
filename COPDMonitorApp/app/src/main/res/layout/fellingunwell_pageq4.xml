@@ -74,7 +74,7 @@
             android:layout_gravity="center"
             android:stepSize="1.0"
             android:valueFrom="0.0"
-            android:valueTo="5.0" />
+            android:valueTo="4.0" />
 
         <FrameLayout
             android:layout_width="match_parent"
