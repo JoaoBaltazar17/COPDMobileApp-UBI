@@ -206,10 +206,10 @@ public class DailyRecordsPage extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            float PaCO2 = Float.parseFloat(params[0]);
-            float PaO2 = Float.parseFloat(params[1]);
-            int RespiratoryFreq= Integer.parseInt(params[2]);
-            float Temperature = Float.parseFloat(params[3]);
+            float v1 = Float.parseFloat(params[0]);
+            float v2 = Float.parseFloat(params[1]);
+            int v3 = Integer.parseInt(params[2]);
+            float v4 = Float.parseFloat(params[3]);
 
 
             String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
@@ -231,17 +231,37 @@ public class DailyRecordsPage extends AppCompatActivity {
                             System.out.println("No patient found with that email address.");
                             return false;
                         }
-                        Log.e(TAG, "Cheguei");
-                        String sql = "INSERT INTO dailyrecords (paco2, pao2, respiratory_freq, temperature, timestamp, idpatient) VALUES (?, ?, ?, ?, ?, ?)";
+                        String sql = "INSERT INTO sensordetect (timestamp, value, idsensor, idpatient) VALUES (?, ?, ?, ?), (?, ?, ?, ?), (?, ?, ?, ?), (?, ?, ?, ?)";
+
                         try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
-                                // set the parameter values
-                                pstmt2.setFloat(1, PaCO2);
-                                pstmt2.setFloat(2, PaO2);
-                                pstmt2.setInt(3, RespiratoryFreq);
-                                pstmt2.setFloat(4, Temperature);
-                                pstmt2.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
-                                pstmt2.setInt(6, patientId);
-                                pstmt2.executeUpdate();
+                            Timestamp ts = new Timestamp(System.currentTimeMillis());
+
+                            // Set values for the first row
+                            pstmt2.setTimestamp(1, ts);
+                            pstmt2.setFloat(2, v1);
+                            pstmt2.setInt(3, 1);
+                            pstmt2.setInt(4, patientId);
+
+                            // Set values for the second row
+                            pstmt2.setTimestamp(5, ts);
+                            pstmt2.setFloat(6, v2);
+                            pstmt2.setInt(7, 2);
+                            pstmt2.setInt(8, patientId);
+
+                            // Set values for the thirst row
+                            pstmt2.setTimestamp(9, ts);
+                            pstmt2.setFloat(10, v3);
+                            pstmt2.setInt(11, 3);
+                            pstmt2.setInt(12, patientId);
+
+                            // Set values for the first row
+                            pstmt2.setTimestamp(13, ts);
+                            pstmt2.setFloat(14, v4);
+                            pstmt2.setInt(15, 4);
+                            pstmt2.setInt(16, patientId);
+
+                            // Execute the query
+                            pstmt2.executeUpdate();
                         }
                         return true;
                     }

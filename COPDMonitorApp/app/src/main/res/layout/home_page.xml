@@ -75,7 +75,7 @@
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
                 android:onClick="goToDailyRecordsPage"
-                android:text="Daily Records" />
+                android:text="Sensor shot" />
 
             <Button
                 android:id="@+id/btnMedication"

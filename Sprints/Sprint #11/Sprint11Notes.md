@@ -6,10 +6,13 @@
   - [ ]  Traçar gráfico norma da aceleração
   - [ ]  Montares o algoritmo de contagem de passos.
 
-- [ ]  2. Daily Records 
-  - [ ]  Modificação tabela (sensor 1 / sensor 2 / sensor 3 / sensor 4) -> Criar uma tabela que a cada sensor esteja a corresponder o nome de uma variável .
-  - [ ]  Modificar código
+- [X]  2. Daily Records 
+  - [X]  Modificação tabela (sensor 1 / sensor 2 / sensor 3 / sensor 4) -> Criar uma tabela que a cada sensor esteja a corresponder o nome de uma variável .
+  - [X]  Modificar código
+
+
+- [ ] 3. Colocar BD de acordo com FHIR
   
 - [x] 3. Perguntas SOS
   - [x] Modificar tabela para guardar o score de cada pergunta
-  - [ ] Melhorar página final
+  - [x] Melhorar página final
