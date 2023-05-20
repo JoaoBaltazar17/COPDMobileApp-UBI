@@ -60,7 +60,7 @@
             android:layout_width="390dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="90sp"
-            android:text="How is your condition when you walk up a hill?"
+            android:text="@string/question4"
             android:textAlignment="center"
             android:layout_gravity="center"
             android:textSize="22sp" />

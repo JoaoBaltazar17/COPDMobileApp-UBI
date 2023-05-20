@@ -2,4 +2,8 @@
     <string name="app_name">COPDMonitorApp</string>
     <string name="select">Select Item</string>
     <string name="wait_for_the_virtual_provider_answer">Wait for the Virtual Provider Answer</string>
+    <string name="question1">How is your cough today?</string>
+    <string name="question2">How is your mucus chest today?</string>
+    <string name="question3">How was your sleep last night?</string>
+    <string name="question4">How is your condition when you walk up a hill?</string>
 </resources>

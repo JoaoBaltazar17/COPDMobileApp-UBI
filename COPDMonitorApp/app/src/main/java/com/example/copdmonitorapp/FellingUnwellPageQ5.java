@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,10 +18,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
 public class FellingUnwellPageQ5 extends AppCompatActivity {
+
 
         // Navigation Drawer Attributes
         DrawerLayout drawerLayout;
@@ -47,10 +68,18 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
         int sumSlides;
 
 
+        String pacientLoggedEmail;
+        String pacientLoggedName;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.fellingunwell_pageq5);
+
+            // Retrieve user's login credentials
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            pacientLoggedEmail = sharedPreferences.getString("email", "");
+            pacientLoggedName = sharedPreferences.getString("name", "");
 
 
             // Component Finder's
@@ -201,5 +230,99 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
 
 
     public void sendDetailedReportQuestionnaire(View view) {
+
+        ArrayList<String> contentPDF = new ArrayList<>();
+
+        String sosDate = getCurrentDateString();
+        contentPDF.add(sosDate);
+
+        // Generate PDF file with the given string
+        String pacientemailpdf = "Pacient Email: " + pacientLoggedEmail;
+        contentPDF.add(pacientemailpdf);
+
+        String pacientnamepdf = "Pacient Name: " + pacientLoggedName;
+        contentPDF.add(pacientnamepdf);
+
+        String question1 = "Question 1: " + getString(R.string.question1);
+        contentPDF.add(question1);
+        String answer1 = "Patient Answer: " + slide1_value;
+        contentPDF.add(answer1);
+
+        String question2 = "Question 2: " +getString(R.string.question2);
+        contentPDF.add(question2);
+        String answer2 = "Patient Answer: " + slide2_value;
+        contentPDF.add(answer2);
+
+        String question3 = "Question 3: " + getString(R.string.question3);
+        contentPDF.add(question3);
+        String answer3 = "Patient Answer: " + slide3_value;
+        contentPDF.add(answer3);
+
+        String question4 = "Question 4: " + getString(R.string.question4);
+        contentPDF.add(question4);
+        String answer4 = "Patient Answer: " + slide4_value;
+        contentPDF.add(answer4);
+
+        String finalresult = "Final Result: " + sumSlides + "  {0 - 16}";
+        contentPDF.add(finalresult);
+
+        String description = "This test has made in COPD Monitor App!";
+        contentPDF.add(description);
+
+
+
+        File pdfFile = generatePDF(contentPDF);
+
+        sendFileViaIntent(pdfFile, "application/pdf", "PDF File - Report SOS ");
     }
+
+    private File generatePDF(ArrayList<String> content) {
+        File pdfFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "my_pdf_file.pdf");
+
+        try {
+            PdfWriter writer = new PdfWriter(new FileOutputStream(pdfFile));
+            PdfDocument pdfDoc = new PdfDocument(writer);
+            Document document = new Document(pdfDoc);
+            for (String string : content) {
+                Paragraph p = new Paragraph(string);
+                // Adjust the spacing before and after each paragraph
+                p.setMarginTop(10);
+                p.setMarginBottom(10);
+                document.add(p);
+
+            }
+            document.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return pdfFile;
+    }
+
+    private void sendFileViaIntent(File file, String mimeType, String title) {
+        Uri fileUri = FileProvider.getUriForFile(this, "com.example.copdmonitorapp", file);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType(mimeType);
+        intent.putExtra(Intent.EXTRA_SUBJECT, title);
+        intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // Add this line
+
+        startActivity(Intent.createChooser(intent, "Share file via..."));
+    }
+
+
+
+
+
+    // Date
+
+    private String getCurrentDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+        String currentDate = sdf.format(new Date());
+        return currentDate;
+    }
+
+
+
 }
