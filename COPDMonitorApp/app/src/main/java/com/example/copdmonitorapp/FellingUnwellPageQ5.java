@@ -240,7 +240,7 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
         String pacientemailpdf = "Pacient Email: " + pacientLoggedEmail;
         contentPDF.add(pacientemailpdf);
 
-        String pacientnamepdf = "Pacient Name: " + pacientLoggedEmail;
+        String pacientnamepdf = "Pacient Name: " + pacientLoggedName;
         contentPDF.add(pacientnamepdf);
 
         String question1 = "Question 1: " + getString(R.string.question1);
