@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SEND_EMAIL" />
 
     <application
         android:allowBackup="true"
@@ -70,6 +73,17 @@
         <activity android:name=".FellingUnwellPageQ5" />
         <activity android:name=".ExerciseMenuPage" />
         <activity android:name=".MedicationPage" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.copdmonitorapp"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
     </application>
 
 </manifest>

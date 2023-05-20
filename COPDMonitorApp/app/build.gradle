@@ -38,4 +38,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation files('libs/postgresql-42.2.9.jar')
+    implementation 'com.itextpdf:itext7-core:7.1.16'
+
 }

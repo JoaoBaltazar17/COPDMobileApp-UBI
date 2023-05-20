@@ -149,10 +149,6 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
                             rectangle.setBackgroundResource(R.drawable.rounded_rectangle_slightlyincreased);
                             break;
                         case 4:
-                            txtViewDescription.setText("Moderately Increased");
-                            rectangle.setBackgroundResource(R.drawable.rounded_rectangle_modeincreased);
-                            break;
-                        case 5:
                             txtViewDescription.setText("Significantly Increased");
                             rectangle.setBackgroundResource(R.drawable.rounded_rectangle_signincreased);
                             break;

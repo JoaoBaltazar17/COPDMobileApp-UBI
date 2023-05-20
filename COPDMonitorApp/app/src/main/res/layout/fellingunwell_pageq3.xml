@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="90sp"
-            android:text="How was your sleep last night?"
+            android:text="@string/question3"
             android:layout_gravity="center"
             android:textSize="22sp" />
 
