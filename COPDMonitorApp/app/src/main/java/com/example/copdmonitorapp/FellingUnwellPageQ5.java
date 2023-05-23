@@ -231,7 +231,6 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
 
     public void sendDetailedReportQuestionnaire(View view) {
 
-<<<<<<< Updated upstream
         ArrayList<String> contentPDF = new ArrayList<>();
 
         String sosDate = getCurrentDateString();
@@ -249,7 +248,7 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
         String answer1 = "Patient Answer: " + slide1_value;
         contentPDF.add(answer1);
 
-        String question2 = "Question 2: " +getString(R.string.question2);
+        String question2 = "Question 2: " + getString(R.string.question2);
         contentPDF.add(question2);
         String answer2 = "Patient Answer: " + slide2_value;
         contentPDF.add(answer2);
@@ -271,12 +270,9 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
         contentPDF.add(description);
 
 
-
         File pdfFile = generatePDF(contentPDF);
 
         sendFileViaIntent(pdfFile, "application/pdf", "PDF File - Report SOS ");
-=======
->>>>>>> Stashed changes
     }
 
     private File generatePDF(ArrayList<String> content) {
@@ -313,9 +309,6 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
 
         startActivity(Intent.createChooser(intent, "Share file via..."));
     }
-
-
-
 
 
     // Date
