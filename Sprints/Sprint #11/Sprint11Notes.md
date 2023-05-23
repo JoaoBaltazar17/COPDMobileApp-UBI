@@ -3,7 +3,7 @@
 # Order of The Week
 
 - [ ]  1. Aplicação Count Steps / Norma Aceleração gráfico -> Ver "sinóides" -> Quando isso acontecer conta um passo
-  - [ ]  Traçar gráfico norma da aceleração
+  - [x]  Traçar gráfico norma da aceleração
   - [ ]  Montares o algoritmo de contagem de passos.
 
 - [X]  2. Daily Records 
@@ -15,4 +15,4 @@
   
 - [x] 3. Perguntas SOS
   - [x] Modificar tabela para guardar o score de cada pergunta
-  - [x] Melhorar página final
+  - [x] Melhorar página final (textos, imagens a partir de Scores, Botão que faz um pdf)
