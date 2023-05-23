@@ -69,7 +69,9 @@ public class RegisterPage extends AppCompatActivity {
         String severity = btnSeverity.getText().toString();
         String dateB = dateButton.getText().toString();
 
-        if (email.isEmpty() || password.isEmpty() || passwordRepeat.isEmpty()) {
+        Log.e(TAG, "Date default: " + dateB + " /  Severity default: " + severity);
+
+        if (email.isEmpty() || password.isEmpty() || passwordRepeat.isEmpty() || dateB.equals("Date of Birth")) {
             // Empty fields
             Toast.makeText(RegisterPage.this, "Hey there! It seems like you left some fields empty!", Toast.LENGTH_LONG).show();
             return;
@@ -126,7 +128,7 @@ public class RegisterPage extends AppCompatActivity {
                         int count = rs.getInt(1);
                         if (count == 0) {
                             // User does not exist, insert into database
-                            String insertQuery = "INSERT INTO Patient (email, password, salt, name, age, copd_severity) VALUES (?, ?, ?, ?, ?, ?)";
+                            String insertQuery = "INSERT INTO Patient (email, password, salt, name, date_birth_mmddaaaa, copd_severity) VALUES (?, ?, ?, ?, ?, ?)";
                             try (PreparedStatement pstmt2 = conn.prepareStatement(insertQuery)) {
                                 pstmt2.setString(1, email);
                                 pstmt2.setString(2, hashedPassword);

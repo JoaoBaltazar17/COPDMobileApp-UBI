@@ -13,6 +13,8 @@
 
 - [ ] 3. Colocar BD de acordo com FHIR
   
-- [x] 3. Perguntas SOS
+- [x] 4. Perguntas SOS
   - [x] Modificar tabela para guardar o score de cada pergunta
   - [x] Melhorar página final (textos, imagens a partir de Scores, Botão que faz um pdf)
+
+- [x] 5. Aplicar dicas do Diogo ao protótipo
