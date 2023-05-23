@@ -231,6 +231,7 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
 
     public void sendDetailedReportQuestionnaire(View view) {
 
+<<<<<<< Updated upstream
         ArrayList<String> contentPDF = new ArrayList<>();
 
         String sosDate = getCurrentDateString();
@@ -274,6 +275,8 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
         File pdfFile = generatePDF(contentPDF);
 
         sendFileViaIntent(pdfFile, "application/pdf", "PDF File - Report SOS ");
+=======
+>>>>>>> Stashed changes
     }
 
     private File generatePDF(ArrayList<String> content) {
