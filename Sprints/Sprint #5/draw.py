@@ -1,12 +1,17 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# Ler o arquivo .csv usando o pandas e especificar as colunas corretas
+data = pd.read_csv('C:/Users/joaob/OneDrive/Ambiente de Trabalho/UBI/3 2S/COPDMobileApp-UBI/Sprints/Sprint #5/TestesPassosCSV/teste_01_joao_rapido.csv', usecols=[0, 4])  # Coluna 1 (índice 0) é o tempo, coluna 5 (índice 4) é a aceleração
 
-df = pd.read_csv('C:/Users/joaob/OneDrive/Ambiente de Trabalho/UBI/3 2S/COPDMobileApp-UBI/Sprints/Sprint #5/TestesPassosCSV/teste_01_tiago.csv', header=None, names=['tempo', 'aceleracao'])
+# Extrair as colunas de tempo e norma da aceleração
+tempo = data.iloc[:, 0]  # Extrair todas as linhas da coluna 0 (tempo)
+aceleracao_norma = data.iloc[:, 1]  # Extrair todas as linhas da coluna 1 (norma da aceleração)
 
-plt.scatter(df['tempo'], df['aceleracao'])
-plt.xlabel('Tempo (ms)')
-plt.ylabel('Aceleração (m/s²)')
-plt.title('Gráfico de dispersão da aceleração em função do tempo')
+# Plotar o gráfico
+plt.plot(tempo, aceleracao_norma)
+plt.xlabel('Tempo')
+plt.ylabel('Norma da Aceleração')
+plt.title('Gráfico de Norma da Aceleração em função do Tempo')
+plt.grid(True)
 plt.show()
-
