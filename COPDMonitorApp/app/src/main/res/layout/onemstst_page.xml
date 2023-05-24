@@ -148,36 +148,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp" />
 
-        <TextView
-            android:id="@+id/txtViewTitleDifficultyFelt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Difficulty Level"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slide1MSTST"
-            android:layout_width="370sp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-1sp"
-            android:layout_marginStart="20sp"
-            android:visibility="visible"
-            android:stepSize="1.0"
-            android:valueFrom="0.0"
-            android:valueTo="5.0"  />
 
         <TextView
             android:id="@+id/txtViewCounter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Counter (number of times you stood up and sat down) :  X times"
-            android:layout_gravity="left"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:visibility="invisible"
             android:layout_marginStart="37dp"
-            android:layout_marginTop="1dp"
+            android:layout_marginEnd="37dp"
             android:textStyle="bold"
             android:textColor="@color/greysolid"
             android:textSize="20sp" />
@@ -192,8 +173,25 @@
             android:layout_gravity="center"
             android:background="@drawable/rectangle_background"
             android:textColor="@color/white"
+            android:visibility="invisible"
             android:textSize="13sp"
-            android:layout_margin="16dp"
+            android:layout_margin="30dp"
+            />
+
+        <Button
+            android:id="@+id/btnBackMenuExercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exercises Menu"
+            android:layout_gravity="center"
+            android:background="@drawable/rectangle_background"
+            android:drawableLeft="@drawable/ic_back"
+            android:textColor="@color/white"
+            android:onClick="goBackToExerciseMenu"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:visibility="visible"
+            android:textSize="13sp"
             />
 
 

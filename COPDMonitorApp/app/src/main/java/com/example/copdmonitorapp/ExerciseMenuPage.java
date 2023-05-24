@@ -27,9 +27,6 @@ public class ExerciseMenuPage extends AppCompatActivity {
     LinearLayout home, settings, share, about, logout;
 
 
-    // Slider's
-    LinearProgressIndicator progressBar6MWT;
-
 
 
     @Override
@@ -48,8 +45,6 @@ public class ExerciseMenuPage extends AppCompatActivity {
         share = findViewById(R.id.share);
 
 
-        // Slider's Finder
-        progressBar6MWT = findViewById(R.id.progressBar6MWT);
 
 
 
@@ -99,8 +94,6 @@ public class ExerciseMenuPage extends AppCompatActivity {
             }
         });
 
-        // Slider's Initialize Values
-        progressBar6MWT.show();
 
 
     }

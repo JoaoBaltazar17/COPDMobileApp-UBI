@@ -32,13 +32,6 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             />
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressBar6MWT"
-            android:layout_width="330dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="20dp"
-            app:indicatorColor="@color/blueexercisetests" />
 
 
         <com.google.android.material.button.MaterialButton
@@ -46,7 +39,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="330dp"
             android:layout_height="60dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="35dp"
             android:layout_marginStart="37dp"
             android:text="1 Minute Sit to Stand (1-MSTST) "
             android:textColor="@color/blueexercisetests"
@@ -58,13 +51,6 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             />
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressBar1MSTST"
-            android:layout_width="330dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="20dp"
-            app:indicatorColor="@color/blueexercisetests" />
 
         <TextView
             android:id="@+id/txtViewWarninsTitle"
