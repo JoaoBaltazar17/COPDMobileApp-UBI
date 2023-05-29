@@ -171,7 +171,7 @@
             android:layout_height="wrap_content"
             android:text="Pontuation [0-100]: "
             android:layout_gravity="left"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:visibility="visible"
             android:layout_marginStart="37dp"
             android:textStyle="bold"
@@ -189,7 +189,7 @@
             android:textColor="@color/white"
             android:onClick="goBackToExerciseMenu"
             android:gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:visibility="visible"
             android:textSize="13sp"
             />

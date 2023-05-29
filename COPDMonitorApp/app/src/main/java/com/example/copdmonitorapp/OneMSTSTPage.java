@@ -26,6 +26,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -36,10 +38,14 @@ import java.util.TimerTask;
 
 public class OneMSTSTPage extends AppCompatActivity {
 
-    // Share Variables
-    Button btnShareWhatsApp;
-    String emailShared;
-    String nameShared;
+
+    // SharedPreferences Variables
+    private String emailShared;
+    private String nameShared;
+
+    // After Test Variables
+    private TextView txtViewCount;
+    private TextView txtViewPercentage;
 
     // Timer Variables
     private TextView txtViewTimerText;
@@ -60,6 +66,7 @@ public class OneMSTSTPage extends AppCompatActivity {
     int pulsf = 0;
 
     int count = -1;
+    float testpercentage = 0;
 
 
     // Navigation Drawer Attributes
@@ -82,19 +89,6 @@ public class OneMSTSTPage extends AppCompatActivity {
         emailShared = sharedPreferences.getString("email", "");
         nameShared = sharedPreferences.getString("name", "");
 
-        // Share Button Finder and Listener
-        btnShareWhatsApp = findViewById(R.id.btnShareResults);
-        btnShareWhatsApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent with the WhatsApp URL scheme
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "Your text here");
-                shareIntent.setPackage("com.whatsapp");
-                startActivity(shareIntent);
-            }
-        });
 
         // Timer Finders
         txtViewTimerText = (TextView) findViewById(R.id.txtViewTimerText1MSTST);
@@ -158,6 +152,15 @@ public class OneMSTSTPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // After Test Variables
+        txtViewCount = findViewById(R.id.txtViewCounter);
+        txtViewPercentage = findViewById(R.id.txtViewTestResult);
+
+        txtViewCount.setVisibility(View.INVISIBLE);
+        txtViewPercentage.setVisibility(View.INVISIBLE);
+
+
 
 
     }
@@ -409,7 +412,8 @@ public class OneMSTSTPage extends AppCompatActivity {
             Toast.makeText(OneMSTSTPage.this, "Hey there! You cannot proceed with null values on test", Toast.LENGTH_LONG).show();
             return;
         }
-        new Save1MSTSRecords().execute(String.valueOf(pulsi), String.valueOf(pulsf), String.valueOf(count));
+        testpercentage = 20.2f;
+        new Save1MSTSRecords().execute(String.valueOf(pulsi), String.valueOf(pulsf), String.valueOf(count), String.valueOf(testpercentage));
 
     }
 
@@ -432,8 +436,9 @@ public class OneMSTSTPage extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(String... params) {
             int pi = Integer.parseInt(params[0]);
-            int pf = Integer.parseInt(params[0]);
-            int count = Integer.parseInt(params[0]);
+            int pf = Integer.parseInt(params[1]);
+            int count = Integer.parseInt(params[2]);
+            float perc = Float.parseFloat(params[3]);
 
 
 
@@ -458,7 +463,7 @@ public class OneMSTSTPage extends AppCompatActivity {
                             System.out.println("No patient found with that email address.");
                             return false;
                         }
-                        String sql = "INSERT INTO \"1mstst\" (idPatient, initialpulsation, finalpulsation, date1test, countcycles) VALUES (?, ?, ?, ?, ?)";
+                        String sql = "INSERT INTO \"1mstst\" (idPatient, initialpulsation, finalpulsation, date1test, countcycles, testpercentage) VALUES (?, ?, ?, ?, ?, ?)";
                         try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
                             // set the parameter values
                             pstmt2.setInt(1, patientId);
@@ -466,6 +471,7 @@ public class OneMSTSTPage extends AppCompatActivity {
                             pstmt2.setInt(3, pf);
                             pstmt2.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
                             pstmt2.setInt(5, count);
+                            pstmt2.setFloat(6, perc);
                             pstmt2.executeUpdate();
                         }
                         return true;
@@ -484,6 +490,11 @@ public class OneMSTSTPage extends AppCompatActivity {
 
             if (result) {
                 Toast.makeText(OneMSTSTPage.this, "Test has been sucessfully registered", Toast.LENGTH_LONG).show();
+                txtViewCount.setVisibility(View.VISIBLE);
+                txtViewPercentage.setVisibility(View.VISIBLE);
+                txtViewCount.setText(txtViewCount.getText().toString() + " " + count);
+                txtViewPercentage.setText(txtViewPercentage.getText().toString() + " " + testpercentage);
+
             } else {
                 Toast.makeText(OneMSTSTPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
             }
