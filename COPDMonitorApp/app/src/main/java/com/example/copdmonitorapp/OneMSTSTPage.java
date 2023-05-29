@@ -7,11 +7,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -24,6 +26,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,6 +38,8 @@ public class OneMSTSTPage extends AppCompatActivity {
 
     // Share Variables
     Button btnShareWhatsApp;
+    String emailShared;
+    String nameShared;
 
     // Timer Variables
     private TextView txtViewTimerText;
@@ -67,6 +76,11 @@ public class OneMSTSTPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.onemstst_page);
+
+        // Retrieve user's login credentials
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        emailShared = sharedPreferences.getString("email", "");
+        nameShared = sharedPreferences.getString("name", "");
 
         // Share Button Finder and Listener
         btnShareWhatsApp = findViewById(R.id.btnShareResults);
@@ -249,13 +263,14 @@ public class OneMSTSTPage extends AppCompatActivity {
 
                     Log.e("1MSTS", "1 MSTST HAS BEEN STARTED!");
                     startTimer();
+                    btnStopStart.setClickable(false);
                 }
             });
 
             inputAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    // Faça algo caso o usuário cancele a inserção da pulsação
+
                 }
             });
 
@@ -386,20 +401,95 @@ public class OneMSTSTPage extends AppCompatActivity {
         inputAlertSign.show();
     }
 
+    // Save Test Value's into Database
     private void saveValuesTest() {
-        Log.e("Results Test", "Heart Rate Before: " + pulsi + " Heart Rate After: " + pulsf + " Counts: " + count);
+        btnStopStart.setClickable(true);
+        if (pulsi == 0 || pulsf == 0 || count == -1) {
+            // Empty fields
+            Toast.makeText(OneMSTSTPage.this, "Hey there! You cannot proceed with null values on test", Toast.LENGTH_LONG).show();
+            return;
+        }
+        new Save1MSTSRecords().execute(String.valueOf(pulsi), String.valueOf(pulsf), String.valueOf(count));
+
     }
 
 
+    private class Save1MSTSRecords extends AsyncTask<String, Void, Boolean> {
+        private Exception exception;
+
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(OneMSTSTPage.this);
+            progressDialog.setMessage("Processing, please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            int pi = Integer.parseInt(params[0]);
+            int pf = Integer.parseInt(params[0]);
+            int count = Integer.parseInt(params[0]);
 
 
 
+            String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
+            String svusername = "postgres";
+            String svpassword = "copdproject";
 
 
 
+            try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
+                int patientId = 0;
+                Log.e("1MSTS BD CONNECTION:", "Connection to BD succesfull!");
+                // Check if there is another user with the same username
+                String selectQuery = "SELECT id FROM Patient WHERE email = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(selectQuery)) {
+                    pstmt.setString(1, emailShared);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        if (rs.next()) {
+                            patientId = rs.getInt("id");
+                            Log.e("1MSTS PatientLogged:", "The ID of the patient is: " + patientId);
+                        } else {
+                            System.out.println("No patient found with that email address.");
+                            return false;
+                        }
+                        String sql = "INSERT INTO \"1mstst\" (idPatient, initialpulsation, finalpulsation, date1test, countcycles) VALUES (?, ?, ?, ?, ?)";
+                        try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
+                            // set the parameter values
+                            pstmt2.setInt(1, patientId);
+                            pstmt2.setInt(2, pi);
+                            pstmt2.setInt(3, pf);
+                            pstmt2.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+                            pstmt2.setInt(5, count);
+                            pstmt2.executeUpdate();
+                        }
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("1MSTS", "Error executing query", e);
+                exception = e;
+                return false;
+            }
+        }
 
+        @Override
+        protected void onPostExecute(Boolean result) {
+            progressDialog.dismiss();
 
+            if (result) {
+                Toast.makeText(OneMSTSTPage.this, "Test has been sucessfully registered", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(OneMSTSTPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
+            }
+        }
 
+    }
 
 
     private String getTimerText()
