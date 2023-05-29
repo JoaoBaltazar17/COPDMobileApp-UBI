@@ -7,20 +7,31 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,11 +50,31 @@ public class SixMWTPage extends AppCompatActivity {
 
     private boolean timerStarted = false;
 
+    private static final int TIMER_DURATION = 5; // 6 mins (6 * 60 segundos)
+
+    // SharedPreferences Variables
+    private String emailShared;
+    private String nameShared;
+
+
 
     // Navigation Drawer Attributes
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, settings, share, about, logout;
+
+    // Pulsation Values
+    int pulsi = 0;
+    int pulsf = 0;
+
+    int countsteps = -1;
+    float testpercentage = 0;
+    float distance = 0;
+
+    // Test Concluded Variables
+    private TextView txtViewSteps;
+    private TextView txtViewDistance;
+    private TextView txtViewPercentage;
 
 
     @Override
@@ -51,19 +82,12 @@ public class SixMWTPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sixmwt_page);
 
-        // Share Button Finder and Listener
-        btnShareWhatsApp = findViewById(R.id.btnShareResults);
-        btnShareWhatsApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent with the WhatsApp URL scheme
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "Your text here");
-                shareIntent.setPackage("com.whatsapp");
-                startActivity(shareIntent);
-            }
-        });
+        // Retrieve user's login credentials
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        emailShared = sharedPreferences.getString("email", "");
+        nameShared = sharedPreferences.getString("name", "");
+
+
 
         // Timer Finders
         txtViewTimerText = (TextView) findViewById(R.id.txtViewTimerText);
@@ -127,6 +151,15 @@ public class SixMWTPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // After Test Variables
+        txtViewSteps = findViewById(R.id.txtViewSteps);
+        txtViewDistance = findViewById(R.id.txtViewDistance);
+        txtViewPercentage = findViewById(R.id.txtViewTestResult);
+
+        txtViewSteps.setVisibility(View.INVISIBLE);
+        txtViewDistance.setVisibility(View.INVISIBLE);
+        txtViewPercentage.setVisibility(View.INVISIBLE);
 
 
     }
@@ -196,42 +229,271 @@ public class SixMWTPage extends AppCompatActivity {
     }
 
     public void onStartStopClick(View view) {
-        if(timerStarted == false)
-        {
-            timerStarted = true;
-            setButtonUI("STOP", R.color.red);
+        if (!timerStarted) {
+            AlertDialog.Builder inputAlert = new AlertDialog.Builder(this);
+            inputAlert.setTitle("Enter your heart rate before the test starts\n");
+            final EditText input = new EditText(this);
+            input.setInputType(InputType.TYPE_CLASS_NUMBER); // Apenas números inteiros
+            inputAlert.setView(input);
 
-            startTimer();
-        }
-        else
-        {
-            timerStarted = false;
-            setButtonUI("START", R.color.green);
+            inputAlert.setPositiveButton("Start Test", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    String pulseString = input.getText().toString();
+                    int pulse = 0;
 
-            timerTask.cancel();
+                    try {
+                        pulse = Integer.parseInt(pulseString);
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(getApplicationContext(), "\n" +
+                                "Please enter a valid integer.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (pulse < 40 || pulse > 140) {
+                        Toast.makeText(getApplicationContext(), "Please enter an integer between 40 and 140.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    pulsi = pulse;
+
+
+                    timerStarted = true;
+                    setButtonUI("START", R.color.verdepastel);
+
+                    Log.e("6MSTS", "1 MSTST HAS BEEN STARTED!");
+                    startTimer();
+                    btnStopStart.setClickable(false);
+                }
+            });
+
+            inputAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+            inputAlert.show();
         }
     }
 
-    private void startTimer()
-    {
-        timerTask = new TimerTask()
-        {
+    private void startTimer() {
+        timerTask = new TimerTask() {
             @Override
-            public void run()
-            {
-                runOnUiThread(new Runnable()
-                {
+            public void run() {
+                runOnUiThread(new Runnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         time++;
                         txtViewTimerText.setText(getTimerText());
+
+                        if (time >= TIMER_DURATION) {
+
+                            // Cancel timer
+                            timerTask.cancel();
+                            Log.e("AFTER TEST 1MSTST", "Concluded!");
+
+                            AlertDialog.Builder inputAlert = new AlertDialog.Builder(SixMWTPage.this);
+                            inputAlert.setTitle("Enter your heart rate after completing the test\n");
+                            final EditText input = new EditText(SixMWTPage.this);
+                            input.setInputType(InputType.TYPE_CLASS_NUMBER); // Apenas números inteiros
+                            inputAlert.setView(input);
+
+                            inputAlert.setPositiveButton("Conclude Test", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    String pulseString = input.getText().toString();
+                                    int pulse = 0;
+
+                                    try {
+                                        pulse = Integer.parseInt(pulseString);
+                                    } catch (NumberFormatException e) {
+                                        Toast.makeText(getApplicationContext(), "\n" +
+                                                "Please enter a valid integer.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+
+                                    if (pulse < 40 || pulse > 140) {
+                                        Toast.makeText(getApplicationContext(), "Please enter an integer between 40 and 140.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+
+                                    pulsf = pulse;
+
+
+                                    // Cancel timer count
+                                    timerStarted = false;
+                                    time = 0.0;
+                                    setButtonUI("START", R.color.green);
+                                    showStepsCountDialog(); // Show the next dialog for cycle count
+                                }
+                            });
+
+                            inputAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // Cancel timer count
+                                    timerStarted = false;
+                                    time = 0.0;
+                                    setButtonUI("START", R.color.green);
+                                }
+                            });
+
+                            inputAlert.show();
+                        }
                     }
                 });
             }
-
         };
-        timer.scheduleAtFixedRate(timerTask, 0 ,1000);
+        timer.scheduleAtFixedRate(timerTask, 0, 1000);
+    }
+
+    private void showStepsCountDialog() {
+        // Dialog to register number of complete cycles of sitting down and standing up
+        AlertDialog.Builder inputAlertSign = new AlertDialog.Builder(SixMWTPage.this);
+        inputAlertSign.setTitle("Number of steps in one minute: \n");
+        final EditText inputSign = new EditText(SixMWTPage.this);
+        inputSign.setInputType(InputType.TYPE_CLASS_NUMBER); // Apenas números inteiros
+        inputAlertSign.setView(inputSign);
+
+        inputAlertSign.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String countString = inputSign.getText().toString();
+
+                try {
+                    countsteps = Integer.parseInt(countString);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), "\n" +
+                            "Please enter a valid integer.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                // Cancel timer count
+                timerStarted = false;
+                time = 0.0;
+                saveValuesTest();
+                setButtonUI("START", R.color.green);
+            }
+        });
+
+        inputAlertSign.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Cancel timer count
+                timerStarted = false;
+                time = 0.0;
+                setButtonUI("START", R.color.green);
+            }
+        });
+
+        inputAlertSign.show();
+    }
+
+    private void saveValuesTest() {
+        btnStopStart.setClickable(true);
+        if (pulsi == 0 || pulsf == 0 || countsteps == -1) {
+            // Empty fields
+            Toast.makeText(SixMWTPage.this, "Hey there! You cannot proceed with null values on test", Toast.LENGTH_LONG).show();
+            return;
+        }
+        distance = countsteps * 0.762f;
+        testpercentage = 20.2f;
+        new Save6MWTRecords().execute(String.valueOf(pulsi), String.valueOf(pulsf), String.valueOf(countsteps), String.valueOf(distance), String.valueOf(testpercentage));
+
+    }
+
+    private class Save6MWTRecords extends AsyncTask<String, Void, Boolean> {
+        private Exception exception;
+
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(SixMWTPage.this);
+            progressDialog.setMessage("Processing, please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            int pi = Integer.parseInt(params[0]);
+            int pf = Integer.parseInt(params[1]);
+            int countSteps = Integer.parseInt(params[2]);
+            float dist = Float.parseFloat(params[3]);
+            float perc = Float.parseFloat(params[4]);
+
+
+
+            String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
+            String svusername = "postgres";
+            String svpassword = "copdproject";
+
+
+
+            try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
+                int patientId = 0;
+                Log.e("6MSTS BD CONNECTION:", "Connection to BD succesfull!");
+                // Check if there is another user with the same username
+                String selectQuery = "SELECT id FROM Patient WHERE email = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(selectQuery)) {
+                    pstmt.setString(1, emailShared);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        if (rs.next()) {
+                            patientId = rs.getInt("id");
+                            Log.e("6MSTS PatientLogged:", "The ID of the patient is: " + patientId);
+                        } else {
+                            System.out.println("No patient found with that email address.");
+                            return false;
+                        }
+                        String sql = "INSERT INTO sixmwt (idPatient, initialpulsation, finalpulsation, date6test, numbersteps, distance, testpercent) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                        try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
+                            // set the parameter values
+                            pstmt2.setInt(1, patientId);
+                            pstmt2.setInt(2, pi);
+                            pstmt2.setInt(3, pf);
+                            pstmt2.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+                            pstmt2.setInt(5, countSteps);
+                            pstmt2.setFloat(6, dist);
+                            pstmt2.setFloat(7, perc);
+                            pstmt2.executeUpdate();
+                        }
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("6MSTS", "Error executing query", e);
+                exception = e;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            progressDialog.dismiss();
+
+            if (result) {
+                Toast.makeText(SixMWTPage.this, "Test has been sucessfully registered", Toast.LENGTH_LONG).show();
+                txtViewSteps.setVisibility(View.VISIBLE);
+                txtViewDistance.setVisibility(View.VISIBLE);
+                txtViewPercentage.setVisibility(View.VISIBLE);
+                txtViewSteps.setText(txtViewSteps.getText().toString() + " " + countsteps);
+
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                String roundedDistance = decimalFormat.format(distance);
+                txtViewDistance.setText(txtViewDistance.getText().toString() + " " + roundedDistance);
+                txtViewPercentage.setText(txtViewPercentage.getText().toString() + " " + testpercentage);
+
+            } else {
+                Toast.makeText(SixMWTPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 
     private String getTimerText()
@@ -253,5 +515,9 @@ public class SixMWTPage extends AppCompatActivity {
     private void setButtonUI(String start, int color) {
         btnStopStart.setText(start);
         btnStopStart.setTextColor(ContextCompat.getColor(this, color));
+    }
+
+    public void goBackToExerciseMenu(View view) {
+        redirectActivity(SixMWTPage.this, ExerciseMenuPage.class);
     }
 }
