@@ -14,8 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -150,4 +152,40 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 Log.e(TAG, "Error writing to file: " + e.getMessage());
             }
     }
+
+    public void getFirstFiveLinesFromCSV(View view) {
+        try {
+            // Get the internal storage directory
+            File directory = getFilesDir();
+            // Create a file object for the CSV file
+            File file = new File(directory, "dados_aceleracao.csv");
+
+            // Read the first five lines from the CSV file
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            int lineCount = 0;
+            while ((line = reader.readLine()) != null && lineCount < 5) {
+                // Split the line into individual values using comma as the delimiter
+                String[] values = line.split(",");
+
+                // Process the values as per your requirement
+                String tempo = values[0];
+                String accX = values[1];
+                String accY = values[2];
+                String accZ = values[3];
+                String normAcceleration = values[4];
+
+                // Print or use the values as needed
+                Log.d(TAG, "Line " + (lineCount + 1) + " - Tempo: " + tempo + ", AccX: " + accX +
+                        ", AccY: " + accY + ", AccZ: " + accZ + ", NormAcceleration: " + normAcceleration);
+
+                lineCount++;
+            }
+            reader.close();
+        } catch (IOException e) {
+            Log.e(TAG, "Error reading CSV file: " + e.getMessage());
+        }
+    }
 }
+
+
