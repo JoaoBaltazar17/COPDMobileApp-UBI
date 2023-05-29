@@ -50,6 +50,8 @@ public class OneMSTSTPage extends AppCompatActivity {
     int pulsi = 0;
     int pulsf = 0;
 
+    int count = -1;
+
 
     // Navigation Drawer Attributes
     DrawerLayout drawerLayout;
@@ -192,7 +194,9 @@ public class OneMSTSTPage extends AppCompatActivity {
                     time = 0.0;
                     timerStarted = false;
                     txtViewTimerText.setText(formatTime(0,0,0));
-
+                    pulsi = 0;
+                    pulsf = 0;
+                    count = -1;
                 }
             }
         });
@@ -316,6 +320,7 @@ public class OneMSTSTPage extends AppCompatActivity {
                                     timerStarted = false;
                                     time = 0.0;
                                     setButtonUI("START", R.color.green);
+                                    showCycleCountDialog(); // Show the next dialog for cycle count
                                 }
                             });
 
@@ -337,6 +342,64 @@ public class OneMSTSTPage extends AppCompatActivity {
         };
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
+
+    private void showCycleCountDialog() {
+        // Dialog to register number of complete cycles of sitting down and standing up
+        AlertDialog.Builder inputAlertSign = new AlertDialog.Builder(OneMSTSTPage.this);
+        inputAlertSign.setTitle("Number of complete cycles of sitting down and standing up: \n");
+        final EditText inputSign = new EditText(OneMSTSTPage.this);
+        inputSign.setInputType(InputType.TYPE_CLASS_NUMBER); // Apenas números inteiros
+        inputAlertSign.setView(inputSign);
+
+        inputAlertSign.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String countString = inputSign.getText().toString();
+
+                try {
+                    count = Integer.parseInt(countString);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), "\n" +
+                            "Please enter a valid integer.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                // Cancel timer count
+                timerStarted = false;
+                time = 0.0;
+                saveValuesTest();
+                setButtonUI("START", R.color.green);
+            }
+        });
+
+        inputAlertSign.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Cancel timer count
+                timerStarted = false;
+                time = 0.0;
+                setButtonUI("START", R.color.green);
+            }
+        });
+
+        inputAlertSign.show();
+    }
+
+    private void saveValuesTest() {
+        Log.e("Results Test", "Heart Rate Before: " + pulsi + " Heart Rate After: " + pulsf + " Counts: " + count);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     private String getTimerText()
