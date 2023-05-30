@@ -216,6 +216,8 @@ public class OneMSTSTPage extends AppCompatActivity {
                     count = -1;
                     txtViewCount.setText("Count: ");
                     txtViewPercentage.setText("Pontuation [0-100]: ");
+                    txtViewCount.setVisibility(View.INVISIBLE);
+                    txtViewPercentage.setVisibility(View.INVISIBLE);
                 }
             }
         });

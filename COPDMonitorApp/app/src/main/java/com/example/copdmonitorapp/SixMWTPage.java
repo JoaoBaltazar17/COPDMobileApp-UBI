@@ -282,6 +282,9 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                     accZ.clear();
                     tempo.clear();
                     normAccelerationValues.clear();
+                    txtViewSteps.setVisibility(View.INVISIBLE);
+                    txtViewDistance.setVisibility(View.INVISIBLE);
+                    txtViewPercentage.setVisibility(View.INVISIBLE);
                     txtViewSteps.setText("Steps: ");
                     txtViewDistance.setText("Distance: ");
                     txtViewPercentage.setText("Pontuation [0-100]: ");
