@@ -12,9 +12,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,16 +31,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SixMWTPage extends AppCompatActivity {
+public class SixMWTPage extends AppCompatActivity implements SensorEventListener {
+
+    private static final String TAG = "6MWT (Step Counter)";
 
     // Share Variables
     Button btnShareWhatsApp;
@@ -50,12 +64,11 @@ public class SixMWTPage extends AppCompatActivity {
 
     private boolean timerStarted = false;
 
-    private static final int TIMER_DURATION = 5; // 6 mins (6 * 60 segundos)
+    private static final int TIMER_DURATION = 30; // 6 mins (6 * 60 segundos)
 
     // SharedPreferences Variables
     private String emailShared;
     private String nameShared;
-
 
 
     // Navigation Drawer Attributes
@@ -67,7 +80,6 @@ public class SixMWTPage extends AppCompatActivity {
     int pulsi = 0;
     int pulsf = 0;
 
-    int countsteps = -1;
     float testpercentage = 0;
     float distance = 0;
 
@@ -75,6 +87,24 @@ public class SixMWTPage extends AppCompatActivity {
     private TextView txtViewSteps;
     private TextView txtViewDistance;
     private TextView txtViewPercentage;
+
+    // Step Counter Variables
+
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private float[] accelerationValues = new float[3];
+    private ArrayList<Float> normAccelerationValues = new ArrayList<Float>();
+    private ArrayList<Float> accX = new ArrayList<Float>();
+    private ArrayList<Float> accY = new ArrayList<Float>();
+    private ArrayList<Float> accZ = new ArrayList<Float>();
+    private ArrayList<Long> tempo = new ArrayList<Long>();
+
+    private long previousTimeStamp = 0;
+    int stepCount = -1;
+
+
+    private static final int RECORDING_TIME_MS = 30000; // 30 seconds
+    private static final int SAMPLING_RATE_US = 20000; // 20ms = 50Hz
 
 
     @Override
@@ -86,7 +116,6 @@ public class SixMWTPage extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         emailShared = sharedPreferences.getString("email", "");
         nameShared = sharedPreferences.getString("name", "");
-
 
 
         // Timer Finders
@@ -162,6 +191,11 @@ public class SixMWTPage extends AppCompatActivity {
         txtViewPercentage.setVisibility(View.INVISIBLE);
 
 
+        // Step Counter Variables
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+
     }
 
     // Navigation Drawer Methods
@@ -170,7 +204,7 @@ public class SixMWTPage extends AppCompatActivity {
     }
 
     public static void closeDrawer(DrawerLayout drawerLayout) {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
@@ -182,44 +216,73 @@ public class SixMWTPage extends AppCompatActivity {
         activity.finish();
     }
 
-
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
         closeDrawer(drawerLayout);
+        sensorManager.unregisterListener(this);
+    }
+
+    // Step Counter Methods
+    public void onSensorChanged(SensorEvent event) {
+        if (timerStarted) {
+            accelerationValues[0] = event.values[0];
+            accX.add(accelerationValues[0]);
+            accelerationValues[1] = event.values[1];
+            accY.add(accelerationValues[0]);
+            accelerationValues[2] = event.values[2];
+            accZ.add(accelerationValues[0]);
+            float normAcceleration = (float) Math.sqrt(
+                    accelerationValues[0] * accelerationValues[0] +
+                            accelerationValues[1] * accelerationValues[1] +
+                            accelerationValues[2] * accelerationValues[2]
+            );
+            normAccelerationValues.add(normAcceleration);
+            tempo.add(System.currentTimeMillis());
+
+
+            // Checking the actual sampling rate of the accelerometer sensor
+            long currentTimestamp = System.currentTimeMillis();
+            if (previousTimeStamp != 0) {
+                long timeDifference = currentTimestamp - previousTimeStamp;
+            }
+            previousTimeStamp = currentTimestamp;
+        }
     }
 
 
     // Timer Methods
 
-    public void onResetClick(View view)
-    {
+    public void onResetClick(View view) {
         AlertDialog.Builder resetAlert = new AlertDialog.Builder(this);
         resetAlert.setTitle("Reset Timer");
         resetAlert.setMessage("Are you sure you want to reset the timer?");
-        resetAlert.setPositiveButton("Reset", new DialogInterface.OnClickListener()
-        {
+        resetAlert.setPositiveButton("Reset", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i)
-            {
-                if(timerTask != null)
-                {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (timerTask != null) {
                     timerTask.cancel();
                     setButtonUI("START", R.color.green);
                     time = 0.0;
                     timerStarted = false;
-                    txtViewTimerText.setText(formatTime(0,0,0));
-
+                    txtViewTimerText.setText(formatTime(0, 0, 0));
+                    accX.clear();
+                    accY.clear();
+                    accZ.clear();
+                    tempo.clear();
+                    normAccelerationValues.clear();
                 }
             }
         });
 
-        resetAlert.setNeutralButton("Cancel", new DialogInterface.OnClickListener()
-        {
+        resetAlert.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i)
-            {
+            public void onClick(DialogInterface dialogInterface, int i) {
                 //do nothing
             }
         });
@@ -230,6 +293,13 @@ public class SixMWTPage extends AppCompatActivity {
 
     public void onStartStopClick(View view) {
         if (!timerStarted) {
+            // Clear possible past test results
+            accX.clear();
+            accY.clear();
+            accZ.clear();
+            tempo.clear();
+            normAccelerationValues.clear();
+
             AlertDialog.Builder inputAlert = new AlertDialog.Builder(this);
             inputAlert.setTitle("Enter your heart rate before the test starts\n");
             final EditText input = new EditText(this);
@@ -292,7 +362,7 @@ public class SixMWTPage extends AppCompatActivity {
 
                             // Cancel timer
                             timerTask.cancel();
-                            Log.e("AFTER TEST 1MSTST", "Concluded!");
+                            Log.e("AFTER TEST 6MSTST", "Concluded!");
 
                             AlertDialog.Builder inputAlert = new AlertDialog.Builder(SixMWTPage.this);
                             inputAlert.setTitle("Enter your heart rate after completing the test\n");
@@ -326,7 +396,7 @@ public class SixMWTPage extends AppCompatActivity {
                                     timerStarted = false;
                                     time = 0.0;
                                     setButtonUI("START", R.color.green);
-                                    showStepsCountDialog(); // Show the next dialog for cycle count
+                                    writeStepVariablesCSV(); // Show the next dialog for cycle count
                                 }
                             });
 
@@ -336,6 +406,11 @@ public class SixMWTPage extends AppCompatActivity {
                                     // Cancel timer count
                                     timerStarted = false;
                                     time = 0.0;
+                                    accX.clear();
+                                    accY.clear();
+                                    accZ.clear();
+                                    tempo.clear();
+                                    normAccelerationValues.clear();
                                     setButtonUI("START", R.color.green);
                                 }
                             });
@@ -349,59 +424,101 @@ public class SixMWTPage extends AppCompatActivity {
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 
-    private void showStepsCountDialog() {
-        // Dialog to register number of complete cycles of sitting down and standing up
-        AlertDialog.Builder inputAlertSign = new AlertDialog.Builder(SixMWTPage.this);
-        inputAlertSign.setTitle("Number of steps in one minute: \n");
-        final EditText inputSign = new EditText(SixMWTPage.this);
-        inputSign.setInputType(InputType.TYPE_CLASS_NUMBER); // Apenas números inteiros
-        inputAlertSign.setView(inputSign);
 
-        inputAlertSign.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String countString = inputSign.getText().toString();
+    private void writeStepVariablesCSV() {
+        Toast.makeText(this, "Test has been finished!", Toast.LENGTH_LONG).show();
+        try {
+            // Get the internal storage directory
+            File directory = getFilesDir();
+            // Create a new file in the directory
+            File file = new File(directory, "dados_aceleracao.csv");
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            // Write the data to the file
+            for (int i = 0; i < normAccelerationValues.size(); i++) {
+                bw.write(tempo.get(i) + "," + accX.get(i) + "," + accY.get(i) + "," + accZ.get(i) + "," + normAccelerationValues.get(i) + "\n");
+            }
+            bw.close();
+            Log.e(TAG, "File saved to: " + file.getAbsolutePath());
+            saveValuesTest();
+        } catch (IOException e) {
+            Log.e(TAG, "Error writing to file: " + e.getMessage());
+        }
+    }
 
-                try {
-                    countsteps = Integer.parseInt(countString);
-                } catch (NumberFormatException e) {
-                    Toast.makeText(getApplicationContext(), "\n" +
-                            "Please enter a valid integer.", Toast.LENGTH_SHORT).show();
-                    return;
+    private int countSteps() {
+
+        double threshold = 1.0;
+        Log.e(TAG, "Start looking at CSV File...");
+        // Get the internal storage directory
+        File directory = getFilesDir();
+        // Create a file object for the CSV file
+        File file = new File(directory, "dados_aceleracao.csv");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            Log.e(TAG, "Starts Counting!!!!");
+            String line;
+            double previousNormAcceleration = 0;
+            int stepCount = 0;
+
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                double normAcceleration = Double.parseDouble(data[4]);
+
+                if (previousNormAcceleration == 0) {
+                    previousNormAcceleration = normAcceleration;
+                    continue;
                 }
 
+                double variation = normAcceleration - previousNormAcceleration;
 
-                // Cancel timer count
-                timerStarted = false;
-                time = 0.0;
-                saveValuesTest();
-                setButtonUI("START", R.color.green);
+                if (variation >= threshold) {
+                    // Verifica se ocorreu uma variação maior ou igual ao limiar
+                    double nextNormAcceleration = 0;
+
+                    // Procura pelo próximo valor de norma de aceleração
+                    while ((line = br.readLine()) != null) {
+                        data = line.split(",");
+                        nextNormAcceleration = Double.parseDouble(data[4]);
+
+                        if (nextNormAcceleration < normAcceleration) {
+                            break;
+                        }
+                    }
+
+                    if (nextNormAcceleration < normAcceleration) {
+                        stepCount++;
+                    }
+                }
+
+                previousNormAcceleration = normAcceleration;
             }
-        });
 
-        inputAlertSign.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // Cancel timer count
-                timerStarted = false;
-                time = 0.0;
-                setButtonUI("START", R.color.green);
-            }
-        });
-
-        inputAlertSign.show();
+            return stepCount;
+        } catch (IOException e) {
+            e.toString();
+        }
+        return stepCount;
     }
 
     private void saveValuesTest() {
+        stepCount = countSteps();
+        Log.e(TAG, "Steps Counted: " + stepCount);
         btnStopStart.setClickable(true);
-        if (pulsi == 0 || pulsf == 0 || countsteps == -1) {
+        if (pulsi == 0 || pulsf == 0) {
             // Empty fields
             Toast.makeText(SixMWTPage.this, "Hey there! You cannot proceed with null values on test", Toast.LENGTH_LONG).show();
             return;
         }
-        distance = countsteps * 0.762f;
+        distance = stepCount * 0.762f;
         testpercentage = 20.2f;
-        new Save6MWTRecords().execute(String.valueOf(pulsi), String.valueOf(pulsf), String.valueOf(countsteps), String.valueOf(distance), String.valueOf(testpercentage));
+        new Save6MWTRecords().execute(String.valueOf(pulsi), String.valueOf(pulsf), String.valueOf(stepCount), String.valueOf(distance), String.valueOf(testpercentage));
+
+    }
+
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
 
@@ -482,7 +599,7 @@ public class SixMWTPage extends AppCompatActivity {
                 txtViewSteps.setVisibility(View.VISIBLE);
                 txtViewDistance.setVisibility(View.VISIBLE);
                 txtViewPercentage.setVisibility(View.VISIBLE);
-                txtViewSteps.setText(txtViewSteps.getText().toString() + " " + countsteps);
+                txtViewSteps.setText(txtViewSteps.getText().toString() + " " + stepCount);
 
                 DecimalFormat decimalFormat = new DecimalFormat("#.##");
                 String roundedDistance = decimalFormat.format(distance);

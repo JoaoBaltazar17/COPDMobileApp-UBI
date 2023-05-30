@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Get the internal storage directory
         File directory = getFilesDir();
         // Create a file object for the CSV file
-        File file = new File(directory, "teste_02_joao_normal.csv");
+        File file = new File(directory, "dados_aceleracao.csv");
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
