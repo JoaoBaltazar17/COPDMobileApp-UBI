@@ -531,11 +531,11 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                 previousNormAcceleration = normAcceleration;
             }
 
-            return stepCount * 2;
+            return stepCount;
         } catch (IOException e) {
             e.toString();
         }
-        return stepCount * 2;
+        return stepCount;
     }
 
 
