@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Button buttonStart, buttonStop;
 
     private long previousTimeStamp = 0;
+
 
 
 
@@ -132,6 +134,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void stopRecording() {
+
+
         Toast.makeText(this, "Test has been finished!", Toast.LENGTH_LONG).show();
         isRecording = false;
         buttonStart.setVisibility(View.VISIBLE);
@@ -153,37 +157,58 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
     }
 
-    public void getFirstFiveLinesFromCSV(View view) {
-        try {
-            // Get the internal storage directory
-            File directory = getFilesDir();
-            // Create a file object for the CSV file
-            File file = new File(directory, "dados_aceleracao.csv");
 
-            // Read the first five lines from the CSV file
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+    public void countSteps(View view) {
+
+        double threshold = 1.0;
+        System.out.println("COMEÇOU A LEITURA!");
+        // Get the internal storage directory
+        File directory = getFilesDir();
+        // Create a file object for the CSV file
+        File file = new File(directory, "teste_02_joao_normal.csv");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
-            int lineCount = 0;
-            while ((line = reader.readLine()) != null && lineCount < 5) {
-                // Split the line into individual values using comma as the delimiter
-                String[] values = line.split(",");
+            double previousNormAcceleration = 0;
+            int stepCount = 0;
 
-                // Process the values as per your requirement
-                String tempo = values[0];
-                String accX = values[1];
-                String accY = values[2];
-                String accZ = values[3];
-                String normAcceleration = values[4];
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                double normAcceleration = Double.parseDouble(data[4]);
 
-                // Print or use the values as needed
-                Log.d(TAG, "Line " + (lineCount + 1) + " - Tempo: " + tempo + ", AccX: " + accX +
-                        ", AccY: " + accY + ", AccZ: " + accZ + ", NormAcceleration: " + normAcceleration);
+                if (previousNormAcceleration == 0) {
+                    previousNormAcceleration = normAcceleration;
+                    continue;
+                }
 
-                lineCount++;
+                double variation = normAcceleration - previousNormAcceleration;
+
+                if (variation >= threshold) {
+                    // Verifica se ocorreu uma variação maior ou igual ao limiar
+                    double nextNormAcceleration = 0;
+
+                    // Procura pelo próximo valor de norma de aceleração
+                    while ((line = br.readLine()) != null) {
+                        data = line.split(",");
+                        nextNormAcceleration = Double.parseDouble(data[4]);
+
+                        if (nextNormAcceleration < normAcceleration) {
+                            break;
+                        }
+                    }
+
+                    if (nextNormAcceleration < normAcceleration) {
+                        // Verifica se ocorreu uma variação para baixo
+                        stepCount++;
+                    }
+                }
+
+                previousNormAcceleration = normAcceleration;
             }
-            reader.close();
+
+            System.out.println("PASSOS: " + stepCount);
         } catch (IOException e) {
-            Log.e(TAG, "Error reading CSV file: " + e.getMessage());
+            e.toString();
         }
     }
 }
