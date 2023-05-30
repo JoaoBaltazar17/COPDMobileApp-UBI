@@ -214,6 +214,8 @@ public class OneMSTSTPage extends AppCompatActivity {
                     pulsi = 0;
                     pulsf = 0;
                     count = -1;
+                    txtViewCount.setText("Count: ");
+                    txtViewPercentage.setText("Pontuation [0-100]: ");
                 }
             }
         });

@@ -153,7 +153,7 @@
             android:id="@+id/txtViewCounter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Counter:"
+            android:text="Counter: "
             android:layout_gravity="left"
             android:layout_marginTop="30dp"
             android:visibility="visible"

@@ -18,8 +18,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -101,6 +104,7 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
 
     private long previousTimeStamp = 0;
     int stepCount = -1;
+    Vibrator v;
 
 
     private static final int RECORDING_TIME_MS = 30000; // 30 seconds
@@ -194,6 +198,8 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
         // Step Counter Variables
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
 
 
     }
@@ -276,6 +282,9 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                     accZ.clear();
                     tempo.clear();
                     normAccelerationValues.clear();
+                    txtViewSteps.setText("Steps: ");
+                    txtViewDistance.setText("Distance: ");
+                    txtViewPercentage.setText("Pontuation [0-100]: ");
                 }
             }
         });
@@ -343,7 +352,7 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
 
                 }
             });
-
+            inputAlert.setCancelable(false);
             inputAlert.show();
         }
     }
@@ -364,58 +373,86 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                             timerTask.cancel();
                             Log.e("AFTER TEST 6MSTST", "Concluded!");
 
-                            AlertDialog.Builder inputAlert = new AlertDialog.Builder(SixMWTPage.this);
-                            inputAlert.setTitle("Enter your heart rate after completing the test\n");
-                            final EditText input = new EditText(SixMWTPage.this);
-                            input.setInputType(InputType.TYPE_CLASS_NUMBER); // Apenas números inteiros
-                            inputAlert.setView(input);
+                            // Vibrate the device
+                            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            if (vibrator != null && vibrator.hasVibrator()) {
+                                long[] pattern = {0, 1000, 500, 1000}; // Vibration pattern: wait for 0ms, vibrate for 1000ms, wait for 500ms, vibrate for 1000ms
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    VibrationEffect effect = VibrationEffect.createWaveform(pattern, -1); // -1 means to repeat indefinitely
+                                    vibrator.vibrate(effect);
+                                } else {
+                                    vibrator.vibrate(pattern, -1);
+                                }
+                            }
 
-                            inputAlert.setPositiveButton("Conclude Test", new DialogInterface.OnClickListener() {
+                            // Show the "Test Finished" dialog
+                            AlertDialog.Builder testFinishedDialogBuilder = new AlertDialog.Builder(SixMWTPage.this);
+                            testFinishedDialogBuilder.setTitle("Your test has finished");
+                            testFinishedDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    String pulseString = input.getText().toString();
-                                    int pulse = 0;
+                                    // Stop the vibration
+                                    if (vibrator != null) {
+                                        vibrator.cancel();
+                                        AlertDialog.Builder inputAlert = new AlertDialog.Builder(SixMWTPage.this);
+                                        inputAlert.setTitle("Enter your heart rate after completing the test\n");
+                                        final EditText input = new EditText(SixMWTPage.this);
+                                        input.setInputType(InputType.TYPE_CLASS_NUMBER); // Apenas números inteiros
+                                        inputAlert.setView(input);
 
-                                    try {
-                                        pulse = Integer.parseInt(pulseString);
-                                    } catch (NumberFormatException e) {
-                                        Toast.makeText(getApplicationContext(), "\n" +
-                                                "Please enter a valid integer.", Toast.LENGTH_SHORT).show();
-                                        return;
+                                        inputAlert.setPositiveButton("Conclude Test", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                String pulseString = input.getText().toString();
+                                                int pulse = 0;
+
+                                                try {
+                                                    pulse = Integer.parseInt(pulseString);
+                                                } catch (NumberFormatException e) {
+                                                    Toast.makeText(getApplicationContext(), "\n" +
+                                                            "Please enter a valid integer.", Toast.LENGTH_SHORT).show();
+                                                    return;
+                                                }
+
+                                                if (pulse < 40 || pulse > 140) {
+                                                    Toast.makeText(getApplicationContext(), "Please enter an integer between 40 and 140.", Toast.LENGTH_SHORT).show();
+                                                    return;
+                                                }
+
+                                                pulsf = pulse;
+
+
+                                                // Cancel timer count
+                                                timerStarted = false;
+                                                time = 0.0;
+                                                setButtonUI("START", R.color.green);
+                                                writeStepVariablesCSV(); // Show the next dialog for cycle count
+                                            }
+                                        });
+
+                                        inputAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                // Cancel timer count
+                                                timerStarted = false;
+                                                time = 0.0;
+                                                accX.clear();
+                                                accY.clear();
+                                                accZ.clear();
+                                                tempo.clear();
+                                                normAccelerationValues.clear();
+                                                setButtonUI("START", R.color.green);
+                                            }
+                                        });
+                                        inputAlert.setCancelable(false); // Prevent dismissing the dialog by clicking outside or pressing the back button
+                                        inputAlert.show();
                                     }
-
-                                    if (pulse < 40 || pulse > 140) {
-                                        Toast.makeText(getApplicationContext(), "Please enter an integer between 40 and 140.", Toast.LENGTH_SHORT).show();
-                                        return;
-                                    }
-
-                                    pulsf = pulse;
-
-
-                                    // Cancel timer count
-                                    timerStarted = false;
-                                    time = 0.0;
-                                    setButtonUI("START", R.color.green);
-                                    writeStepVariablesCSV(); // Show the next dialog for cycle count
                                 }
                             });
 
-                            inputAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    // Cancel timer count
-                                    timerStarted = false;
-                                    time = 0.0;
-                                    accX.clear();
-                                    accY.clear();
-                                    accZ.clear();
-                                    tempo.clear();
-                                    normAccelerationValues.clear();
-                                    setButtonUI("START", R.color.green);
-                                }
-                            });
+                            testFinishedDialogBuilder.setCancelable(false); // Prevent dismissing the dialog by clicking outside or pressing the back button
+                            testFinishedDialogBuilder.show();
 
-                            inputAlert.show();
                         }
                     }
                 });
