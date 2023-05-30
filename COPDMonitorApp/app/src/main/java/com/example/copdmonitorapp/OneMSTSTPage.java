@@ -352,6 +352,7 @@ public class OneMSTSTPage extends AppCompatActivity {
                                     // Cancel timer count
                                     timerStarted = false;
                                     time = 0.0;
+                                    pulsf = 1;
                                     setButtonUI("START", R.color.green);
                                 }
                             });
@@ -496,8 +497,8 @@ public class OneMSTSTPage extends AppCompatActivity {
                 Toast.makeText(OneMSTSTPage.this, "Test has been sucessfully registered", Toast.LENGTH_LONG).show();
                 txtViewCount.setVisibility(View.VISIBLE);
                 txtViewPercentage.setVisibility(View.VISIBLE);
-                txtViewCount.setText(txtViewCount.getText().toString() + " " + count);
-                txtViewPercentage.setText(txtViewPercentage.getText().toString() + " " + testpercentage);
+                txtViewCount.setText("Count: " + count);
+                txtViewPercentage.setText("Test Percentage [0-100]: " + testpercentage);
 
             } else {
                 Toast.makeText(OneMSTSTPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();

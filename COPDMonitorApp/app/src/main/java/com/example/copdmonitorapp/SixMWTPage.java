@@ -441,7 +441,7 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                                                 time = 0.0;
                                                 setButtonUI("START", R.color.green);
                                                 writeStepVariablesCSV(); // Show the next dialog for cycle count
-                                                pulsf = 0;
+                                                pulsf = 1;
                                             }
                                         });
                                         inputAlert.setCancelable(false); // Prevent dismissing the dialog by clicking outside or pressing the back button
@@ -531,14 +531,17 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                 previousNormAcceleration = normAcceleration;
             }
 
-            return stepCount;
+            return stepCount * 2;
         } catch (IOException e) {
             e.toString();
         }
-        return stepCount;
+        return stepCount * 2;
     }
 
-    private void saveValuesTest() {
+
+
+
+        private void saveValuesTest() {
         stepCount = countSteps();
         Log.e(TAG, "Steps Counted: " + stepCount);
         btnStopStart.setClickable(true);
@@ -636,12 +639,12 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                 txtViewSteps.setVisibility(View.VISIBLE);
                 txtViewDistance.setVisibility(View.VISIBLE);
                 txtViewPercentage.setVisibility(View.VISIBLE);
-                txtViewSteps.setText(txtViewSteps.getText().toString() + " " + stepCount);
+                txtViewSteps.setText("Steps: " + stepCount);
 
                 DecimalFormat decimalFormat = new DecimalFormat("#.##");
                 String roundedDistance = decimalFormat.format(distance);
-                txtViewDistance.setText(txtViewDistance.getText().toString() + " " + roundedDistance);
-                txtViewPercentage.setText(txtViewPercentage.getText().toString() + " " + testpercentage);
+                txtViewDistance.setText("Distance: " + roundedDistance);
+                txtViewPercentage.setText("Test Percentage [0-100]: " + testpercentage);
 
             } else {
                 Toast.makeText(SixMWTPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
