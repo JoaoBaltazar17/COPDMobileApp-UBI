@@ -436,12 +436,9 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                                                 // Cancel timer count
                                                 timerStarted = false;
                                                 time = 0.0;
-                                                accX.clear();
-                                                accY.clear();
-                                                accZ.clear();
-                                                tempo.clear();
-                                                normAccelerationValues.clear();
                                                 setButtonUI("START", R.color.green);
+                                                writeStepVariablesCSV(); // Show the next dialog for cycle count
+                                                pulsf = 0;
                                             }
                                         });
                                         inputAlert.setCancelable(false); // Prevent dismissing the dialog by clicking outside or pressing the back button
