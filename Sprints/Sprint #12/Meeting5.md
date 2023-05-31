@@ -32,11 +32,12 @@
       - consideramos os últimos dois e fazemos a média.
       - consideramos todos e damos um peso mais alto à medida que o questionário é mais recente e fazemos a média ponderada.
   - 2.1.4 Testes fisicos 
-    - Mesma abordagem que o questionário, mas dúvida (?), ser secção abaixo!
+    - 6MWT  ->    NºSteps -> Distance (m) / Pulsacão inicial, Pulsacão final
+    - 1MSTS ->   CountCycle (SIT STAND) / Pulsacão inicial, Pulsacão final
 
 
 
-  ### 2.2 Como atribuir uma pontuação a cada teste / se for necessário.
+  ### 2.2 Como atribuir uma pontuação a cada teste / se for necessário?
     Como avaliar o desempenho do doente de 0 a 100? É possível quantificar o desempenho do doente?
 
 
