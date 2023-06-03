@@ -9,3 +9,8 @@
 
 - [ ]  2. Relação BD com FHIR (Explorar -> Relatório)
 
+
+-------------------
+
+1.1 Protocolo
+  - Coloque o telemóvel no bolso e aguarde até que o telemóvel vibre. Depois de vibrar poderá começar o teste!

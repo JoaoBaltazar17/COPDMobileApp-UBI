@@ -67,7 +67,7 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
 
     private boolean timerStarted = false;
 
-    private static final int TIMER_DURATION = 30; // 6 mins (6 * 60 segundos)
+    private static final int TIMER_DURATION = 35; // 6 mins (6 * 60 segundos)
 
     // SharedPreferences Variables
     private String emailShared;
@@ -340,7 +340,6 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                     pulsi = pulse;
 
 
-                    timerStarted = true;
                     setButtonUI("START", R.color.verdepastel);
 
                     Log.e("6MSTS", "1 MSTST HAS BEEN STARTED!");
@@ -369,7 +368,21 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                     public void run() {
                         time++;
                         txtViewTimerText.setText(getTimerText());
+                        if (time == 5) {
+                            // Vibrate the device
+                            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            if (vibrator != null && vibrator.hasVibrator()) {
+                                long[] pattern = {0, 1000, 500, 1000}; // Vibration pattern: wait for 0ms, vibrate for 1000ms, wait for 500ms, vibrate for 1000ms
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    VibrationEffect effect = VibrationEffect.createWaveform(pattern, -1); // -1 means to repeat indefinitely
+                                    vibrator.vibrate(effect);
+                                } else {
+                                    vibrator.vibrate(pattern, -1);
+                                }
+                            }
 
+                            timerStarted = true;
+                        }
                         if (time >= TIMER_DURATION) {
 
                             // Cancel timer
