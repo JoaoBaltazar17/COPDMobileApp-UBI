@@ -67,7 +67,7 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
 
     private boolean timerStarted = false;
 
-    private static final int TIMER_DURATION = 35; // 6 mins (6 * 60 segundos)
+    private static final int TIMER_DURATION = 30; // 6 mins (6 * 60 segundos)
 
     // SharedPreferences Variables
     private String emailShared;
@@ -288,6 +288,7 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                     txtViewSteps.setText("Steps: ");
                     txtViewDistance.setText("Distance: ");
                     txtViewPercentage.setText("Pontuation [0-100]: ");
+                    btnStopStart.setClickable(true);
                 }
             }
         });
@@ -368,8 +369,11 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                     public void run() {
                         time++;
                         txtViewTimerText.setText(getTimerText());
-                        if (time == 5) {
+                        if (time == 5 && timerStarted == false) {
                             // Vibrate the device
+                            time = 0.0;
+                            timerStarted = true;
+                            txtViewTimerText.setText(getTimerText());
                             Log.e("AFTER TEST 6MSTST", "Starts COUTING!");
                             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             if (vibrator != null && vibrator.hasVibrator()) {
@@ -382,12 +386,12 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                                 }
                             }
 
-                            timerStarted = true;
                         }
                         if (time >= TIMER_DURATION) {
 
                             // Cancel timer
                             timerTask.cancel();
+                            timerStarted = false;
                             Log.e("AFTER TEST 6MSTST", "Concluded!");
 
                             // Vibrate the device
@@ -439,8 +443,6 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                                                 pulsf = pulse;
 
 
-                                                // Cancel timer count
-                                                timerStarted = false;
                                                 time = 0.0;
                                                 setButtonUI("START", R.color.green);
                                                 writeStepVariablesCSV(); // Show the next dialog for cycle count

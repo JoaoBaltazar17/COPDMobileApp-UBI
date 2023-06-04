@@ -1,3 +1,5 @@
 teste_02_joao_lento.csv -> passos: 11
 teste_02_joao_normal.csv -> passos: 34
 teste_02_joao_rapido.csv -> passos: 50
+teste_03_tiago_lento_protocolo.csv -> passos: 13 / passos app: 9
+teste_03_tiago_lento.csv -> passos: 19 / passos app: 17
