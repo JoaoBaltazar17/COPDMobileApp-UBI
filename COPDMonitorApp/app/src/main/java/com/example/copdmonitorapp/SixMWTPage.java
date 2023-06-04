@@ -370,6 +370,7 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
                         txtViewTimerText.setText(getTimerText());
                         if (time == 5) {
                             // Vibrate the device
+                            Log.e("AFTER TEST 6MSTST", "Starts COUTING!");
                             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             if (vibrator != null && vibrator.hasVibrator()) {
                                 long[] pattern = {0, 1000, 500, 1000}; // Vibration pattern: wait for 0ms, vibrate for 1000ms, wait for 500ms, vibrate for 1000ms
