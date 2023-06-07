@@ -36,8 +36,6 @@ my mhealth (P)            | S                | iOS e Android   | Acompanhamento,
 COPD Pocket Consultant Guide (P) | S                 |  Android e (?)            |  Ferramenta para profissionais de saúde que desejam melhorar sua compreensão da COPD e fornecer o melhor cuidado possível aos pacientes com a condição.
 GOLD COPD (P) |  S | Android e (?) | Guia desenvolvido por uma colaboração internacional de especialistas em saúde respiratória, que fornece recomendações atualizadas para o diagnóstico, avaliação, tratamento e gestão da doença.
 NHS Wales: COPDhub (P) | S | iOS e Android | Informações sobre a doença, opções de tratamento, dicas de autogerenciamento, recursos de atividade física e exercícios respiratórios, além de orientações sobre como lidar com exacerbações.
-EPA's AIRNow (S)         |S                 | Android         | Informação da qualidade do ar
-Quit Genius (S) | S | Android e (?) | Fornece um programa personalizado para parar de fumar mediante suporte e ferramentas personalizadas; Acompanha o progresso e comemora marcos.
 
 
 
