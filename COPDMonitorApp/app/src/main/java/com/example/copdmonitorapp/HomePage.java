@@ -9,11 +9,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +45,12 @@ public class HomePage extends AppCompatActivity {
     private String pacientLoggedName;
     private String pacientLoggedEmail;
 
+    // Wellness Value BAR
+    private ProgressBar progressBar;
+    private TextView progressText;
+    int i = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,28 @@ public class HomePage extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         pacientLoggedEmail = sharedPreferences.getString("email", "");
         pacientLoggedName = sharedPreferences.getString("name", "");
+
+        // Progress Bar
+        // set the id for the progressbar and progress text
+        progressBar = findViewById(R.id.progress_bar);
+        progressText = findViewById(R.id.progress_text);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // set the limitations for the numeric
+                // text under the progress bar
+                if (i <= 100) {
+                    progressText.setText("" + i);
+                    progressBar.setProgress(i);
+                    i++;
+                    handler.postDelayed(this, 200);
+                } else {
+                    handler.removeCallbacks(this);
+                }
+            }
+        }, 200);
 
 
         // Navigation Drawer Finders

@@ -28,34 +28,44 @@
             android:textColor="@color/lavender"
             android:textSize="21sp" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="55sp"
-            android:layout_marginTop="40sp" />
+        <RelativeLayout
+            android:id="@+id/progress_layout"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center" >
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="150dp"
-            android:layout_height="35dp"
-            android:text="Perc%"
-            android:textSize="10dp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_marginStart="127sp"
-            android:layout_marginTop="-200sp"
+            <!--progress bar implementation-->
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circular_shape"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:textAlignment="center" />
 
-            android:padding="10dp"
-            android:background="@drawable/background_green_pastel" />
+            <!--Text implementation in center of the progress bar-->
+            <TextView
+                android:id="@+id/progress_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="---"
+                android:textColor="@color/greysolid"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <GridLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="40dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="250dp"
             android:layout_marginBottom="-100dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
