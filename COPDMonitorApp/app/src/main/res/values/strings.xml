@@ -2,8 +2,29 @@
     <string name="app_name">COPDMonitorApp</string>
     <string name="select">Select Item</string>
     <string name="wait_for_the_virtual_provider_answer">Wait for the Virtual Provider Answer</string>
+
     <string name="question1">How do you feel about your performing activities at home?</string>
     <string name="question2">How do you feel about your energy levels?</string>
     <string name="question3">How is your cought today?</string>
     <string name="question4">How is your condition when you walk up a hill or one flight of stairs?</string>
+    <string name="lowimpact_inst1">Smoking cessation.</string>
+    <string name="lowimpact_inst2">Annual influenza vaccination.</string>
+    <string name="lowimpact_inst3">Reduce exposure to exarcebation risk factors.</string>
+    <string name="lowimpact_inst4">Therapy as warranted by further clinical assessment.</string>
+    <string name="mediumimpact_inst1">Reviewing maintenance therapy - is it optimal?</string>
+    <string name="mediumimpact_inst2">Referral for pulmonary rehabilitation.</string>
+    <string name="mediumimpact_inst3">Ensuring best approaches to minimising and managing exarcebations.</string>
+    <string name="mediumimpact_inst4">Reviewing aggravating factors - do you still smoking?</string>
+    <string name="high_inst1">Referral to specialist care (if you are a primary care psysician).</string>
+    <string name="high_inst2">Additional pharmacological treatments.</string>
+    <string name="high_inst3">Referral for pulmonary rehabilitation.</string>
+    <string name="high_inst4">Ensuring best approaches to minimising and managing exarcebations.</string>
+    <string name="veryhigh_inst1">Referral to specialist care (if you are a primary care psysician).</string>
+    <string name="veryhigh_inst2">Additional pharmacological treatments.</string>
+    <string name="veryhigh_inst3">Referral for pulmonary rehabilitation.</string>
+    <string name="veryhigh_inst4">Ensuring best approaches to minimising and managing exarcebations.</string>
+
+
+
+
 </resources>

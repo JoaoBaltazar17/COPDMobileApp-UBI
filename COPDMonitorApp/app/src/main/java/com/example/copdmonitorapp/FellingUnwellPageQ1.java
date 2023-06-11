@@ -74,14 +74,14 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
                 public void onClick(View widget) {
-                    Uri uri = Uri.parse("https://www.thoracic.org/");
+                    Uri uri = Uri.parse("https://pubmed.ncbi.nlm.nih.gov/31730832/");
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     startActivity(intent);
                 }
             };
 
-            int startIndex = txtViewInfo1.getText().toString().indexOf("American Thoracic Society");
-            int endIndex = startIndex + "American Thoracic Society".length();
+            int startIndex = txtViewInfo1.getText().toString().indexOf("National Library of Medicine");
+            int endIndex = startIndex + "National Library of Medicine".length();
 
             spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 

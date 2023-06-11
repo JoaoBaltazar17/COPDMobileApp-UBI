@@ -85,8 +85,8 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
             // Component Finder's
             txtViewImageVector = findViewById(R.id.txtViewImageVector);
             txtViewTestResult = findViewById(R.id.txtViewtTestResult);;
-            txtViewInstruction1 = findViewById(R.id.txtViewInstruction1);
-            txtViewInstruction2 = findViewById(R.id.txtViewInstruction2);
+            txtViewInstruction1 = findViewById(R.id.textViewInst1);
+            txtViewInstruction2 = findViewById(R.id.textViewInst2);
             txtViewInstruction3 = findViewById(R.id.textViewInst3);
             txtViewInstruction4= findViewById(R.id.textViewInst4);
             btnShareResultsQuestionnaire = findViewById(R.id.btnShareResultsQuestion);
@@ -104,41 +104,41 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
 
 
             if (sumSlides >= 0 && sumSlides <= 3) {
-                drawable = getResources().getDrawable(R.drawable.ic_questionverysad);
-                txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-                /*
-                txtViewInstruction1.setText(getString(R.string.noimpact_inst1));
-                txtViewInstruction2.setText(getString(R.string.noimpact_inst2));
-                txtViewInstruction3.setText(getString(R.string.noimpact_inst3));
-                txtViewInstruction4.setText(getString(R.string.noimpact_inst4));
-                */
-            } else if (sumSlides >= 4 && sumSlides <= 7) {
                 drawable = getResources().getDrawable(R.drawable.ic_questionhappy);
                 txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-                /*
-                txtViewInstruction1.setText(getString(R.string.brief_inst1));
-                txtViewInstruction2.setText(getString(R.string.brief_inst2));
-                txtViewInstruction3.setText(getString(R.string.brief_inst3));
-                txtViewInstruction4.setText(getString(R.string.brief_inst4));
-                */
-            } else if (sumSlides >= 8 && sumSlides <= 11) {
+                txtViewTestResult.setText("Low Impact");
+                txtViewInstruction1.setText(getString(R.string.lowimpact_inst1));
+                txtViewInstruction2.setText(getString(R.string.lowimpact_inst2));
+                txtViewInstruction3.setText(getString(R.string.lowimpact_inst3));
+                txtViewInstruction4.setText(getString(R.string.lowimpact_inst4));
+
+            } else if (sumSlides >= 4 && sumSlides <= 7) {
                 drawable = getResources().getDrawable(R.drawable.ic_questionmoderate);
                 txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-                /*
-                txtViewInstruction1.setText(getString(R.string.moderate_inst1));
-                txtViewInstruction2.setText(getString(R.string.moderate_inst2));
-                txtViewInstruction3.setText(getString(R.string.moderate_inst3));
-                txtViewInstruction4.setText(getString(R.string.moderate_inst4));
-                 */
-            } else if (sumSlides >= 12 && sumSlides <= 16) {
+                txtViewTestResult.setText("Medium Impact");
+                txtViewInstruction1.setText(getString(R.string.mediumimpact_inst1));
+                txtViewInstruction2.setText(getString(R.string.mediumimpact_inst2));
+                txtViewInstruction3.setText(getString(R.string.mediumimpact_inst3));
+                txtViewInstruction4.setText(getString(R.string.mediumimpact_inst4));
+
+            } else if (sumSlides >= 8 && sumSlides <= 11) {
                 drawable = getResources().getDrawable(R.drawable.ic_questionsad);
                 txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-                /*
-                txtViewInstruction1.setText(getString(R.string.sad_inst1));
-                txtViewInstruction2.setText(getString(R.string.sad_inst2));
-                txtViewInstruction3.setText(getString(R.string.sad_inst3));
-                txtViewInstruction4.setText(getString(R.string.sad_inst4));
-                */
+                txtViewTestResult.setText("High Impact");
+                txtViewInstruction1.setText(getString(R.string.high_inst1));
+                txtViewInstruction2.setText(getString(R.string.high_inst2));
+                txtViewInstruction3.setText(getString(R.string.high_inst3));
+                txtViewInstruction4.setText(getString(R.string.high_inst4));
+
+            } else if (sumSlides >= 12 && sumSlides <= 16) {
+                drawable = getResources().getDrawable(R.drawable.ic_questionverysad);
+                txtViewImageVector.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                txtViewTestResult.setText("Very High Impact");
+                txtViewInstruction1.setText(getString(R.string.veryhigh_inst1));
+                txtViewInstruction2.setText(getString(R.string.veryhigh_inst2));
+                txtViewInstruction3.setText(getString(R.string.veryhigh_inst3));
+                txtViewInstruction4.setText(getString(R.string.veryhigh_inst4));
+
             } else {
                 Log.e("Resultados", "Pontuação Inválida: " + sumSlides);
             }

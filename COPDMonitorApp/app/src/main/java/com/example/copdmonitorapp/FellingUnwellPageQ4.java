@@ -57,7 +57,8 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
     int slide3_value;
     int slide2_value;
     int slide1_value;
-    int slide_sumValues;
+    int slide_sumValues = -1;
+    String impact_level = "";
 
     int slideValue;
     int slideValueClick = 0;
@@ -252,7 +253,20 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
 
     public void onConfirmPagButtonClick(View view) {
         if (slideValueClick != 0) {
-            new SaveQuestionnaireAnswers().execute(String.valueOf(slide1_value), String.valueOf(slide2_value), String.valueOf(slide3_value), String.valueOf(slideValue));
+            slide_sumValues = slide1_value + slide2_value + slide3_value + slideValue;
+
+            if (slide_sumValues >= 0 && slide_sumValues <= 3) {
+                impact_level = "Low";
+            } else if (slide_sumValues >= 4 && slide_sumValues <= 7) {
+                impact_level = "Medium";
+            } else if (slide_sumValues >= 8 && slide_sumValues <= 11) {
+                impact_level = "High";
+            } else if (slide_sumValues >= 12 && slide_sumValues <= 16) {
+                impact_level = "Very High";
+            } else {
+                impact_level = "Invalid range";
+            }
+            new SaveQuestionnaireAnswers().execute(String.valueOf(slide1_value), String.valueOf(slide2_value), String.valueOf(slide3_value), String.valueOf(slideValue), String.valueOf(slide_sumValues), impact_level);
         }
     }
 
@@ -277,7 +291,9 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
             int slide2 = Integer.parseInt(params[1]);
             int slide3 = Integer.parseInt(params[2]);
             int slide4 = Integer.parseInt(params[3]);
-            Log.e(TAG, "Slide 1: " + slide1 + "\n Slide 2:" + slide2 +  "\n Slide 3:" + slide3 +  "\n Slide 4:" + slide4);
+            int slide_sum = Integer.parseInt(params[4]);
+            String impact_level = params[5];
+            Log.e(TAG, "Slide 1: " + slide1 + "\n Slide 2:" + slide2 +  "\n Slide 3:" + slide3 +  "\n Slide 4:" + slide4 + "\n Slide Sum:" + slide_sum + "\n Impact Level:" + impact_level);
 
 
             String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
@@ -300,7 +316,7 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
                             return false;
                         }
                         Log.e(TAG, "Cheguei");
-                        String sql = "INSERT INTO questionnairesos (date, q1_pont, q2_pont, q3_pont, q4_pont , idpatient) VALUES (?, ?, ?, ?, ?, ?)";
+                        String sql = "INSERT INTO questionnairesos (date, q1_pont, q2_pont, q3_pont, q4_pont , idpatient, pontuation, impact_level) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                         try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
                             // set the parameter values
                             pstmt2.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
@@ -309,6 +325,8 @@ public class FellingUnwellPageQ4 extends AppCompatActivity {
                             pstmt2.setInt(4, slide3);
                             pstmt2.setInt(5, slide4);
                             pstmt2.setInt(6, patientId);
+                            pstmt2.setInt(7, slide_sum);
+                            pstmt2.setString(8, impact_level);
                             pstmt2.executeUpdate();
                         }
                         return true;

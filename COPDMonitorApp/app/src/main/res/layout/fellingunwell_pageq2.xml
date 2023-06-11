@@ -62,6 +62,7 @@
             android:layout_marginTop="90sp"
             android:text="@string/question2"
             android:layout_gravity="center"
+            android:textAlignment="center"
             android:textSize="22sp" />
 
         <com.google.android.material.slider.Slider
