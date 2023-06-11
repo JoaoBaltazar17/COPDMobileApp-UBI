@@ -2,7 +2,7 @@
 
 # Order of The Week
 
-- [ ]  1. Reunir com pessoal da FCS (Marcar e descrever temas pertinentes).
+- [x]  1. Reunir com pessoal da FCS (Marcar e descrever temas pertinentes).
 
 - [ ]  2. Continuação do Relatório.
 
@@ -13,9 +13,7 @@
 
 ## 3. WellNess Value
 
-- Score: a intenção "final" seria também integrar com info clínica e de medicação do doente para criar um score com mais valor clínico.
-
-- Conceito: 
+- Score (Conceitual): a intenção "final" seria também integrar com info clínica e de medicação do doente    para criar um score com mais valor clínico.
   - Percentagens:
     - Sintomas respiratórios, 10
     - usos de corticosteroides, 10

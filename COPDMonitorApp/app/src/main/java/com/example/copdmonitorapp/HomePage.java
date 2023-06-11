@@ -1,11 +1,14 @@
 package com.example.copdmonitorapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,11 +16,14 @@ import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.button.MaterialButton;
 
 public class HomePage extends AppCompatActivity {
 
@@ -29,8 +35,6 @@ public class HomePage extends AppCompatActivity {
     Button btnMenuMedications;
     Button btnMenuExercise;
     Button btnMenuChat;
-
-
 
 
     // Navigation Drawer Attributes
@@ -46,10 +50,12 @@ public class HomePage extends AppCompatActivity {
     private String pacientLoggedEmail;
 
     // Wellness Value BAR
+    private MaterialButton btnInfo;
     private ProgressBar progressBar;
     private TextView progressText;
     int i = 0;
 
+    int WellnessValue = 38;
 
 
     @Override
@@ -67,22 +73,59 @@ public class HomePage extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         progressText = findViewById(R.id.progress_text);
 
+        btnInfo = findViewById(R.id.btnInfoWellness);
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(HomePage.this);
+                builder.setTitle("       COPD Wellness Value");
+
+                // Crie um TextView personalizado para exibir o texto longo
+                TextView textView = new TextView(HomePage.this);
+                textView.setText(
+                        "\n COPD Wellness Value deducted by:\n" +
+                        " - Values on Sensor Shot.\n" +
+                        " - Last Questionnaire Pontuation.\n" +
+                        " - Latest's Exercise Tests Pontuation.\n\n" +
+                        "Warning: If you are new, give a try in the activities below. " +
+                        "The COPD Wellness Value will be shown as soon as there is enough data for the evaluation.");
+                textView.setPadding(30, 30, 30, 30); // Ajuste o espaçamento conforme necessário
+                textView.setTextSize(16); // Ajuste o tamanho da fonte conforme necessário
+
+
+                builder.setView(textView);
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+
+
+        // Styling Progress Bar (Wellness Value Styles)
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 // set the limitations for the numeric
                 // text under the progress bar
-                if (i <= 100) {
+                if (i <= WellnessValue) {
                     progressText.setText("" + i);
                     progressBar.setProgress(i);
                     i++;
-                    handler.postDelayed(this, 200);
+                    handler.postDelayed(this, 100);
                 } else {
                     handler.removeCallbacks(this);
                 }
             }
-        }, 200);
+        }, 10);
 
 
         // Navigation Drawer Finders

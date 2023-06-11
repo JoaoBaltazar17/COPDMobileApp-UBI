@@ -46,6 +46,19 @@
                 android:progressDrawable="@drawable/circular_progress_bar"
                 android:textAlignment="center" />
 
+            <!--New TextView implementation-->
+            <TextView
+                android:id="@+id/new_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/progress_text"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="COPD Control"
+                android:textColor="@color/greysolid"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <!--Text implementation in center of the progress bar-->
             <TextView
                 android:id="@+id/progress_text"
@@ -59,6 +72,24 @@
                 android:textColor="@color/greysolid"
                 android:textSize="28sp"
                 android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/btnInfoWellness"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="180dp"
+                android:drawableTop="@drawable/ic_info"
+                android:text=""
+                android:textColor="@color/login_button_color"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp" />
+
+
+
+
         </RelativeLayout>
 
         <GridLayout
