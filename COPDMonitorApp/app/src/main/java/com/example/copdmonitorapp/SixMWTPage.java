@@ -168,7 +168,11 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(SixMWTPage.this, AboutPage.class);
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.setType("text/plain");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Download this COPD App!");
+                startActivity(Intent.createChooser(sendIntent, "Choose one"));
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {

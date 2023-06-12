@@ -176,7 +176,11 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
             share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    redirectActivity( FellingUnwellPageQ5.this, SharePage.class);
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.setType("text/plain");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Download this COPD App!");
+                    startActivity(Intent.createChooser(sendIntent, "Choose one"));
                 }
             });
             about.setOnClickListener(new View.OnClickListener() {

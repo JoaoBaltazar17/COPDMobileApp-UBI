@@ -79,18 +79,16 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(HomePage.this);
                 builder.setTitle("       COPD Wellness Value");
-
-                // Crie um TextView personalizado para exibir o texto longo
                 TextView textView = new TextView(HomePage.this);
                 textView.setText(
                         "\n COPD Wellness Value deducted by:\n" +
-                        " - Values on Sensor Shot.\n" +
-                        " - Last Questionnaire Pontuation.\n" +
-                        " - Latest's Exercise Tests Pontuation.\n\n" +
-                        "Warning: If you are new, give a try in the activities below. " +
+                        " - Sensor Shot.\n" +
+                        " - How do you feel today?\n" +
+                        " - Exercise Tests\n\n" +
+                        "Warning: If you're a novice user of the application, give a try in the activities below. " +
                         "The COPD Wellness Value will be shown as soon as there is enough data for the evaluation.");
-                textView.setPadding(30, 30, 30, 30); // Ajuste o espaçamento conforme necessário
-                textView.setTextSize(16); // Ajuste o tamanho da fonte conforme necessário
+                textView.setPadding(30, 30, 30, 30);
+                textView.setTextSize(16);
 
 
                 builder.setView(textView);
@@ -117,10 +115,10 @@ public class HomePage extends AppCompatActivity {
                 // set the limitations for the numeric
                 // text under the progress bar
                 if (i <= WellnessValue) {
-                    progressText.setText("" + i);
+                    progressText.setText("" + i + "%");
                     progressBar.setProgress(i);
                     i++;
-                    handler.postDelayed(this, 100);
+                    handler.postDelayed(this, 50);
                 } else {
                     handler.removeCallbacks(this);
                 }
@@ -165,7 +163,11 @@ public class HomePage extends AppCompatActivity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(HomePage.this, SharePage.class);
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.setType("text/plain");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Download this COPD App!");
+                startActivity(Intent.createChooser(sendIntent, "Choose one"));
             }
         });
         about.setOnClickListener(new View.OnClickListener() {

@@ -54,7 +54,7 @@
                 android:layout_above="@id/progress_text"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="COPD Control"
+                android:text="Wellness Value"
                 android:textColor="@color/greysolid"
                 android:textSize="20sp"
                 android:textStyle="bold" />

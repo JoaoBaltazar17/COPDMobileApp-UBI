@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -17,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+
 public class ChatLivePage extends AppCompatActivity {
 
 
@@ -24,6 +28,11 @@ public class ChatLivePage extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, settings, share, about, logout;
+    TextView txtViewNavBarName;
+    TextView txtViewNavBarEmail;
+
+    String emailShared;
+    String nameShared;
 
 
     @Override
@@ -31,6 +40,11 @@ public class ChatLivePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatlive_page);
 
+
+        // Retrieve user's login credentials
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        emailShared = sharedPreferences.getString("email", "");
+        nameShared = sharedPreferences.getString("name", "");
 
         // Navigation Drawer Finders
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -40,6 +54,12 @@ public class ChatLivePage extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         settings = findViewById(R.id.settings);
         share = findViewById(R.id.share);
+        txtViewNavBarEmail = findViewById(R.id.eTxtNavBarEmail);
+        txtViewNavBarName = findViewById(R.id.eTxtNavBarName);
+        txtViewNavBarName.setText(nameShared);
+        txtViewNavBarEmail.setText(emailShared);
+
+
 
 
         // Menu Navigation and Components Listener's
@@ -65,7 +85,11 @@ public class ChatLivePage extends AppCompatActivity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(ChatLivePage.this, SharePage.class);
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.setType("text/plain");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Download this COPD App!");
+                startActivity(Intent.createChooser(sendIntent, "Choose one"));
             }
         });
         about.setOnClickListener(new View.OnClickListener() {
