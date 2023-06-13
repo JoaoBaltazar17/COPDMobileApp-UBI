@@ -83,9 +83,6 @@ public class AboutPage extends AppCompatActivity {
                 editor.remove("username");
                 editor.remove("password");
                 editor.apply();
-
-                Intent intent = new Intent(AboutPage.this, InitialPage.class);
-                startActivity(intent);
             }
         });
 

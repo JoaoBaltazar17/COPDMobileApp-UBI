@@ -55,7 +55,7 @@ public class HomePage extends AppCompatActivity {
     private TextView progressText;
     int i = 0;
 
-    int WellnessValue = 38;
+    int WellnessValue = 78;
 
 
     @Override

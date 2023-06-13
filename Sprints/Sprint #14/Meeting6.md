@@ -20,13 +20,24 @@
       - Análise de valores recolhidos nas últimas (24h (?)).
         - Tratamento destes resultados (detetar valores anormais, quais são os valores anormais (?) )
         - Peso de cada variável (Média Aritmética ou Ponderada (?) )
+          - Medição após deteção de irregularidades ( 4 / dia -> hora seguinte 15m em 15m).
+          - T - 50%
+          - PACO2 - 25% 
+          - PA02 - 25%
+          - RR - 50%
   
     - **Testes Fisicos**
+      - Teste Calibração! (70%)
       - Último teste realizado de cada tipo (Atribui-se uma pontuação, qual a escala (?))
         - Fórmula que dado um input de cada componente dos testes fisicos dará um número que expressa o quão bem sucedido foi esse teste (?)
         - Média aritmética dos dois.
   
     - **Questionário**
-      - Desempenho do último questionário esfetuado (Pontuação!)
+      - Desempenho do último questionário esfetuado (Pontuação!) 20% (100 - 20 = 80%)
 
-    Wellness_Value = (Variaveis_Sensor * 0.4) + (TestesFisicos * 0.3) + (TestesFisicos * 0.3) 
+    Wellness_Value = (Variaveis_Sensor * 0.4) + (TestesFisicos * 0.3) + (Questionario * 0.3) 
+
+
+
+
+    Wellness Value -> Guardar o valor numa tabela com timestamp!
