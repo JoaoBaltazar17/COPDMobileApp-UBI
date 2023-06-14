@@ -11,7 +11,3 @@
 - [x]  2. Criar BD e fazer processo login
 
 
-# 1. Aplicação Count Steps (Nova abordagem)
-
-  # Analisar o sinal
-    
