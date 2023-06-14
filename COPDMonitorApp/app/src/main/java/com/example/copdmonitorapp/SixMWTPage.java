@@ -78,6 +78,8 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, settings, share, about, logout;
+    TextView txtViewNavBarName;
+    TextView txtViewNavBarEmail;
 
     // Pulsation Values
     int pulsi = 0;
@@ -105,6 +107,13 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
     private long previousTimeStamp = 0;
     int stepCount = -1;
     Vibrator v;
+
+
+    // Last 6MWT from Patient
+    int firstTry = 0;
+    private int pastSteps = -1;
+    private int pastPulsi = -1;
+    private int pastPulsf = -1;
 
 
     private static final int RECORDING_TIME_MS = 30000; // 30 seconds
@@ -137,6 +146,10 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
         logout = findViewById(R.id.logout);
         settings = findViewById(R.id.settings);
         share = findViewById(R.id.share);
+        txtViewNavBarEmail = findViewById(R.id.eTxtNavBarEmail);
+        txtViewNavBarName = findViewById(R.id.eTxtNavBarName);
+        txtViewNavBarName.setText(nameShared);
+        txtViewNavBarEmail.setText(emailShared);
 
 
         // Menu Navigation and Components Listener's
@@ -205,6 +218,8 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 
+        // Get Test Calibration 6MWT Results
+        new GetFirst6MWTRecords().execute();
 
     }
 
@@ -558,10 +573,22 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
         return stepCount;
     }
 
+    // Function to Calculate Test Percentage
+    public float calculatePercentage(int pulsI, int  pulsF, int steps, int past_pulsI, int past_pulsF, int past_steps) {
+        int mPuls =  (pulsI +  pulsF) / 2;
+        int past_mPuls =  (past_pulsI +  past_pulsF) / 2;
+
+        int avalPassos = (steps - past_steps) * 3;
+        int avalPulsacoes = (past_mPuls - mPuls) * 2;
+
+        float perc = 50 + avalPulsacoes + avalPassos;
+        return perc;
+
+    }
 
 
 
-        private void saveValuesTest() {
+    private void saveValuesTest() {
         stepCount = countSteps();
         Log.e(TAG, "Steps Counted: " + stepCount);
         btnStopStart.setClickable(true);
@@ -571,7 +598,12 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
             return;
         }
         distance = stepCount * 0.762f;
-        testpercentage = 20.2f;
+        if(firstTry == 1) {
+            testpercentage = 50f;
+        }
+        else {
+            testpercentage = calculatePercentage(pulsi, pulsf, stepCount, pastPulsi, pastPulsf, pastSteps);
+        }
         new Save6MWTRecords().execute(String.valueOf(pulsi), String.valueOf(pulsf), String.valueOf(stepCount), String.valueOf(distance), String.valueOf(testpercentage));
 
     }
@@ -697,4 +729,112 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
     public void goBackToExerciseMenu(View view) {
         redirectActivity(SixMWTPage.this, ExerciseMenuPage.class);
     }
+
+
+
+
+    // First 6MWT of the Patient logged
+    private class GetFirst6MWTRecords extends AsyncTask<String, Void, Boolean> {
+        private Exception exception;
+
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(SixMWTPage.this);
+            progressDialog.setMessage("Processing, please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+
+            String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
+            String svusername = "postgres";
+            String svpassword = "copdproject";
+
+
+
+            try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
+                int patientId = 0;
+                Log.e("6MWT BD CONNECTION:", "Connection to BD succesfull!");
+                // Check if there is another user with the same username
+                String selectQuery = "SELECT id FROM Patient WHERE email = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(selectQuery)) {
+                    pstmt.setString(1, emailShared);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        if (rs.next()) {
+                            patientId = rs.getInt("id");
+                            Log.e("6MWT PatientLogged:", "The ID of the patient is: " + patientId);
+                        } else {
+                            System.out.println("No patient found with that email address.");
+                            return false;
+                        }
+                        String sql = "SELECT * FROM sixmwt WHERE idpatient = ? ORDER BY date6test ASC LIMIT 1;";
+                        PreparedStatement statement = conn.prepareStatement(sql);
+
+                        statement.setInt(1, patientId);
+
+                        ResultSet resultSet = statement.executeQuery();
+
+                        if (resultSet.next()) {
+                            // Retrieve the values from the result set
+                            int id = resultSet.getInt("id");
+                            int idPatient = resultSet.getInt("idpatient");
+                            pastPulsi = resultSet.getInt("initialpulsation");
+                            pastPulsf  = resultSet.getInt("finalpulsation");
+                            Timestamp date6test = resultSet.getTimestamp("date6test");
+                            double distance = resultSet.getDouble("distance");
+                            pastSteps = resultSet.getInt("numbersteps");
+                            double testPercent = resultSet.getDouble("testpercent");
+
+                        } else {
+                            return true;
+                        }
+                        resultSet.close();
+                        statement.close();
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("6MSTS", "Error executing query", e);
+                exception = e;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            progressDialog.dismiss();
+
+            if (result) {
+                if (pastSteps != -1 &&  pastPulsi != -1 && pastPulsf != -1) {
+
+                }
+                else {
+                    firstTry = 1;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SixMWTPage.this);
+                    builder.setTitle("Alert")
+                            .setMessage("You are about to take your first 6MWT Test. This test will be used for CALIBRATION (perform it under your normal conditions).")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Ação a ser executada ao clicar em OK
+                                }
+                            })
+                            .setCancelable(false) // Impede que o usuário clique fora do pop-up para fechá-lo
+                            .show();
+                }
+            } else {
+                Toast.makeText(SixMWTPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+
+
+
 }

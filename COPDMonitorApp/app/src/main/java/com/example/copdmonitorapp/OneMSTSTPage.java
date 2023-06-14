@@ -73,9 +73,14 @@ public class OneMSTSTPage extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, settings, share, about, logout;
+    TextView txtViewNavBarName;
+    TextView txtViewNavBarEmail;
 
-
-
+    // First 1MSTST Test
+    private int pastCountOne = -1;
+    private int pastPulsiOne = -1;
+    private int pastPulsfOne = -1;
+    private int firstTry1 = 0;
 
 
 
@@ -105,6 +110,10 @@ public class OneMSTSTPage extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         settings = findViewById(R.id.settings);
         share = findViewById(R.id.share);
+        txtViewNavBarEmail = findViewById(R.id.eTxtNavBarEmail);
+        txtViewNavBarName = findViewById(R.id.eTxtNavBarName);
+        txtViewNavBarName.setText(nameShared);
+        txtViewNavBarEmail.setText(emailShared);
 
 
         // Menu Navigation and Components Listener's
@@ -164,7 +173,8 @@ public class OneMSTSTPage extends AppCompatActivity {
         txtViewCount.setVisibility(View.INVISIBLE);
         txtViewPercentage.setVisibility(View.INVISIBLE);
 
-
+        // Get First 1MSTST Test
+        new GetFirstONEMSTSTRecords().execute();
 
 
     }
@@ -212,6 +222,7 @@ public class OneMSTSTPage extends AppCompatActivity {
                 {
                     timerTask.cancel();
                     setButtonUI("START", R.color.green);
+                    btnStopStart.setClickable(true);
                     time = 0.0;
                     timerStarted = false;
                     txtViewTimerText.setText(formatTime(0,0,0));
@@ -345,7 +356,7 @@ public class OneMSTSTPage extends AppCompatActivity {
                                     // Cancel timer count
                                     timerStarted = false;
                                     time = 0.0;
-                                    setButtonUI("START", R.color.green);
+                                    btnStopStart.setClickable(false);
                                     showCycleCountDialog(); // Show the next dialog for cycle count
                                 }
                             });
@@ -413,6 +424,22 @@ public class OneMSTSTPage extends AppCompatActivity {
         inputAlertSign.show();
     }
 
+
+    // Function to Calculate Test Percentage
+    public float calculatePercentage(int pulsI, int  pulsF, int count, int past_pulsI, int past_pulsF, int past_count) {
+        int mPuls =  (pulsI +  pulsF) / 2;
+        int past_mPuls =  (past_pulsI +  past_pulsF) / 2;
+
+
+
+        int avalCicles = (count - past_count) * 3;
+        int avalPulsacoes = (past_mPuls - mPuls) * 2;
+
+        float perc = 50 + (avalPulsacoes + avalCicles);
+        return perc;
+
+    }
+
     // Save Test Value's into Database
     private void saveValuesTest() {
         btnStopStart.setClickable(true);
@@ -421,7 +448,12 @@ public class OneMSTSTPage extends AppCompatActivity {
             Toast.makeText(OneMSTSTPage.this, "Hey there! You cannot proceed with null values on test", Toast.LENGTH_LONG).show();
             return;
         }
-        testpercentage = 20.2f;
+        if(firstTry1 == 1) {
+            testpercentage = 50f;
+        }
+        else {
+            testpercentage = calculatePercentage(pulsi, pulsf, count, pastPulsiOne, pastPulsfOne, pastCountOne);
+        }
         new Save1MSTSRecords().execute(String.valueOf(pulsi), String.valueOf(pulsf), String.valueOf(count), String.valueOf(testpercentage));
 
     }
@@ -535,5 +567,105 @@ public class OneMSTSTPage extends AppCompatActivity {
 
     public void goBackToExerciseMenu(View view) {
         redirectActivity(OneMSTSTPage.this, ExerciseMenuPage.class);
+    }
+
+    // First 6MWT of the Patient logged
+    private class GetFirstONEMSTSTRecords extends AsyncTask<String, Void, Boolean> {
+        private Exception exception;
+
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(OneMSTSTPage.this);
+            progressDialog.setMessage("Processing, please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+
+            String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
+            String svusername = "postgres";
+            String svpassword = "copdproject";
+
+
+
+            try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
+                int patientId = 0;
+                Log.e("1MSTS BD CONNECTION:", "Connection to BD succesfull!");
+                // Check if there is another user with the same username
+                String selectQuery = "SELECT id FROM Patient WHERE email = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(selectQuery)) {
+                    pstmt.setString(1, emailShared);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        if (rs.next()) {
+                            patientId = rs.getInt("id");
+                            Log.e("1MSTS PatientLogged:", "The ID of the patient is: " + patientId);
+                        } else {
+                            System.out.println("No patient found with that email address.");
+                            return false;
+                        }
+                        String sql = "SELECT * FROM \"1mstst\" WHERE idpatient = ? ORDER BY date1test ASC LIMIT 1;";
+                        PreparedStatement statement = conn.prepareStatement(sql);
+
+                        statement.setInt(1, patientId);
+
+                        ResultSet resultSet = statement.executeQuery();
+
+                        if (resultSet.next()) {
+                            // Retrieve the values from the result set
+                            int id = resultSet.getInt("id");
+                            int idPatient = resultSet.getInt("idpatient");
+                            pastPulsiOne = resultSet.getInt("initialpulsation");
+                            pastPulsfOne  = resultSet.getInt("finalpulsation");
+                            Timestamp date6test = resultSet.getTimestamp("date1test");
+                            pastCountOne = resultSet.getInt("countcycles");
+
+                        } else {
+                            return true;
+                        }
+                        resultSet.close();
+                        statement.close();
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("1MSTS", "Error executing query", e);
+                exception = e;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            progressDialog.dismiss();
+
+            if (result) {
+                if (pastCountOne != -1 &&  pastPulsiOne != -1 && pastPulsfOne != -1) {
+                    Log.e("1MSTST FIRST TEST VALUES", "Past Count: " + pastCountOne + "\n Past PulsI:" + pastPulsiOne + "\n Past PulsF:" + pastPulsfOne);
+                }
+                else {
+                    firstTry1 = 1;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(OneMSTSTPage.this);
+                    builder.setTitle("Alert")
+                            .setMessage("You are about to take your first 1MSTST Test. This test will be used for CALIBRATION (perform it under your normal conditions).")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Ação a ser executada ao clicar em OK
+                                }
+                            })
+                            .setCancelable(false) // Impede que o usuário clique fora do pop-up para fechá-lo
+                            .show();
+                }
+            } else {
+                Toast.makeText(OneMSTSTPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 }

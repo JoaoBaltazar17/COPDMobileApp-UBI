@@ -25,7 +25,10 @@ public class ExerciseMenuPage extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, settings, share, about, logout;
-
+    TextView txtViewNavBarName;
+    TextView txtViewNavBarEmail;
+    String emailShared;
+    String nameShared;
 
 
 
@@ -33,6 +36,11 @@ public class ExerciseMenuPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exercisemenu_page);
+
+        // Retrieve user's login credentials
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        emailShared = sharedPreferences.getString("email", "");
+        nameShared = sharedPreferences.getString("name", "");
 
 
         // Navigation Drawer Finders
@@ -43,6 +51,10 @@ public class ExerciseMenuPage extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         settings = findViewById(R.id.settings);
         share = findViewById(R.id.share);
+        txtViewNavBarEmail = findViewById(R.id.eTxtNavBarEmail);
+        txtViewNavBarName = findViewById(R.id.eTxtNavBarName);
+        txtViewNavBarName.setText(nameShared);
+        txtViewNavBarEmail.setText(emailShared);
 
 
 

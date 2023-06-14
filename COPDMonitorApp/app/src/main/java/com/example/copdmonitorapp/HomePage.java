@@ -82,7 +82,7 @@ public class HomePage extends AppCompatActivity {
                 TextView textView = new TextView(HomePage.this);
                 textView.setText(
                         "\n COPD Wellness Value deducted by:\n" +
-                        " - Sensor Shot.\n" +
+                        " - Sensor Shot (Values from Patch Sensor's)\n" +
                         " - How do you feel today?\n" +
                         " - Exercise Tests\n\n" +
                         "Warning: If you're a novice user of the application, give a try in the activities below. " +
