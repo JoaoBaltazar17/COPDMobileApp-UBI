@@ -4,12 +4,11 @@
 
 - [x]  1. Reunir com pessoal da FCS (Marcar e descrever temas pertinentes).
 
-- [ ]  2. Continuação do Relatório.
+- [x]  2. Continuação do Relatório.
 
-- [ ]  3. Adicionar o Wellness Value
-  - [ ]  3.1 Adicionar pontuação testes físicos. 
+- [ ]  3. Adicionar o Wellness Value 
 
-## 1. Reunião Estado: Desmarcada
+## 1. Reunião Estado: 13/06
 
 ## 3. WellNess Value
 
@@ -22,15 +21,25 @@
     - CAT 15
     - Testes físicos 15
 
+- Score (Pratico): 
+  - Percentagens:
+    - Variaveis_Sensor 40%
+    - TestesFisicos 30%
+    - Questionario 30%
 
 
+### 3.1 Questionário - Pontuação
 
+- Metodologia: Analisar o último questionário feito pelo doente e quantificá-lo
 
+Exemplo:                        CAT1 - 5 [0-16]                          |||| CAT2 - 12 [0-16]
 
-### 3.1 Testes Fisicos - Pontuação
+Procedimento de Normalização:   CAT1 - (100 * 5) / 16 =  31.25% [0-100]  |||| CAT2 - (100 * 12) / 16 =  75[0-100]
 
-- Como conceito:
-  - Através dos sensores, é recolhido valores de todas as variáveis por ele sujeitas fazendo uma avaliação dos valores acima do normal, de forma a fazer uma melhor associação ao estado clinico do doente.
+Input na fórmula: CAT1 - 68.75% (100 - 31.25) (Escala do pior 0% para o melhor 100%) 
+                  CAT2 - 25% (100 - 75) (Escala do pior 0% para o melhor 100%) 
 
-- 6MWT:
-  - 
+### 3.2 Testes Fisicos - Pontuação
+
+- Metodologia: Analisar o último questionário feito pelo doente e quantificá-lo
+

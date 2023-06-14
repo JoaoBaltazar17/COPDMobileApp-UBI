@@ -33,11 +33,8 @@
         - Média aritmética dos dois.
   
     - **Questionário**
-      - Desempenho do último questionário esfetuado (Pontuação!) 20% (100 - 20 = 80%)
+      - Observação do Último Questionário efetuado.
+        - Exemplo: Pontuação 12-16 -> Converter para 0-100 -> 75% -> 25%
 
     Wellness_Value = (Variaveis_Sensor * 0.4) + (TestesFisicos * 0.3) + (Questionario * 0.3) 
 
-
-
-
-    Wellness Value -> Guardar o valor numa tabela com timestamp!
