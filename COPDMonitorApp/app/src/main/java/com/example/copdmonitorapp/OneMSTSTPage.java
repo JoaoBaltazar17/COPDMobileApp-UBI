@@ -656,10 +656,10 @@ public class OneMSTSTPage extends AppCompatActivity {
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // Ação a ser executada ao clicar em OK
+
                                 }
                             })
-                            .setCancelable(false) // Impede que o usuário clique fora do pop-up para fechá-lo
+                            .setCancelable(false)
                             .show();
                 }
             } else {

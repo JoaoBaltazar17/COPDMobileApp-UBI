@@ -578,8 +578,8 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
         int mPuls =  (pulsI +  pulsF) / 2;
         int past_mPuls =  (past_pulsI +  past_pulsF) / 2;
 
-        int avalPassos = (steps - past_steps) * 3;
-        int avalPulsacoes = (past_mPuls - mPuls) * 2;
+        float avalPassos = (steps - past_steps) * (0.4f);
+        float avalPulsacoes = (past_mPuls - mPuls) * (0.1f);
 
         float perc = 50 + avalPulsacoes + avalPassos;
         return perc;

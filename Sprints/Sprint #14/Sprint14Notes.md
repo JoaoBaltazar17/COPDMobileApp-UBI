@@ -71,7 +71,7 @@
 #### 3.2.1 Testes Fisicos 6MWT - Pontuação
 - Metodologia: Pegar no primeiro teste (Teste de Calibração) e avaliar consoante este.
 
-- Fórmula : Cada passo dado a mais ou a menos tem peso de (x3) || A cada aumento ou diminuição de pulsação  tem peso de (x2)
+- Fórmula : Cada passo dado a mais ou a menos tem peso de (x5 ? ) || A cada aumento ou diminuição de pulsação  tem peso de (x2 ? )
 
 Exemplo:     
 

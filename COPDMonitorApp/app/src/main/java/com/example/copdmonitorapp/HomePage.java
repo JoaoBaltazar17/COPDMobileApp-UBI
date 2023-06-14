@@ -7,12 +7,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +27,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 public class HomePage extends AppCompatActivity {
 
@@ -55,7 +64,11 @@ public class HomePage extends AppCompatActivity {
     private TextView progressText;
     int i = 0;
 
-    int WellnessValue = 78;
+    // Wellness Value
+    float pont_1MSTST = 0f;
+    float pont_6MWT = 0f;
+    float pont_CAT = 0f;
+    float WellnessValue = 0f;
 
 
     @Override
@@ -84,9 +97,7 @@ public class HomePage extends AppCompatActivity {
                         "\n COPD Wellness Value deducted by:\n" +
                         " - Sensor Shot (Values from Patch Sensor's)\n" +
                         " - How do you feel today?\n" +
-                        " - Exercise Tests\n\n" +
-                        "Warning: If you're a novice user of the application, give a try in the activities below. " +
-                        "The COPD Wellness Value will be shown as soon as there is enough data for the evaluation.");
+                        " - Exercise Tests\n\n");
                 textView.setPadding(30, 30, 30, 30);
                 textView.setTextSize(16);
 
@@ -105,25 +116,6 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-
-
-        // Styling Progress Bar (Wellness Value Styles)
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // set the limitations for the numeric
-                // text under the progress bar
-                if (i <= WellnessValue) {
-                    progressText.setText("" + i + "%");
-                    progressBar.setProgress(i);
-                    i++;
-                    handler.postDelayed(this, 50);
-                } else {
-                    handler.removeCallbacks(this);
-                }
-            }
-        }, 10);
 
 
         // Navigation Drawer Finders
@@ -198,8 +190,13 @@ public class HomePage extends AppCompatActivity {
         // Menu Buttons Finder
         btnMenuDailyRecords = findViewById(R.id.btnDailyRecords);
         btnMenuMedications = findViewById(R.id.btnMedication);
-        btnMenuExercise = findViewById(R.id.btnExerciseTests);;
-        btnMenuChat = findViewById(R.id.btnChatLive);;
+        btnMenuExercise = findViewById(R.id.btnExerciseTests);
+        btnMenuChat = findViewById(R.id.btnChatLive);
+
+
+        // Get Values to Create Wellness Value
+        new GetWellnessValue().execute();
+
 
     }
 
@@ -249,6 +246,159 @@ public class HomePage extends AppCompatActivity {
     }
 
 
+
+    // First 6MWT of the Patient logged
+    private class GetWellnessValue extends AsyncTask<String, Void, Boolean> {
+        private Exception exception;
+
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(HomePage.this);
+            progressDialog.setMessage("Processing, please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+
+            String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
+            String svusername = "postgres";
+            String svpassword = "copdproject";
+
+
+
+            try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
+                int patientId = 0;
+                Log.e("Wellness BD CONNECTION:", "Connection to BD succesfull!");
+                // Check if there is another user with the same username
+                String selectQuery = "SELECT id FROM Patient WHERE email = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(selectQuery)) {
+                    pstmt.setString(1, pacientLoggedEmail);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        if (rs.next()) {
+                            patientId = rs.getInt("id");
+                            Log.e("Wellness BD PatientLogged:", "The ID of the patient is: " + patientId);
+                        } else {
+                            System.out.println("No patient found with that email address.");
+                            return false;
+                        }
+
+                        // 1MSTST
+                        String sql = "SELECT * FROM \"1mstst\" WHERE idpatient = ? ORDER BY date1test DESC LIMIT 1;";
+                        PreparedStatement statement = conn.prepareStatement(sql);
+
+                        statement.setInt(1, patientId);
+
+                        ResultSet resultSet = statement.executeQuery();
+
+                        if (resultSet.next()) {
+                            pont_1MSTST = resultSet.getFloat("testpercentage");
+                        } else {
+                            return true;
+                        }
+
+                        // 6MWT
+                        String sql6 = "SELECT * FROM sixmwt WHERE idpatient = ? ORDER BY date6test DESC LIMIT 1;";
+                        PreparedStatement statement6 = conn.prepareStatement(sql6);
+
+                        statement6.setInt(1, patientId);
+
+                        ResultSet resultSet6 = statement6.executeQuery();
+
+                        if (resultSet6.next()) {
+                            pont_6MWT = resultSet6.getFloat("testpercent");
+                        } else {
+                            return true;
+                        }
+
+
+
+                        // CAT
+                        String sqlCAT = "SELECT * FROM questionnairesos WHERE idpatient = ? ORDER BY date DESC LIMIT 1;";
+                        PreparedStatement statementCAT = conn.prepareStatement(sqlCAT);
+
+                        statementCAT.setInt(1, patientId);
+
+                        ResultSet resultSetCAT = statementCAT.executeQuery();
+
+                        if (resultSetCAT.next()) {
+                            int pont_CATL = resultSetCAT.getInt("pontuation");
+                            pont_CAT = (100 * pont_CATL) / 16;
+                        } else {
+                            return true;
+                        }
+
+
+                        resultSet.close();
+                        statement.close();
+
+                        resultSet6.close();
+                        statement6.close();
+
+                        resultSetCAT.close();
+                        statementCAT.close();
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("Wellness Value", "Error executing query", e);
+                exception = e;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            progressDialog.dismiss();
+
+            if (result) {
+                if (pont_6MWT != 0 &&  pont_CAT != 0 && pont_1MSTST != 0) {
+                    Log.e("Wellness Points", "6MWT: " + pont_6MWT + "\n CAT:" + pont_CAT + "\n 1MSTST:" + pont_1MSTST);
+                    WellnessValue = pont_CAT * (0.3f) + ( ((pont_1MSTST + pont_6MWT) / 2) * 0.7f);
+
+                    // ProgressBar according to Wellness Value
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // set the limitations for the numeric
+                            // text under the progress bar
+                            if (i <= WellnessValue) {
+                                progressText.setText("" + i + "%");
+                                progressBar.setProgress(i);
+                                i++;
+                                handler.postDelayed(this, 50);
+                            } else {
+                                handler.removeCallbacks(this);
+                            }
+                        }
+                    }, 10);
+
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(HomePage.this);
+                    builder.setTitle("Alert")
+                            .setMessage("Welcome to COPD App, I assume you're a novice user of the application so the COPD Wellness Value will be shown as soon as there is enough data for the evaluation.")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .setCancelable(false)
+                            .show();
+                }
+            } else {
+                Toast.makeText(HomePage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
 
 
 
