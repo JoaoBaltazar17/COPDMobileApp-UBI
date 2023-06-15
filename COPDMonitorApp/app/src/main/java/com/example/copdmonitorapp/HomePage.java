@@ -327,8 +327,9 @@ public class HomePage extends AppCompatActivity {
                         ResultSet resultSetCAT = statementCAT.executeQuery();
 
                         if (resultSetCAT.next()) {
-                            int pont_CATL = resultSetCAT.getInt("pontuation");
-                            pont_CAT = (100 * pont_CATL) / 16;
+                            int pont_CAT16 = resultSetCAT.getInt("pontuation");
+                            int pont_CAT100 = (100 * pont_CAT16) / 16;
+                            pont_CAT = 100 - pont_CAT100;
                         } else {
                             return true;
                         }
