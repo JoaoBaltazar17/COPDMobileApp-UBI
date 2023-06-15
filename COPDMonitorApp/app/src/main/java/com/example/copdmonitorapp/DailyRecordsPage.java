@@ -5,12 +5,15 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
@@ -24,12 +27,14 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class DailyRecordsPage extends AppCompatActivity {
@@ -51,6 +56,38 @@ public class DailyRecordsPage extends AppCompatActivity {
     TextInputEditText etxtViewPaO2;
     TextInputEditText etxtViewRespiratoryFreq;
     TextInputEditText etxtViewTemperature;
+
+
+    // Average Record TextView's
+    TextInputEditText etxtViewAveragePaCO2;
+    TextInputEditText etxtViewAveragePaO2;
+    TextInputEditText etxtViewAverageRespiratoryFreq;
+    TextInputEditText etxtViewAverageTemperature;
+
+
+    // Arrays to save average of each variable
+
+    ArrayList<Float> values24PACO2 = new ArrayList<>();
+    ArrayList<Float> values24PAO2 = new ArrayList<>();
+    ArrayList<Integer> values24RespiratoryRate = new ArrayList<>();
+    ArrayList<Float> values24Temperature = new ArrayList<>();
+
+    ArrayList<Float> values18PACO2 = new ArrayList<>();
+    ArrayList<Float> values18PAO2 = new ArrayList<>();
+    ArrayList<Integer> values18RespiratoryRate = new ArrayList<>();
+    ArrayList<Float> values18Temperature = new ArrayList<>();
+
+    ArrayList<Float> values12PACO2 = new ArrayList<>();
+    ArrayList<Float> values12PAO2 = new ArrayList<>();
+    ArrayList<Integer> values12RespiratoryRate = new ArrayList<>();
+    ArrayList<Float> values12Temperature = new ArrayList<>();
+
+    ArrayList<Float> values06PACO2 = new ArrayList<>();
+    ArrayList<Float> values06PAO2 = new ArrayList<>();
+    ArrayList<Integer> values06RespiratoryRate = new ArrayList<>();
+    ArrayList<Float> values06Temperature = new ArrayList<>();
+
+
 
 
     private static String TAG = "Daily Records Activity";
@@ -87,6 +124,12 @@ public class DailyRecordsPage extends AppCompatActivity {
         etxtViewPaO2 = findViewById(R.id.eTxtPaO2);
         etxtViewRespiratoryFreq = findViewById(R.id.eTxtFreqResp);
         etxtViewTemperature= findViewById(R.id.eTxtTemp);
+
+        // AverageVariables TextView's
+        etxtViewAveragePaCO2 = findViewById(R.id.eTxtMediaPressaoCO2);
+        etxtViewAveragePaO2 = findViewById(R.id.eTxtMediaPaO2);
+        etxtViewAverageRespiratoryFreq = findViewById(R.id.eTxtMediaFreqResp);
+        etxtViewAverageTemperature= findViewById(R.id.eTxtMediaTemp);
 
 
 
@@ -156,6 +199,7 @@ public class DailyRecordsPage extends AppCompatActivity {
 
 
 
+        new GetLast24ValuesParameter().execute();
     }
 
     // Navigation Drawer Methods
@@ -295,6 +339,315 @@ public class DailyRecordsPage extends AppCompatActivity {
         }
 
     }
+
+
+
+    // Get Last 24 Values of each Parameter
+    private class GetLast24ValuesParameter extends AsyncTask<String, Void, Boolean> {
+        private Exception exception;
+
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(DailyRecordsPage.this);
+            progressDialog.setMessage("Processing, please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+
+            String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
+            String svusername = "postgres";
+            String svpassword = "copdproject";
+
+
+
+            try (Connection conn = DriverManager.getConnection(svurl, svusername, svpassword)) {
+                int patientId = 0;
+                Log.e("DailyRecords BD CONNECTION:", "Connection to BD succesfull!");
+                // Check if there is another user with the same username
+                String selectQuery = "SELECT id FROM Patient WHERE email = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(selectQuery)) {
+                    pstmt.setString(1, emailShared);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        if (rs.next()) {
+                            patientId = rs.getInt("id");
+                            Log.e("DailyRecords BD PatientLogged:", "The ID of the patient is: " + patientId);
+                        } else {
+                            System.out.println("No patient found with that email address.");
+                            return false;
+                        }
+
+                        // Select [24h, 18h] Interval Each Sensor
+                        for (int i = 1; i <= 4; i++) {
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND timestamp >= NOW() - INTERVAL '24 hours' AND timestamp <= NOW() - INTERVAL '18 hours'";
+                            PreparedStatement statement = conn.prepareStatement(sql24);
+                            statement.setInt(1, i);
+                            ResultSet resultSet = statement.executeQuery();
+
+                            int rowCount = 0;
+                            if (resultSet.next()) {
+                                rowCount = 1;
+                            }
+                            else {
+                                rowCount = 0;
+                                Log.e("LAST 24-18H", "NO VALUES FROM A VARIABLE: " + i);
+                            }
+
+                            if(rowCount > 0) {
+                                Log.e("LAST 24-18H", "VALUES DETECTED: " + i);
+                                if(i == 3) {
+                                    // Respiratory Rate is integer!
+                                    ArrayList<Integer> values = new ArrayList<>();
+                                    while (resultSet.next()) {
+                                        int value = resultSet.getInt("value");
+                                        values.add(value);
+                                    }
+                                    values24RespiratoryRate = values;
+                                }
+                                else {
+                                    ArrayList<Float> values = new ArrayList<>();
+                                    ResultSet nestedResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nestedResultSet.next()) {
+                                        float value = nestedResultSet.getFloat("value");
+                                        values.add(value);
+                                    }
+                                    switch (i) {
+                                        case 1:
+                                            values24PACO2 = values;
+                                            break;
+                                        case 2:
+                                            values24PAO2 = values;
+                                            break;
+                                        case 4:
+                                            values24Temperature = values;
+                                            break;
+                                    }
+                                }
+                            }
+
+                            resultSet.close();
+                            statement.close();
+                        }
+
+
+                        // Select ]18h, 12h] Interval Each Sensor
+                        for (int i = 1; i <= 4; i++) {
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND timestamp > NOW() - INTERVAL '18 hours' AND timestamp <= NOW() - INTERVAL '12 hours'";
+                            PreparedStatement statement = conn.prepareStatement(sql24);
+                            statement.setInt(1, i);
+                            ResultSet resultSet = statement.executeQuery();
+
+                            int rowCount = 0;
+                            if (resultSet.next()) {
+                                rowCount = 1;
+                            }
+                            else {
+                                rowCount = 0;
+                                Log.e("LAST 18-12H", "NO VALUES FROM A VARIABLE: " + i);
+                            }
+
+
+                            if(rowCount > 0) {
+                                Log.e("LAST 18-12H", "VALUES DETECTED FROM A VARIABLE: " + i);
+                                if(i == 3) {
+                                    // Respiratory Rate is integer!
+                                    ArrayList<Integer> values = new ArrayList<>();
+                                    while (resultSet.next()) {
+                                        int value = resultSet.getInt("value");
+                                        values.add(value);
+                                    }
+                                    values18RespiratoryRate = values;
+                                }
+                                else {
+                                    ArrayList<Float> values = new ArrayList<>();
+                                    ResultSet nestedResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nestedResultSet.next()) {
+                                        float value = nestedResultSet.getFloat("value");
+                                        values.add(value);
+                                    }
+                                    switch (i) {
+                                        case 1:
+                                            values18PACO2 = values;
+                                            break;
+                                        case 2:
+                                            values18PAO2 = values;
+                                            break;
+                                        case 4:
+                                            values18Temperature = values;
+                                            break;
+                                    }
+                                }
+                            }
+
+
+                            resultSet.close();
+                            statement.close();
+                        }
+
+
+                        // Select ]12h, 06h] Interval Each Sensor
+                        for (int i = 1; i <= 4; i++) {
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND timestamp > NOW() - INTERVAL '12 hours' AND timestamp <= NOW() - INTERVAL '06 hours'";
+                            PreparedStatement statement = conn.prepareStatement(sql24);
+                            statement.setInt(1, i);
+                            ResultSet resultSet = statement.executeQuery();
+
+                            int rowCount = 0;
+                            if (resultSet.next()) {
+                                rowCount = 1;
+                            }
+                            else {
+                                rowCount = 0;
+                                Log.e("LAST 12-06H", "NO VALUES FROM A VARIABLE: " + i);
+                            }
+
+                            if(rowCount > 0) {
+                                Log.e("LAST 12-06H", "VALUES FROM A VARIABLE: " + i);
+                                if(i == 3) {
+                                    // Respiratory Rate is integer!
+                                    ArrayList<Integer> values = new ArrayList<>();
+                                    while (resultSet.next()) {
+                                        int value = resultSet.getInt("value");
+                                        values.add(value);
+                                    }
+                                    values12RespiratoryRate = values;
+                                }
+                                else {
+                                    ArrayList<Float> values = new ArrayList<>();
+                                    ResultSet nestedResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nestedResultSet.next()) {
+                                        float value = nestedResultSet.getFloat("value");
+                                        values.add(value);
+                                    }
+                                    switch (i) {
+                                        case 1:
+                                            values12PACO2 = values;
+                                            break;
+                                        case 2:
+                                            values12PAO2 = values;
+                                            break;
+                                        case 4:
+                                            values12Temperature = values;
+                                            break;
+                                    }
+                                }
+                            }
+
+                            resultSet.close();
+                            statement.close();
+                        }
+
+
+                        // Select ]06h, 00h] Interval Each Sensor
+                        for (int i = 1; i <= 4; i++) {
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND timestamp > NOW() - INTERVAL '06 hours' AND timestamp <= NOW() - INTERVAL '00 hours'";
+                            PreparedStatement statement = conn.prepareStatement(sql24);
+                            statement.setInt(1, i);
+                            ResultSet resultSet = statement.executeQuery();
+
+                            int rowCount = 0;
+                            if (resultSet.next()) {
+                                rowCount = 1;
+                            } else {
+                                rowCount = 0;
+                                Log.e("LAST 06-00H", "NO VALUES FROM A VARIABLE: " + i);
+                            }
+
+                            if (rowCount > 0) {
+                                Log.e("LAST 06-00H", "VALUES FROM A VARIABLE: " + i);
+                                if (i == 3) {
+                                    // Respiratory Rate is integer!
+                                    ArrayList<Integer> values = new ArrayList<>();
+                                    while (resultSet.next()) {
+                                        int value = resultSet.getInt("value");
+                                        values.add(value);
+                                    }
+                                    values06RespiratoryRate = values;
+                                } else {
+                                    ArrayList<Float> values = new ArrayList<>();
+                                    ResultSet nestedResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nestedResultSet.next()) {
+                                        float value = nestedResultSet.getFloat("value");
+                                        values.add(value);
+                                    }
+
+                                    switch (i) {
+                                        case 1:
+                                            values06PACO2 = values;
+                                            break;
+                                        case 2:
+                                            values06PAO2 = values;
+                                            break;
+                                        case 4:
+                                            values06Temperature = values;
+                                            break;
+                                    }
+                                    nestedResultSet.close(); // Close the nested result set
+                                }
+                            }
+
+                            resultSet.close();
+                            statement.close();
+                        }
+
+
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("Daily Records Values", "Error executing query", e);
+                exception = e;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            progressDialog.dismiss();
+
+            if (result) {
+                if (!values24PACO2.isEmpty() && !values18PACO2.isEmpty() && !values12PACO2.isEmpty() && !values06PACO2.isEmpty()){
+                    Log.e("Daily Records Sensor", "Values24PACO2: " + values24PACO2 + "Values18PACO2: " + values18PACO2 + "Values12PACO2: " + values12PACO2 + "Values06PACO2: " + values06PACO2);
+                }
+                else {
+                    Log.e("Daily Records Sensor", "NO Values24PACO2: " + values24PACO2 + "Values18PACO2: " + values18PACO2 + "Values12PACO2: " + values12PACO2 + "Values06PACO2: " + values06PACO2);
+
+                }
+
+                if (!values24PAO2.isEmpty() && !values18PAO2.isEmpty() && !values12PAO2.isEmpty() && !values06PAO2.isEmpty()){
+                    Log.e("Daily Records Sensor", "Values24PAO2: " + values24PAO2 + "Values18PAO2: " + values18PAO2 + "Values12PAO2: " + values12PAO2 + "Values06PAO2: " + values06PAO2);
+                }
+                else {
+                    Log.e("Daily Records Sensor", "NO Values24PAO2: " + values24PAO2 + "Values18PAO2: " + values18PAO2 + "Values12PAO2: " + values12PAO2 + "Values06PAO2: " + values06PAO2);
+
+                }
+
+                if (!values24RespiratoryRate.isEmpty() && !values18RespiratoryRate.isEmpty() && !values12RespiratoryRate.isEmpty() && !values06RespiratoryRate.isEmpty()) {
+                    Log.e("Daily Records Sensor", "Values24RespiratoryRate: " + values24RespiratoryRate + "Values18RespiratoryRate: " + values18RespiratoryRate + "Values12RespiratoryRate: " + values12RespiratoryRate + "Values06RespiratoryRate: " + values06RespiratoryRate);
+                } else {
+                    Log.e("Daily Records Sensor", "NO Values24RespiratoryRate: " + values24RespiratoryRate + "Values18RespiratoryRate: " + values18RespiratoryRate + "Values12RespiratoryRate: " + values12RespiratoryRate + "Values06RespiratoryRate: " + values06RespiratoryRate);
+                }
+
+                if (!values24Temperature.isEmpty() && !values18Temperature.isEmpty() && !values12Temperature.isEmpty() && !values06Temperature.isEmpty()) {
+                    Log.e("Daily Records Sensor", "Values24Temperature: " + values24Temperature + "Values18Temperature: " + values18Temperature + "Values12Temperature: " + values12Temperature + "Values06Temperature: " + values06Temperature);
+                } else {
+                    Log.e("Daily Records Sensor", "NO Values24Temperature: " + values24Temperature + "Values18Temperature: " + values18Temperature + "Values12Temperature: " + values12Temperature + "Values06Temperature: " + values06Temperature);
+                }
+
+
+            } else {
+                Toast.makeText(DailyRecordsPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+
 
 
 }

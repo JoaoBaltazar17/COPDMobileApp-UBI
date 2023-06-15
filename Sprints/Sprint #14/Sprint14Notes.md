@@ -169,7 +169,7 @@ Frequência de Medição Normal:
 
 Anormalidades: Caso tenham sido detetados valores anormais, durante um intervalo considerável de tempo, em algum parâmetro:
 - Repetição de medição de todos os parâmetros de 15 em 15 minutos na próxima hora.
-
+- ![Valores Anormais por Variável](vv_valores.png)
 
 #### Pontuação Prática:
 
@@ -180,22 +180,11 @@ Anormalidades: Caso tenham sido detetados valores anormais, durante um intervalo
    
 2. Número de valores anormais por parâmetro. (Dar um peso maior numa escala crescente, do mais antigo ao mais recente).
 
-3. Variável a Variável
-   1. Temperatura 
-      1. Avaliar tendo em conta estes parâmetros:
-         ![Categorizar Febre](febrecategorizar.jpg)
-      2. Fórmula (0 a 100):
-         1. 100% -> [36 - 37.5]
-         2. 50% -> [36.0 - 35.5] || [37.5 - 37.6]
-         3. 25% -> [35.5 - 35.0] || [37.6 - 39.5]
-         4. 10% -> [35 - 34.8] || [39.5 - 41]
-         5. 1% -> [34.8 - ] || [41 +]
+3. Percentagens para valores
+  1. Fórmula (0 a 100):
+    1. 100% -> Variável Verde
+    2. 40% ->  Variável Amarelo
+    3. 20% -> Variável Laranja
+    4. 10% -> Variável Vermelho
 
    
-Exemplo: Fórmula Pesos [24h - 18h -> 0.1%; 18h - 12h -> 0.15%; 12h - 6h - 0.20%; 6h - 0h - 0.55%]
-  1. Temperatura (Dois exemplos Práticos)
-     1. Valores Recolhidos nas últimas 24h: (37.9 [20h], 36.1 [14h], 36.2 [9h], 38.2[2h])
-        1. $25 * 0.1 (37.9) + 100 * 0.15 (36.1) + 100 * 0.20 (36.2) + 25 * 0.55 (38.2)$  = **51.25%**
-     2. Valores Recolhidos nas últimas 24h: (36.4[20h], 36.1[14h], 36.2[9h], 38.8 [5h], 37.9 [4:45h], 37.0[4:30h], 36.0[4:15h], 36.2[4:00h], 36.4[2:00h])
-        1. Mais do que um valor num determinado intervalo -> Média: $38.8 + 37.9 + 37.0 + 36.0 + 36.2 + 36.4 / 6 = 37.05ºC ~~ 37.0ºC
-        2. $100 * 0.1 (36.4) + 100 * 0.15 (36.1) + 100 * 0.2 (36.2) + 100 * 0.55 (37) =$ **100%**

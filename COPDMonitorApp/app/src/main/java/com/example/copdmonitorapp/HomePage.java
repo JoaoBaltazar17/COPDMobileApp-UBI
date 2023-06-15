@@ -246,8 +246,6 @@ public class HomePage extends AppCompatActivity {
     }
 
 
-
-    // First 6MWT of the Patient logged
     private class GetWellnessValue extends AsyncTask<String, Void, Boolean> {
         private Exception exception;
 
