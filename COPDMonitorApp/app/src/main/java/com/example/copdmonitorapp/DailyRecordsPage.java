@@ -79,7 +79,8 @@ public class DailyRecordsPage extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy HH:mm:ss");
         // Format the date as a String
         String dateString = dateFormat.format(date);
-        txtViewDateAtual.setText(dateString);
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        txtViewDateAtual.setText(ts.toString());
 
         // Variables TextView's
         etxtViewPaCO2 = findViewById(R.id.eTxtPressaoCO2);
