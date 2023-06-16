@@ -280,7 +280,7 @@ public class FellingUnwellPageQ5 extends AppCompatActivity {
     }
 
     private File generatePDF(ArrayList<String> content) {
-        File pdfFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "my_pdf_file.pdf");
+        File pdfFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "my_questresults_file.pdf");
 
         try {
             PdfWriter writer = new PdfWriter(new FileOutputStream(pdfFile));
