@@ -36,6 +36,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DailyRecordsPage extends AppCompatActivity {
 
@@ -241,6 +242,11 @@ public class DailyRecordsPage extends AppCompatActivity {
 
         private ProgressDialog progressDialog;
 
+        float paco2;
+        float pao2;
+        int rr;
+        float temp;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -257,6 +263,11 @@ public class DailyRecordsPage extends AppCompatActivity {
             float v2 = Float.parseFloat(params[1]);
             int v3 = Integer.parseInt(params[2]);
             float v4 = Float.parseFloat(params[3]);
+
+            paco2 = v1;
+            pao2 = v2;
+            rr = v3;
+            temp = v4;
 
 
             String svurl = "jdbc:postgresql://copd-db-instance.cr6kvihylkhm.eu-north-1.rds.amazonaws.com:5432/copd_db";
@@ -285,25 +296,25 @@ public class DailyRecordsPage extends AppCompatActivity {
 
                             // Set values for the first row
                             pstmt2.setTimestamp(1, ts);
-                            pstmt2.setFloat(2, v1);
+                            pstmt2.setDouble(2, v1);
                             pstmt2.setInt(3, 1);
                             pstmt2.setInt(4, patientId);
 
                             // Set values for the second row
                             pstmt2.setTimestamp(5, ts);
-                            pstmt2.setFloat(6, v2);
+                            pstmt2.setDouble(6, v2);
                             pstmt2.setInt(7, 2);
                             pstmt2.setInt(8, patientId);
 
                             // Set values for the thirst row
                             pstmt2.setTimestamp(9, ts);
-                            pstmt2.setFloat(10, v3);
+                            pstmt2.setInt(10, v3);
                             pstmt2.setInt(11, 3);
                             pstmt2.setInt(12, patientId);
 
                             // Set values for the first row
                             pstmt2.setTimestamp(13, ts);
-                            pstmt2.setFloat(14, v4);
+                            pstmt2.setDouble(14, v4);
                             pstmt2.setInt(15, 4);
                             pstmt2.setInt(16, patientId);
 
@@ -326,7 +337,7 @@ public class DailyRecordsPage extends AppCompatActivity {
 
             if (result) {
                 Toast.makeText(DailyRecordsPage.this, "Recorded Sucessfully", Toast.LENGTH_LONG).show();
-                Log.e(TAG,  etxtViewPaCO2.getText().toString().trim() + etxtViewPaO2.getText().toString().trim() + etxtViewRespiratoryFreq.getText().toString().trim() + etxtViewTemperature.getText().toString().trim());
+                Log.e(TAG,  paco2 + "/" + pao2 + "/" + rr + "/" + temp);
                 etxtViewPaCO2.setText("");
                 etxtViewPaO2.setText("");
                 etxtViewRespiratoryFreq.setText("");
@@ -401,7 +412,7 @@ public class DailyRecordsPage extends AppCompatActivity {
                             if(rowCount > 0) {
                                 Log.e("LAST 24-18H", "VALUES DETECTED: " + i);
                                 if(i == 3) {
-                                    // Respiratory Rate is integer!
+
                                     // Respiratory Rate is integer!
                                     ArrayList<Integer> values = new ArrayList<>();
                                     ResultSet nested3ResultSet = statement.executeQuery(); // Create a new result set for each iteration
@@ -621,14 +632,9 @@ public class DailyRecordsPage extends AppCompatActivity {
             progressDialog.dismiss();
 
             if (result) {
-                ArrayList<Float> percentHours = new ArrayList<>();
-                percentHours.add(0.10f);
-                percentHours.add(0.15f);
-                percentHours.add(0.20f);
-                percentHours.add(0.55f);
                 if (!values24PACO2.isEmpty() && !values18PACO2.isEmpty() && !values12PACO2.isEmpty() && !values06PACO2.isEmpty()){
-                    double valuePACO2 = (calcularMediaInterna(values24PACO2) * percentHours.get(0) + calcularMediaInterna(values18PACO2) * percentHours.get(1) + calcularMediaInterna(values12PACO2) * percentHours.get(2) + calcularMediaInterna(values06PACO2) * percentHours.get(3));
-                    Log.e("Daily Records Sensor", "Values24PACO2: " + values24PACO2 + "Values18PACO2: " + values18PACO2 + "Values12PACO2: " + values12PACO2 + "Values06PACO2: " + values06PACO2);
+                    double valuePACO2 = calculateAverageFloats(values24PACO2, values18PACO2, values12PACO2, values06PACO2);
+                    Log.e("Daily Records Sensor", "Values24PACO2: " + values24PACO2 + "Values18PACO2: " + values18PACO2 + "Values12PACO2: " + values12PACO2 + "Values06PACO2: " + values06PACO2 + "\nAverage: " + valuePACO2);
                     etxtViewAveragePaCO2.setText(String.valueOf(valuePACO2));
                 }
                 else {
@@ -637,9 +643,9 @@ public class DailyRecordsPage extends AppCompatActivity {
                 }
 
                 if (!values24PAO2.isEmpty() && !values18PAO2.isEmpty() && !values12PAO2.isEmpty() && !values06PAO2.isEmpty()){
-                    double valuePAO2 = (calcularMediaInterna(values24PAO2) * percentHours.get(0) + calcularMediaInterna(values18PAO2) * percentHours.get(1) + calcularMediaInterna(values12PAO2) * percentHours.get(2) + calcularMediaInterna(values06PAO2) * percentHours.get(3));
+                    double valuePAO2 = calculateAverageFloats(values24PAO2, values18PAO2, values12PAO2, values06PAO2);
+                    Log.e("Daily Records Sensor", "Values24PAO2: " + values24PAO2 + " Values18PAO2: " + values18PAO2 + " Values12PAO2: " + values12PAO2 + " Values06PAO2: " + values06PAO2 + "\nAverage: " + valuePAO2);
                     etxtViewAveragePaO2.setText(String.valueOf(valuePAO2));
-                    Log.e("Daily Records Sensor", "Values24PAO2: " + values24PAO2 + "Values18PAO2: " + values18PAO2 + "Values12PAO2: " + values12PAO2 + "Values06PAO2: " + values06PAO2);
                 }
                 else {
                     Log.e("Daily Records Sensor", "NO Values24PAO2: " + values24PAO2 + "Values18PAO2: " + values18PAO2 + "Values12PAO2: " + values12PAO2 + "Values06PAO2: " + values06PAO2);
@@ -647,9 +653,9 @@ public class DailyRecordsPage extends AppCompatActivity {
                 }
 
                 if (!values24RespiratoryRate.isEmpty() && !values18RespiratoryRate.isEmpty() && !values12RespiratoryRate.isEmpty() && !values06RespiratoryRate.isEmpty()) {
-                    double valueRR = (calcularMediaInternaInteger(values24RespiratoryRate) * percentHours.get(0) + calcularMediaInternaInteger(values18RespiratoryRate) * percentHours.get(1) + calcularMediaInternaInteger(values12RespiratoryRate) * percentHours.get(2) + calcularMediaInternaInteger(values06RespiratoryRate) * percentHours.get(3));
-                    etxtViewAverageRespiratoryFreq.setText(String.valueOf(valueRR));
-                    Log.e("Daily Records Sensor", "Values24RespiratoryRate: " + values24RespiratoryRate + "Values18RespiratoryRate: " + values18RespiratoryRate + "Values12RespiratoryRate: " + values12RespiratoryRate + "Values06RespiratoryRate: " + values06RespiratoryRate);
+                    double valueRespiratoryRate = calculateAverageIntegers(values24RespiratoryRate, values18RespiratoryRate, values12RespiratoryRate, values06RespiratoryRate);
+                    Log.e("Daily Records Sensor", "Values24RespiratoryRate: " + values24RespiratoryRate + " Values18RespiratoryRate: " + values18RespiratoryRate + " Values12RespiratoryRate: " + values12RespiratoryRate + " Values06RespiratoryRate: " + values06RespiratoryRate + "\nAverage: " + valueRespiratoryRate);
+                    etxtViewAverageRespiratoryFreq.setText(String.valueOf(valueRespiratoryRate));
                 } else {
                     Log.e("Daily Records Sensor", "NO Values24RespiratoryRate: " + values24RespiratoryRate + "Values18RespiratoryRate: " + values18RespiratoryRate + "Values12RespiratoryRate: " + values12RespiratoryRate + "Values06RespiratoryRate: " + values06RespiratoryRate);
                     etxtViewAverageRespiratoryFreq.setText("Insufficient recent Respiratory Frequency sensor data");
@@ -657,9 +663,9 @@ public class DailyRecordsPage extends AppCompatActivity {
                 }
 
                 if (!values24Temperature.isEmpty() && !values18Temperature.isEmpty() && !values12Temperature.isEmpty() && !values06Temperature.isEmpty()) {
-                    double valueT = (calcularMediaInterna(values24Temperature) * percentHours.get(0) + calcularMediaInterna(values18Temperature) * percentHours.get(1) + calcularMediaInterna(values12Temperature) * percentHours.get(2) + calcularMediaInterna(values06Temperature) * percentHours.get(3));
-                    etxtViewAverageTemperature.setText(String.valueOf(valueT));
-                    Log.e("Daily Records Sensor", "Values24Temperature: " + values24Temperature + "Values18Temperature: " + values18Temperature + "Values12Temperature: " + values12Temperature + "Values06Temperature: " + values06Temperature);
+                    double valueTemperature = calculateAverageFloats(values24Temperature, values18Temperature, values12Temperature, values06Temperature);
+                    Log.e("Daily Records Sensor", "Values24Temperature: " + values24Temperature + " Values18Temperature: " + values18Temperature + " Values12Temperature: " + values12Temperature + " Values06Temperature: " + values06Temperature + "\nAverage: " + valueTemperature);
+                    etxtViewAverageTemperature.setText(String.valueOf(valueTemperature));
                 } else {
                     Log.e("Daily Records Sensor", "NO Values24Temperature: " + values24Temperature + "Values18Temperature: " + values18Temperature + "Values12Temperature: " + values12Temperature + "Values06Temperature: " + values06Temperature);
                     etxtViewAverageTemperature.setText("Insufficient recent Temperature sensor data");
@@ -677,20 +683,36 @@ public class DailyRecordsPage extends AppCompatActivity {
 
 
     // Average Calculation
-    public double calcularMediaInterna(ArrayList<Float> lista) {
-        float soma = 0;
-        for (float valor : lista) {
-            soma += valor;
+    public Float calculateAverageFloats(List<Float>... listas) {
+        List<Float> todosElementos = new ArrayList<>();
+
+        for (List<Float> lista : listas) {
+            todosElementos.addAll(lista);
         }
-        return soma / lista.size();
+
+        float soma = 0;
+        for (Float elemento : todosElementos) {
+            soma += elemento;
+        }
+
+        return soma / todosElementos.size();
     }
 
-    public Integer calcularMediaInternaInteger(ArrayList<Integer> lista) {
-        int soma = 0;
-        for (int valor : lista) {
-            soma += valor;
+    // Average Calculation Integer
+
+    public double calculateAverageIntegers(List<Integer>... listas) {
+        List<Integer> todosElementos = new ArrayList<>();
+
+        for (List<Integer> lista : listas) {
+            todosElementos.addAll(lista);
         }
-        return soma / lista.size();
+
+        int soma = 0;
+        for (Integer elemento : todosElementos) {
+            soma += elemento;
+        }
+
+        return (double) soma / todosElementos.size();
     }
 
 
