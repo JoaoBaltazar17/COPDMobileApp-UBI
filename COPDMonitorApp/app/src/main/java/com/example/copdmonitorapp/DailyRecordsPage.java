@@ -59,10 +59,10 @@ public class DailyRecordsPage extends AppCompatActivity {
 
 
     // Average Record TextView's
-    TextInputEditText etxtViewAveragePaCO2;
-    TextInputEditText etxtViewAveragePaO2;
-    TextInputEditText etxtViewAverageRespiratoryFreq;
-    TextInputEditText etxtViewAverageTemperature;
+    TextView etxtViewAveragePaCO2;
+    TextView etxtViewAveragePaO2;
+    TextView etxtViewAverageRespiratoryFreq;
+    TextView etxtViewAverageTemperature;
 
 
     // Arrays to save average of each variable
@@ -86,8 +86,6 @@ public class DailyRecordsPage extends AppCompatActivity {
     ArrayList<Float> values06PAO2 = new ArrayList<>();
     ArrayList<Integer> values06RespiratoryRate = new ArrayList<>();
     ArrayList<Float> values06Temperature = new ArrayList<>();
-
-
 
 
     private static String TAG = "Daily Records Activity";
@@ -126,10 +124,10 @@ public class DailyRecordsPage extends AppCompatActivity {
         etxtViewTemperature= findViewById(R.id.eTxtTemp);
 
         // AverageVariables TextView's
-        etxtViewAveragePaCO2 = findViewById(R.id.eTxtMediaPressaoCO2);
-        etxtViewAveragePaO2 = findViewById(R.id.eTxtMediaPaO2);
-        etxtViewAverageRespiratoryFreq = findViewById(R.id.eTxtMediaFreqResp);
-        etxtViewAverageTemperature= findViewById(R.id.eTxtMediaTemp);
+        etxtViewAveragePaCO2 = findViewById(R.id.etxtViewAveragePaCO2);
+        etxtViewAveragePaO2 = findViewById(R.id.etxtViewAveragePaO2);
+        etxtViewAverageRespiratoryFreq = findViewById(R.id.etxtViewAverageRespiratoryFreq);
+        etxtViewAverageTemperature= findViewById(R.id.etxtViewAverageTemperature);
 
 
 
@@ -385,9 +383,10 @@ public class DailyRecordsPage extends AppCompatActivity {
 
                         // Select [24h, 18h] Interval Each Sensor
                         for (int i = 1; i <= 4; i++) {
-                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND timestamp >= NOW() - INTERVAL '24 hours' AND timestamp <= NOW() - INTERVAL '18 hours'";
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND idpatient = ? AND timestamp >= NOW() - INTERVAL '24 hours' AND timestamp <= NOW() - INTERVAL '18 hours'";
                             PreparedStatement statement = conn.prepareStatement(sql24);
                             statement.setInt(1, i);
+                            statement.setInt(2, patientId);
                             ResultSet resultSet = statement.executeQuery();
 
                             int rowCount = 0;
@@ -403,9 +402,11 @@ public class DailyRecordsPage extends AppCompatActivity {
                                 Log.e("LAST 24-18H", "VALUES DETECTED: " + i);
                                 if(i == 3) {
                                     // Respiratory Rate is integer!
+                                    // Respiratory Rate is integer!
                                     ArrayList<Integer> values = new ArrayList<>();
-                                    while (resultSet.next()) {
-                                        int value = resultSet.getInt("value");
+                                    ResultSet nested3ResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nested3ResultSet.next()) {
+                                        int value = nested3ResultSet.getInt("value");
                                         values.add(value);
                                     }
                                     values24RespiratoryRate = values;
@@ -438,9 +439,10 @@ public class DailyRecordsPage extends AppCompatActivity {
 
                         // Select ]18h, 12h] Interval Each Sensor
                         for (int i = 1; i <= 4; i++) {
-                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND timestamp > NOW() - INTERVAL '18 hours' AND timestamp <= NOW() - INTERVAL '12 hours'";
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND idpatient = ? AND timestamp >= NOW() - INTERVAL '18 hours' AND timestamp <= NOW() - INTERVAL '12 hours'";
                             PreparedStatement statement = conn.prepareStatement(sql24);
                             statement.setInt(1, i);
+                            statement.setInt(2, patientId);
                             ResultSet resultSet = statement.executeQuery();
 
                             int rowCount = 0;
@@ -457,9 +459,11 @@ public class DailyRecordsPage extends AppCompatActivity {
                                 Log.e("LAST 18-12H", "VALUES DETECTED FROM A VARIABLE: " + i);
                                 if(i == 3) {
                                     // Respiratory Rate is integer!
+                                    // Respiratory Rate is integer!
                                     ArrayList<Integer> values = new ArrayList<>();
-                                    while (resultSet.next()) {
-                                        int value = resultSet.getInt("value");
+                                    ResultSet nested3ResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nested3ResultSet.next()) {
+                                        int value = nested3ResultSet.getInt("value");
                                         values.add(value);
                                     }
                                     values18RespiratoryRate = values;
@@ -493,9 +497,10 @@ public class DailyRecordsPage extends AppCompatActivity {
 
                         // Select ]12h, 06h] Interval Each Sensor
                         for (int i = 1; i <= 4; i++) {
-                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND timestamp > NOW() - INTERVAL '12 hours' AND timestamp <= NOW() - INTERVAL '06 hours'";
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND idpatient = ? AND timestamp >= NOW() - INTERVAL '12 hours' AND timestamp <= NOW() - INTERVAL '06 hours'";
                             PreparedStatement statement = conn.prepareStatement(sql24);
                             statement.setInt(1, i);
+                            statement.setInt(2, patientId);
                             ResultSet resultSet = statement.executeQuery();
 
                             int rowCount = 0;
@@ -512,8 +517,9 @@ public class DailyRecordsPage extends AppCompatActivity {
                                 if(i == 3) {
                                     // Respiratory Rate is integer!
                                     ArrayList<Integer> values = new ArrayList<>();
-                                    while (resultSet.next()) {
-                                        int value = resultSet.getInt("value");
+                                    ResultSet nested3ResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nested3ResultSet.next()) {
+                                        int value = nested3ResultSet.getInt("value");
                                         values.add(value);
                                     }
                                     values12RespiratoryRate = values;
@@ -546,9 +552,10 @@ public class DailyRecordsPage extends AppCompatActivity {
 
                         // Select ]06h, 00h] Interval Each Sensor
                         for (int i = 1; i <= 4; i++) {
-                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND timestamp > NOW() - INTERVAL '06 hours' AND timestamp <= NOW() - INTERVAL '00 hours'";
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND idpatient = ? AND timestamp >= NOW() - INTERVAL '06 hours' AND timestamp <= NOW() - INTERVAL '00 hours'";
                             PreparedStatement statement = conn.prepareStatement(sql24);
                             statement.setInt(1, i);
+                            statement.setInt(2, patientId);
                             ResultSet resultSet = statement.executeQuery();
 
                             int rowCount = 0;
@@ -561,11 +568,13 @@ public class DailyRecordsPage extends AppCompatActivity {
 
                             if (rowCount > 0) {
                                 Log.e("LAST 06-00H", "VALUES FROM A VARIABLE: " + i);
+
                                 if (i == 3) {
                                     // Respiratory Rate is integer!
                                     ArrayList<Integer> values = new ArrayList<>();
-                                    while (resultSet.next()) {
-                                        int value = resultSet.getInt("value");
+                                    ResultSet nested3ResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nested3ResultSet.next()) {
+                                        int value = nested3ResultSet.getInt("value");
                                         values.add(value);
                                     }
                                     values06RespiratoryRate = values;
@@ -612,32 +621,49 @@ public class DailyRecordsPage extends AppCompatActivity {
             progressDialog.dismiss();
 
             if (result) {
+                ArrayList<Float> percentHours = new ArrayList<>();
+                percentHours.add(0.10f);
+                percentHours.add(0.15f);
+                percentHours.add(0.20f);
+                percentHours.add(0.55f);
                 if (!values24PACO2.isEmpty() && !values18PACO2.isEmpty() && !values12PACO2.isEmpty() && !values06PACO2.isEmpty()){
+                    double valuePACO2 = (calcularMediaInterna(values24PACO2) * percentHours.get(0) + calcularMediaInterna(values18PACO2) * percentHours.get(1) + calcularMediaInterna(values12PACO2) * percentHours.get(2) + calcularMediaInterna(values06PACO2) * percentHours.get(3));
                     Log.e("Daily Records Sensor", "Values24PACO2: " + values24PACO2 + "Values18PACO2: " + values18PACO2 + "Values12PACO2: " + values12PACO2 + "Values06PACO2: " + values06PACO2);
+                    etxtViewAveragePaCO2.setText(String.valueOf(valuePACO2));
                 }
                 else {
+                    etxtViewAveragePaCO2.setText("Insufficient recent PaCO2 sensor data!");
                     Log.e("Daily Records Sensor", "NO Values24PACO2: " + values24PACO2 + "Values18PACO2: " + values18PACO2 + "Values12PACO2: " + values12PACO2 + "Values06PACO2: " + values06PACO2);
-
                 }
 
                 if (!values24PAO2.isEmpty() && !values18PAO2.isEmpty() && !values12PAO2.isEmpty() && !values06PAO2.isEmpty()){
+                    double valuePAO2 = (calcularMediaInterna(values24PAO2) * percentHours.get(0) + calcularMediaInterna(values18PAO2) * percentHours.get(1) + calcularMediaInterna(values12PAO2) * percentHours.get(2) + calcularMediaInterna(values06PAO2) * percentHours.get(3));
+                    etxtViewAveragePaO2.setText(String.valueOf(valuePAO2));
                     Log.e("Daily Records Sensor", "Values24PAO2: " + values24PAO2 + "Values18PAO2: " + values18PAO2 + "Values12PAO2: " + values12PAO2 + "Values06PAO2: " + values06PAO2);
                 }
                 else {
                     Log.e("Daily Records Sensor", "NO Values24PAO2: " + values24PAO2 + "Values18PAO2: " + values18PAO2 + "Values12PAO2: " + values12PAO2 + "Values06PAO2: " + values06PAO2);
-
+                    etxtViewAveragePaO2.setText("Insufficient recent PaO2 sensor data");
                 }
 
                 if (!values24RespiratoryRate.isEmpty() && !values18RespiratoryRate.isEmpty() && !values12RespiratoryRate.isEmpty() && !values06RespiratoryRate.isEmpty()) {
+                    double valueRR = (calcularMediaInternaInteger(values24RespiratoryRate) * percentHours.get(0) + calcularMediaInternaInteger(values18RespiratoryRate) * percentHours.get(1) + calcularMediaInternaInteger(values12RespiratoryRate) * percentHours.get(2) + calcularMediaInternaInteger(values06RespiratoryRate) * percentHours.get(3));
+                    etxtViewAverageRespiratoryFreq.setText(String.valueOf(valueRR));
                     Log.e("Daily Records Sensor", "Values24RespiratoryRate: " + values24RespiratoryRate + "Values18RespiratoryRate: " + values18RespiratoryRate + "Values12RespiratoryRate: " + values12RespiratoryRate + "Values06RespiratoryRate: " + values06RespiratoryRate);
                 } else {
                     Log.e("Daily Records Sensor", "NO Values24RespiratoryRate: " + values24RespiratoryRate + "Values18RespiratoryRate: " + values18RespiratoryRate + "Values12RespiratoryRate: " + values12RespiratoryRate + "Values06RespiratoryRate: " + values06RespiratoryRate);
+                    etxtViewAverageRespiratoryFreq.setText("Insufficient recent Respiratory Frequency sensor data");
+
                 }
 
                 if (!values24Temperature.isEmpty() && !values18Temperature.isEmpty() && !values12Temperature.isEmpty() && !values06Temperature.isEmpty()) {
+                    double valueT = (calcularMediaInterna(values24Temperature) * percentHours.get(0) + calcularMediaInterna(values18Temperature) * percentHours.get(1) + calcularMediaInterna(values12Temperature) * percentHours.get(2) + calcularMediaInterna(values06Temperature) * percentHours.get(3));
+                    etxtViewAverageTemperature.setText(String.valueOf(valueT));
                     Log.e("Daily Records Sensor", "Values24Temperature: " + values24Temperature + "Values18Temperature: " + values18Temperature + "Values12Temperature: " + values12Temperature + "Values06Temperature: " + values06Temperature);
                 } else {
                     Log.e("Daily Records Sensor", "NO Values24Temperature: " + values24Temperature + "Values18Temperature: " + values18Temperature + "Values12Temperature: " + values12Temperature + "Values06Temperature: " + values06Temperature);
+                    etxtViewAverageTemperature.setText("Insufficient recent Temperature sensor data");
+
                 }
 
 
@@ -646,6 +672,25 @@ public class DailyRecordsPage extends AppCompatActivity {
             }
         }
 
+    }
+
+
+
+    // Average Calculation
+    public double calcularMediaInterna(ArrayList<Float> lista) {
+        float soma = 0;
+        for (float valor : lista) {
+            soma += valor;
+        }
+        return soma / lista.size();
+    }
+
+    public Integer calcularMediaInternaInteger(ArrayList<Integer> lista) {
+        int soma = 0;
+        for (int valor : lista) {
+            soma += valor;
+        }
+        return soma / lista.size();
     }
 
 
