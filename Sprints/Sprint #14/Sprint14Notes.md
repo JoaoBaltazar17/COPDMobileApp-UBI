@@ -71,7 +71,7 @@
 #### 3.2.1 Testes Fisicos 6MWT - Pontuação
 - Metodologia: Pegar no primeiro teste (Teste de Calibração) e avaliar consoante este.
 
-- Fórmula : Cada passo dado a mais ou a menos (damos mais/menos 5 pontos ? ) || A cada aumento ou diminuição de pulsação  (damos mais/menos 2 pontos ? )
+- Fórmula : Cada passo dado a mais ou a menos (damos mais/menos 5 pontos (?) ) || A cada aumento ou diminuição de pulsação  (damos mais/menos 2 pontos (?) )
 
 Exemplo:     
 
@@ -178,13 +178,18 @@ Anormalidades: Caso tenham sido detetados valores anormais, durante um intervalo
       1. Intervalos de horas: Minimo 4 (4 Recolhas / Dia) 
       2. (24h - 18h -> 0.1; 18h - 12h -> 0.15; 12h - 6h - 0.20; 6h - 0h - 0.55)
    
-2. Número de valores anormais por parâmetro. (Dar um peso maior numa escala crescente, do mais antigo ao mais recente).
 
-3. Percentagens para valores
+2. Percentagens para valores
   1. Fórmula (0 a 100):
     1. 100% -> Variável Verde
     2. 40% ->  Variável Amarelo
     3. 20% -> Variável Laranja
     4. 10% -> Variável Vermelho
+
+3. Efeitos práticos
+   1. A aplicação na página do sensor shot tem a média de cada parâmetro segundo valores nas últimas 24 horas.
+   2. Para o wellness value:
+      1. Retirada uma média de valores do sensor,de cada intervalo de tempo, para cada parâmetro.
+      2. 
 
    

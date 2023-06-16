@@ -33,6 +33,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePage extends AppCompatActivity {
 
@@ -69,6 +71,30 @@ public class HomePage extends AppCompatActivity {
     float pont_6MWT = 0f;
     float pont_CAT = 0f;
     float WellnessValue = 0f;
+
+    // Arrays to save average of each variable
+    double pont_Variables = 0f;
+    int nosensordata = 0;
+    ArrayList<Float> percHours;
+    ArrayList<Float> values24PACO2 = new ArrayList<>();
+    ArrayList<Float> values24PAO2 = new ArrayList<>();
+    ArrayList<Integer> values24RespiratoryRate = new ArrayList<>();
+    ArrayList<Float> values24Temperature = new ArrayList<>();
+
+    ArrayList<Float> values18PACO2 = new ArrayList<>();
+    ArrayList<Float> values18PAO2 = new ArrayList<>();
+    ArrayList<Integer> values18RespiratoryRate = new ArrayList<>();
+    ArrayList<Float> values18Temperature = new ArrayList<>();
+
+    ArrayList<Float> values12PACO2 = new ArrayList<>();
+    ArrayList<Float> values12PAO2 = new ArrayList<>();
+    ArrayList<Integer> values12RespiratoryRate = new ArrayList<>();
+    ArrayList<Float> values12Temperature = new ArrayList<>();
+
+    ArrayList<Float> values06PACO2 = new ArrayList<>();
+    ArrayList<Float> values06PAO2 = new ArrayList<>();
+    ArrayList<Integer> values06RespiratoryRate = new ArrayList<>();
+    ArrayList<Float> values06Temperature = new ArrayList<>();
 
 
     @Override
@@ -194,6 +220,12 @@ public class HomePage extends AppCompatActivity {
         btnMenuChat = findViewById(R.id.btnChatLive);
 
 
+        percHours = new ArrayList<>();
+        percHours.add(0.10f);
+        percHours.add(0.15f);
+        percHours.add(0.20f);
+        percHours.add(0.55f);
+
         // Get Values to Create Wellness Value
         new GetWellnessValue().execute();
 
@@ -288,14 +320,14 @@ public class HomePage extends AppCompatActivity {
 
                         // 1MSTST
                         String sql = "SELECT * FROM \"1mstst\" WHERE idpatient = ? ORDER BY date1test DESC LIMIT 1;";
-                        PreparedStatement statement = conn.prepareStatement(sql);
+                        PreparedStatement statement1 = conn.prepareStatement(sql);
 
-                        statement.setInt(1, patientId);
+                        statement1.setInt(1, patientId);
 
-                        ResultSet resultSet = statement.executeQuery();
+                        ResultSet resultSet1 = statement1.executeQuery();
 
-                        if (resultSet.next()) {
-                            pont_1MSTST = resultSet.getFloat("testpercentage");
+                        if (resultSet1.next()) {
+                            pont_1MSTST = resultSet1.getFloat("testpercentage");
                         } else {
                             return true;
                         }
@@ -332,9 +364,234 @@ public class HomePage extends AppCompatActivity {
                             return true;
                         }
 
+                        // Variables Sensor Intervals
+                        // Select [24h, 18h] Interval Each Sensor
+                        for (int i = 1; i <= 4; i++) {
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND idpatient = ? AND timestamp >= NOW() - INTERVAL '24 hours' AND timestamp <= NOW() - INTERVAL '18 hours'";
+                            PreparedStatement statement = conn.prepareStatement(sql24);
+                            statement.setInt(1, i);
+                            statement.setInt(2, patientId);
+                            ResultSet resultSet = statement.executeQuery();
 
-                        resultSet.close();
-                        statement.close();
+                            int rowCount = 0;
+                            if (resultSet.next()) {
+                                rowCount = 1;
+                            }
+                            else {
+                                rowCount = 0;
+                                Log.d("LAST 24-18H", "NO VALUES FROM A VARIABLE: " + i);
+                            }
+
+                            if(rowCount > 0) {
+                                Log.d("LAST 24-18H", "VALUES DETECTED: " + i);
+                                if(i == 3) {
+
+                                    // Respiratory Rate is integer!
+                                    ArrayList<Integer> values = new ArrayList<>();
+                                    ResultSet nested3ResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nested3ResultSet.next()) {
+                                        int value = nested3ResultSet.getInt("value");
+                                        values.add(value);
+                                    }
+                                    values24RespiratoryRate = values;
+                                }
+                                else {
+                                    ArrayList<Float> values = new ArrayList<>();
+                                    ResultSet nestedResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nestedResultSet.next()) {
+                                        float value = nestedResultSet.getFloat("value");
+                                        values.add(value);
+                                    }
+                                    switch (i) {
+                                        case 1:
+                                            values24PACO2 = values;
+                                            break;
+                                        case 2:
+                                            values24PAO2 = values;
+                                            break;
+                                        case 4:
+                                            values24Temperature = values;
+                                            break;
+                                    }
+                                }
+                            }
+
+                            resultSet.close();
+                            statement.close();
+                        }
+
+
+                        // Select ]18h, 12h] Interval Each Sensor
+                        for (int i = 1; i <= 4; i++) {
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND idpatient = ? AND timestamp >= NOW() - INTERVAL '18 hours' AND timestamp <= NOW() - INTERVAL '12 hours'";
+                            PreparedStatement statement = conn.prepareStatement(sql24);
+                            statement.setInt(1, i);
+                            statement.setInt(2, patientId);
+                            ResultSet resultSet = statement.executeQuery();
+
+                            int rowCount = 0;
+                            if (resultSet.next()) {
+                                rowCount = 1;
+                            }
+                            else {
+                                rowCount = 0;
+                                Log.d("LAST 18-12H", "NO VALUES FROM A VARIABLE: " + i);
+                            }
+
+
+                            if(rowCount > 0) {
+                                Log.d("LAST 18-12H", "VALUES DETECTED FROM A VARIABLE: " + i);
+                                if(i == 3) {
+                                    // Respiratory Rate is integer!
+                                    // Respiratory Rate is integer!
+                                    ArrayList<Integer> values = new ArrayList<>();
+                                    ResultSet nested3ResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nested3ResultSet.next()) {
+                                        int value = nested3ResultSet.getInt("value");
+                                        values.add(value);
+                                    }
+                                    values18RespiratoryRate = values;
+                                }
+                                else {
+                                    ArrayList<Float> values = new ArrayList<>();
+                                    ResultSet nestedResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nestedResultSet.next()) {
+                                        float value = nestedResultSet.getFloat("value");
+                                        values.add(value);
+                                    }
+                                    switch (i) {
+                                        case 1:
+                                            values18PACO2 = values;
+                                            break;
+                                        case 2:
+                                            values18PAO2 = values;
+                                            break;
+                                        case 4:
+                                            values18Temperature = values;
+                                            break;
+                                    }
+                                }
+                            }
+
+
+                            resultSet.close();
+                            statement.close();
+                        }
+
+
+                        // Select ]12h, 06h] Interval Each Sensor
+                        for (int i = 1; i <= 4; i++) {
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND idpatient = ? AND timestamp >= NOW() - INTERVAL '12 hours' AND timestamp <= NOW() - INTERVAL '06 hours'";
+                            PreparedStatement statement = conn.prepareStatement(sql24);
+                            statement.setInt(1, i);
+                            statement.setInt(2, patientId);
+                            ResultSet resultSet = statement.executeQuery();
+
+                            int rowCount = 0;
+                            if (resultSet.next()) {
+                                rowCount = 1;
+                            }
+                            else {
+                                rowCount = 0;
+                                Log.d("LAST 12-06H", "NO VALUES FROM A VARIABLE: " + i);
+                            }
+
+                            if(rowCount > 0) {
+                                Log.d("LAST 12-06H", "VALUES FROM A VARIABLE: " + i);
+                                if(i == 3) {
+                                    // Respiratory Rate is integer!
+                                    ArrayList<Integer> values = new ArrayList<>();
+                                    ResultSet nested3ResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nested3ResultSet.next()) {
+                                        int value = nested3ResultSet.getInt("value");
+                                        values.add(value);
+                                    }
+                                    values12RespiratoryRate = values;
+                                }
+                                else {
+                                    ArrayList<Float> values = new ArrayList<>();
+                                    ResultSet nestedResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nestedResultSet.next()) {
+                                        float value = nestedResultSet.getFloat("value");
+                                        values.add(value);
+                                    }
+                                    switch (i) {
+                                        case 1:
+                                            values12PACO2 = values;
+                                            break;
+                                        case 2:
+                                            values12PAO2 = values;
+                                            break;
+                                        case 4:
+                                            values12Temperature = values;
+                                            break;
+                                    }
+                                }
+                            }
+
+                            resultSet.close();
+                            statement.close();
+                        }
+
+
+                        // Select ]06h, 00h] Interval Each Sensor
+                        for (int i = 1; i <= 4; i++) {
+                            String sql24 = "SELECT value FROM sensordetect WHERE idsensor = ? AND idpatient = ? AND timestamp >= NOW() - INTERVAL '06 hours' AND timestamp <= NOW() - INTERVAL '00 hours'";
+                            PreparedStatement statement = conn.prepareStatement(sql24);
+                            statement.setInt(1, i);
+                            statement.setInt(2, patientId);
+                            ResultSet resultSet = statement.executeQuery();
+
+                            int rowCount = 0;
+                            if (resultSet.next()) {
+                                rowCount = 1;
+                            } else {
+                                rowCount = 0;
+                                Log.d("LAST 06-00H", "NO VALUES FROM A VARIABLE: " + i);
+                            }
+
+                            if (rowCount > 0) {
+                                Log.d("LAST 06-00H", "VALUES FROM A VARIABLE: " + i);
+
+                                if (i == 3) {
+                                    // Respiratory Rate is integer!
+                                    ArrayList<Integer> values = new ArrayList<>();
+                                    ResultSet nested3ResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nested3ResultSet.next()) {
+                                        int value = nested3ResultSet.getInt("value");
+                                        values.add(value);
+                                    }
+                                    values06RespiratoryRate = values;
+                                } else {
+                                    ArrayList<Float> values = new ArrayList<>();
+                                    ResultSet nestedResultSet = statement.executeQuery(); // Create a new result set for each iteration
+                                    while (nestedResultSet.next()) {
+                                        float value = nestedResultSet.getFloat("value");
+                                        values.add(value);
+                                    }
+
+                                    switch (i) {
+                                        case 1:
+                                            values06PACO2 = values;
+                                            break;
+                                        case 2:
+                                            values06PAO2 = values;
+                                            break;
+                                        case 4:
+                                            values06Temperature = values;
+                                            break;
+                                    }
+                                    nestedResultSet.close(); // Close the nested result set
+                                }
+                            }
+
+                            resultSet.close();
+                            statement.close();
+                        }
+
+
+                        resultSet1.close();
+                        statement1.close();
 
                         resultSet6.close();
                         statement6.close();
@@ -357,9 +614,91 @@ public class HomePage extends AppCompatActivity {
 
             if (result) {
                 if (pont_6MWT != 0 &&  pont_CAT != 0 && pont_1MSTST != 0) {
-                    Log.e("Wellness Points", "6MWT: " + pont_6MWT + "\n CAT:" + pont_CAT + "\n 1MSTST:" + pont_1MSTST);
-                    WellnessValue = pont_CAT * (0.3f) + ( ((pont_1MSTST + pont_6MWT) / 2) * 0.7f);
+                    if(!values24PACO2.isEmpty() &&  !values18PACO2.isEmpty() && !values12PACO2.isEmpty() && !values06PACO2.isEmpty()
+                    && !values24PAO2.isEmpty() && !values18PAO2.isEmpty() && !values12PAO2.isEmpty() && !values06PACO2.isEmpty()
+                    && !values24RespiratoryRate.isEmpty() &&  !values18RespiratoryRate.isEmpty() && !values12RespiratoryRate.isEmpty() && !values06RespiratoryRate.isEmpty()
+                    && !values24Temperature.isEmpty() && !values18Temperature.isEmpty() && !values12Temperature.isEmpty() && !values06Temperature.isEmpty()) {
 
+                        // PACO2
+                        double value24PACO2Avg = calculateAverageFloats(values24PACO2);
+                        double perc24PaCO2Avg = evaluatePaCO2(value24PACO2Avg);
+
+                        double value18PACO2Avg = calculateAverageFloats(values18PACO2);
+                        double perc18PaCO2Avg = evaluatePaCO2(value18PACO2Avg);
+
+                        double value12PACO2Avg = calculateAverageFloats(values12PACO2);
+                        double perc12PaCO2Avg = evaluatePaCO2(value12PACO2Avg);
+
+                        double value06PACO2Avg = calculateAverageFloats(values06PACO2);
+                        double perc06PaCO2Avg = evaluatePaCO2(value06PACO2Avg);
+                        double percPaCO2 = perc24PaCO2Avg * (0.10) + perc18PaCO2Avg * (0.15)  + perc12PaCO2Avg *  (0.20) + perc06PaCO2Avg * (0.55);
+
+
+                        // PAO2
+                        double value24PaO2Avg = calculateAverageFloats(values24PAO2);
+                        double perc24PaO2Avg = evaluatePaO2(value24PaO2Avg);
+
+                        double value18PaO2Avg = calculateAverageFloats(values18PAO2);
+                        double perc18PaO2Avg = evaluatePaO2(value18PaO2Avg);
+
+                        double value12PaO2Avg = calculateAverageFloats(values12PAO2);
+                        double perc12PaO2Avg = evaluatePaO2(value12PaO2Avg);
+
+                        double value06PaO2Avg = calculateAverageFloats(values06PAO2);
+                        double perc06PaO2Avg = evaluatePaO2(value06PaO2Avg);
+
+                        double percPaO2 = perc24PaO2Avg * 0.10 + perc18PaO2Avg * 0.15 + perc12PaO2Avg * 0.20 + perc06PaO2Avg * 0.55;
+
+                        // RR
+                        double value24RespiratoryRateAvg = calculateAverageIntegers(values24RespiratoryRate);
+                        double perc24RespiratoryRateAvg = evaluateRespiratoryRate(value24RespiratoryRateAvg);
+
+                        double value18RespiratoryRateAvg = calculateAverageIntegers(values18RespiratoryRate);
+                        double perc18RespiratoryRateAvg = evaluateRespiratoryRate(value18RespiratoryRateAvg);
+
+                        double value12RespiratoryRateAvg = calculateAverageIntegers(values12RespiratoryRate);
+                        double perc12RespiratoryRateAvg = evaluateRespiratoryRate(value12RespiratoryRateAvg);
+
+                        double value06RespiratoryRateAvg = calculateAverageIntegers(values06RespiratoryRate);
+                        double perc06RespiratoryRateAvg = evaluateRespiratoryRate(value06RespiratoryRateAvg);
+
+                        double percRespiratoryRate = perc24RespiratoryRateAvg * 0.10 + perc18RespiratoryRateAvg * 0.15 + perc12RespiratoryRateAvg * 0.20 + perc06RespiratoryRateAvg * 0.55;
+
+                        // Temperature
+                        double value24TemperatureAvg = calculateAverageFloats(values24Temperature);
+                        double perc24TemperatureAvg = evaluateTemperature(value24TemperatureAvg);
+
+                        double value18TemperatureAvg = calculateAverageFloats(values18Temperature);
+                        double perc18TemperatureAvg = evaluateTemperature(value18TemperatureAvg);
+
+                        double value12TemperatureAvg = calculateAverageFloats(values12Temperature);
+                        double perc12TemperatureAvg = evaluateTemperature(value12TemperatureAvg);
+
+                        double value06TemperatureAvg = calculateAverageFloats(values06Temperature);
+                        double perc06TemperatureAvg = evaluateTemperature(value06TemperatureAvg);
+
+                        double percTemperature = perc24TemperatureAvg * 0.10 + perc18TemperatureAvg * 0.15 + perc12TemperatureAvg * 0.20 + perc06TemperatureAvg * 0.55;
+
+
+                        pont_Variables = (percPaCO2 + percPaO2 + percTemperature + percRespiratoryRate) / 4;
+
+                    }
+                    else {
+                        Log.e("Home Page Records Sensor", "Values24PACO2: " + values24PACO2 + "Values18PACO2: " + values18PACO2 + "Values12PACO2: " + values12PACO2 + "Values06PACO2: " + values06PACO2);
+                        Log.e("Home Page Records Sensor", "Values24PAO2: " + values24PAO2 + " Values18PAO2: " + values18PAO2 + " Values12PAO2: " + values12PAO2 + " Values06PAO2: " + values06PAO2);
+                        Log.e("Home Page Records Sensor", "Values24RespiratoryRate: " + values24RespiratoryRate + " Values18RespiratoryRate: " + values18RespiratoryRate + " Values12RespiratoryRate: " + values12RespiratoryRate + " Values06RespiratoryRate: " + values06RespiratoryRate);
+                        Log.e("Home Page Records Sensor", "Values24Temperature: " + values24Temperature + " Values18Temperature: " + values18Temperature + " Values12Temperature: " + values12Temperature + " Values06Temperature: " + values06Temperature);
+                        nosensordata = 1;
+                    }
+                    Log.e("Wellness Points", "6MWT: " + pont_6MWT + "\n CAT:" + pont_CAT + "\n 1MSTST:" + pont_1MSTST + "\n VARIABLES:" + pont_Variables);
+                    if(nosensordata == 1) {
+                        WellnessValue =  ( pont_CAT * (0.5f) + ((pont_1MSTST + pont_6MWT) / 2) * 0.5f);
+                        Toast.makeText(HomePage.this, "Not enought data to get a percentage from sensor values!", Toast.LENGTH_LONG).show();
+
+                    }
+                    else {
+                        WellnessValue =  ((float) (pont_Variables * (0.4f))) + pont_CAT * (0.3f) + (((pont_1MSTST + pont_6MWT) / 2) * 0.3f);
+                    }
                     // ProgressBar according to Wellness Value
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -398,6 +737,99 @@ public class HomePage extends AppCompatActivity {
         }
 
     }
+
+    public double evaluatePaO2(Double PaO2ValueAvg) {
+        double perc = 0;
+        if (PaO2ValueAvg >= 83 && PaO2ValueAvg <= 108) {
+            perc = 100;
+        } else if (PaO2ValueAvg >= 65 && PaO2ValueAvg <= 83) {
+            perc = 40;
+        } else if (PaO2ValueAvg >= 50 && PaO2ValueAvg <= 64) {
+            perc = 20;
+        } else if (PaO2ValueAvg < 50) {
+            perc = 10;
+        }
+        return perc;
+    }
+
+    public double evaluatePaCO2(Double PaCO2ValueAvg) {
+        double perc = 0;
+        if (PaCO2ValueAvg >= 35 && PaCO2ValueAvg <= 48) {
+            perc = 100;
+        } else if (PaCO2ValueAvg >= 48 && PaCO2ValueAvg <= 58) {
+            perc = 40;
+        } else if (PaCO2ValueAvg >= 59 && PaCO2ValueAvg <= 70) {
+            perc = 20;
+        } else if (PaCO2ValueAvg > 70) {
+            perc = 10;
+        }
+        return perc;
+    }
+
+    public double evaluateTemperature(double temperature) {
+        double percentage = 0;
+        if (temperature < 37) {
+            percentage = 100;
+        } else if (temperature >= 37 && temperature <= 37.8) {
+            percentage = 40;
+        } else if (temperature > 37.8 && temperature <= 38.5) {
+            percentage = 20;
+        } else if (temperature > 38.5) {
+            percentage = 10;
+        }
+        return percentage;
+    }
+
+    public double evaluateRespiratoryRate(double respiratoryRate) {
+        double percentage = 0;
+        if (respiratoryRate < 20) {
+            percentage = 100;
+        } else if (respiratoryRate >= 20 && respiratoryRate <= 25) {
+            percentage = 40;
+        } else if (respiratoryRate > 25 && respiratoryRate <= 30) {
+            percentage = 20;
+        } else if (respiratoryRate > 30) {
+            percentage = 10;
+        }
+        return percentage;
+    }
+
+
+
+
+    // Average Calculation
+    public Float calculateAverageFloats(List<Float>... listas) {
+        List<Float> todosElementos = new ArrayList<>();
+
+        for (List<Float> lista : listas) {
+            todosElementos.addAll(lista);
+        }
+
+        float soma = 0;
+        for (Float elemento : todosElementos) {
+            soma += elemento;
+        }
+
+        return soma / todosElementos.size();
+    }
+
+    // Average Calculation Integer
+
+    public double calculateAverageIntegers(List<Integer>... listas) {
+        List<Integer> todosElementos = new ArrayList<>();
+
+        for (List<Integer> lista : listas) {
+            todosElementos.addAll(lista);
+        }
+
+        int soma = 0;
+        for (Integer elemento : todosElementos) {
+            soma += elemento;
+        }
+
+        return (double) soma / todosElementos.size();
+    }
+
 
 
 
