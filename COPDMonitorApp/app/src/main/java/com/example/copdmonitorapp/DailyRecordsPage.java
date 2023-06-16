@@ -342,6 +342,7 @@ public class DailyRecordsPage extends AppCompatActivity {
                 etxtViewPaO2.setText("");
                 etxtViewRespiratoryFreq.setText("");
                 etxtViewTemperature.setText("");
+                new GetLast24ValuesParameter().execute();
             } else {
                 Toast.makeText(DailyRecordsPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();
             }
