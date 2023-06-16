@@ -677,7 +677,8 @@ public class HomePage extends AppCompatActivity {
                         double value06TemperatureAvg = calculateAverageFloats(values06Temperature);
                         double perc06TemperatureAvg = evaluateTemperature(value06TemperatureAvg);
 
-                        double percTemperature = perc24TemperatureAvg * 0.10 + perc18TemperatureAvg * 0.15 + perc12TemperatureAvg * 0.20 + perc06TemperatureAvg * 0.55;
+                        double percTemperature = perc24TemperatureAvg * 0.10 + perc18TemperatureAvg * 0.15 + perc12TemperatureAvg * 0.20 +
+                                perc06TemperatureAvg * 0.55;
 
 
                         pont_Variables = (percPaCO2 + percPaO2 + percTemperature + percRespiratoryRate) / 4;

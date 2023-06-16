@@ -189,7 +189,9 @@ Anormalidades: Caso tenham sido detetados valores anormais, durante um intervalo
 3. Efeitos práticos
    1. A aplicação na página do sensor shot tem a média de cada parâmetro segundo valores nas últimas 24 horas.
    2. Para o wellness value:
-      1. Retirada uma média de valores do sensor,de cada intervalo de tempo, para cada parâmetro.
-      2. 
-
-   
+      1. Retirada uma média de valores do sensor ,de cada intervalo de tempo, para cada parâmetro.
+      2. A esse média sera assoociada uma percentagem de [0,100] conforme na secção acima.
+      3. Ao fim de termos ao percentagens de cada intervalo faz-se a média das percentagens tendo em conta isto:
+         1. (24h - 18h -> 0.1; 18h - 12h -> 0.15; 12h - 6h - 0.20; 6h - 0h - 0.55)
+      4. Excerto de forma à compreensão (Para a temperatura): 
+         1. ![Valores Anormais por Variável](vv_perc.png)
