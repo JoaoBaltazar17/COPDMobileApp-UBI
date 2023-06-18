@@ -597,7 +597,7 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
             Toast.makeText(SixMWTPage.this, "Hey there! You cannot proceed with null values on test", Toast.LENGTH_LONG).show();
             return;
         }
-        distance = stepCount * 0.762f;
+        distance = stepCount * 0.8f;
         if(firstTry == 1) {
             testpercentage = 50f;
         }

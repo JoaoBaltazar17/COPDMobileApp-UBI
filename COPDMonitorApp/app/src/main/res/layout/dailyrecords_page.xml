@@ -138,7 +138,7 @@
         <TextView
             android:id="@+id/etxtViewAveragePaCO2"
             android:layout_marginTop="10dp"
-            android:layout_width="350dp"
+            android:layout_width="390dp"
             android:layout_gravity="center"
             android:layout_height="40dp"
             android:text="PaCO2 (mmHg): "
@@ -151,7 +151,7 @@
         <TextView
             android:id="@+id/etxtViewAveragePaO2"
             android:layout_marginTop="10dp"
-            android:layout_width="350dp"
+            android:layout_width="390dp"
             android:layout_gravity="center"
             android:layout_height="40dp"
             android:text="PaO2 (mmHg): "
@@ -164,7 +164,7 @@
         <TextView
             android:id="@+id/etxtViewAverageRespiratoryFreq"
             android:layout_marginTop="10dp"
-            android:layout_width="350dp"
+            android:layout_width="390dp"
             android:layout_gravity="center"
             android:layout_height="40dp"
             android:text="Respiratory Frequency: "
@@ -177,7 +177,7 @@
         <TextView
             android:id="@+id/etxtViewAverageTemperature"
             android:layout_marginTop="10dp"
-            android:layout_width="350dp"
+            android:layout_width="390dp"
             android:layout_gravity="center"
             android:layout_height="40dp"
             android:text="Temperature (ºC): "

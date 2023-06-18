@@ -636,7 +636,7 @@ public class DailyRecordsPage extends AppCompatActivity {
                 if (!values24PACO2.isEmpty() && !values18PACO2.isEmpty() && !values12PACO2.isEmpty() && !values06PACO2.isEmpty()){
                     double valuePACO2 = calculateAverageFloats(values24PACO2, values18PACO2, values12PACO2, values06PACO2);
                     Log.e("Daily Records Sensor", "Values24PACO2: " + values24PACO2 + "Values18PACO2: " + values18PACO2 + "Values12PACO2: " + values12PACO2 + "Values06PACO2: " + values06PACO2 + "\nAverage: " + valuePACO2);
-                    etxtViewAveragePaCO2.setText(String.valueOf(valuePACO2));
+                    etxtViewAveragePaCO2.setText(String.format("Average PaCO2 from last 24 hours: %.2f", valuePACO2));
                 }
                 else {
                     etxtViewAveragePaCO2.setText("Insufficient recent PaCO2 sensor data!");
@@ -646,7 +646,7 @@ public class DailyRecordsPage extends AppCompatActivity {
                 if (!values24PAO2.isEmpty() && !values18PAO2.isEmpty() && !values12PAO2.isEmpty() && !values06PAO2.isEmpty()){
                     double valuePAO2 = calculateAverageFloats(values24PAO2, values18PAO2, values12PAO2, values06PAO2);
                     Log.e("Daily Records Sensor", "Values24PAO2: " + values24PAO2 + " Values18PAO2: " + values18PAO2 + " Values12PAO2: " + values12PAO2 + " Values06PAO2: " + values06PAO2 + "\nAverage: " + valuePAO2);
-                    etxtViewAveragePaO2.setText(String.valueOf(valuePAO2));
+                    etxtViewPaO2.setText(String.format("Average PaO2 from last 24 hours: %.2f", valuePAO2));
                 }
                 else {
                     Log.e("Daily Records Sensor", "NO Values24PAO2: " + values24PAO2 + "Values18PAO2: " + values18PAO2 + "Values12PAO2: " + values12PAO2 + "Values06PAO2: " + values06PAO2);
@@ -656,7 +656,7 @@ public class DailyRecordsPage extends AppCompatActivity {
                 if (!values24RespiratoryRate.isEmpty() && !values18RespiratoryRate.isEmpty() && !values12RespiratoryRate.isEmpty() && !values06RespiratoryRate.isEmpty()) {
                     double valueRespiratoryRate = calculateAverageIntegers(values24RespiratoryRate, values18RespiratoryRate, values12RespiratoryRate, values06RespiratoryRate);
                     Log.e("Daily Records Sensor", "Values24RespiratoryRate: " + values24RespiratoryRate + " Values18RespiratoryRate: " + values18RespiratoryRate + " Values12RespiratoryRate: " + values12RespiratoryRate + " Values06RespiratoryRate: " + values06RespiratoryRate + "\nAverage: " + valueRespiratoryRate);
-                    etxtViewAverageRespiratoryFreq.setText(String.valueOf(valueRespiratoryRate));
+                    etxtViewAverageRespiratoryFreq.setText(String.format("Average Respiratory Rate from last 24 hours: %.2f", valueRespiratoryRate));
                 } else {
                     Log.e("Daily Records Sensor", "NO Values24RespiratoryRate: " + values24RespiratoryRate + "Values18RespiratoryRate: " + values18RespiratoryRate + "Values12RespiratoryRate: " + values12RespiratoryRate + "Values06RespiratoryRate: " + values06RespiratoryRate);
                     etxtViewAverageRespiratoryFreq.setText("Insufficient recent Respiratory Frequency sensor data");
@@ -666,7 +666,7 @@ public class DailyRecordsPage extends AppCompatActivity {
                 if (!values24Temperature.isEmpty() && !values18Temperature.isEmpty() && !values12Temperature.isEmpty() && !values06Temperature.isEmpty()) {
                     double valueTemperature = calculateAverageFloats(values24Temperature, values18Temperature, values12Temperature, values06Temperature);
                     Log.e("Daily Records Sensor", "Values24Temperature: " + values24Temperature + " Values18Temperature: " + values18Temperature + " Values12Temperature: " + values12Temperature + " Values06Temperature: " + values06Temperature + "\nAverage: " + valueTemperature);
-                    etxtViewAverageTemperature.setText(String.valueOf(valueTemperature));
+                    etxtViewAverageTemperature.setText(String.format("Average Temperature from last 24 hours: %.2f", valueTemperature));
                 } else {
                     Log.e("Daily Records Sensor", "NO Values24Temperature: " + values24Temperature + "Values18Temperature: " + values18Temperature + "Values12Temperature: " + values12Temperature + "Values06Temperature: " + values06Temperature);
                     etxtViewAverageTemperature.setText("Insufficient recent Temperature sensor data");
