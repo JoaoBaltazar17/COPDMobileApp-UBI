@@ -120,8 +120,6 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
             slider.addOnChangeListener(new Slider.OnChangeListener() {
                 @Override
                 public void onValueChange(Slider slider, float value, boolean fromUser) {
-                    // Perform actions with the new Slider value
-                    Log.d("Slider Example", "New value: " + value);
                     slideValue = (int) value; // Convert float value to int
 
                     int color = getResources().getColor(R.color.lavender);
@@ -141,7 +139,6 @@ public class FellingUnwellPageQ1 extends AppCompatActivity {
                         case 2:
                             txtViewDescription.setText("Moderate");
                             rectangle.setBackgroundResource(R.drawable.rounded_rectangle_moderate);
-                            Log.e("BUG", "BOAS");
                             btnConfirm.setClickable(true);
                             break;
                         case 3:
