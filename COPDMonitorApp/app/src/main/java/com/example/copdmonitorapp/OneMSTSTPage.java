@@ -432,10 +432,10 @@ public class OneMSTSTPage extends AppCompatActivity {
 
 
 
-        int avalCicles = (count - past_count) * 3;
-        int avalPulsacoes = (past_mPuls - mPuls) * 2;
+        float avalCicles = (count - past_count) * (0.4f);
+        float avalPulsacoes = (past_mPuls - mPuls) * (0.1f);
 
-        float perc = 50 + (avalPulsacoes + avalCicles);
+        float perc = 50 + avalPulsacoes + avalCicles;
         return perc;
 
     }
