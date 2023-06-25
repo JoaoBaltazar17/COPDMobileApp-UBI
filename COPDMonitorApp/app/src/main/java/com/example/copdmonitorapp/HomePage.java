@@ -699,6 +699,10 @@ public class HomePage extends AppCompatActivity {
                     }
                     else {
                         WellnessValue =  ((float) (pont_Variables * (0.4f))) + pont_CAT * (0.3f) + (((pont_1MSTST + pont_6MWT) / 2) * 0.3f);
+                        Log.e("Home Page Records Sensor", "Values24PACO2: " + values24PACO2 + "Values18PACO2: " + values18PACO2 + "Values12PACO2: " + values12PACO2 + "Values06PACO2: " + values06PACO2);
+                        Log.e("Home Page Records Sensor", "Values24PAO2: " + values24PAO2 + " Values18PAO2: " + values18PAO2 + " Values12PAO2: " + values12PAO2 + " Values06PAO2: " + values06PAO2);
+                        Log.e("Home Page Records Sensor", "Values24RespiratoryRate: " + values24RespiratoryRate + " Values18RespiratoryRate: " + values18RespiratoryRate + " Values12RespiratoryRate: " + values12RespiratoryRate + " Values06RespiratoryRate: " + values06RespiratoryRate);
+                        Log.e("Home Page Records Sensor", "Values24Temperature: " + values24Temperature + " Values18Temperature: " + values18Temperature + " Values12Temperature: " + values12Temperature + " Values06Temperature: " + values06Temperature);
                     }
                     // ProgressBar according to Wellness Value
                     final Handler handler = new Handler();
