@@ -646,7 +646,7 @@ public class DailyRecordsPage extends AppCompatActivity {
                 if (!values24PAO2.isEmpty() && !values18PAO2.isEmpty() && !values12PAO2.isEmpty() && !values06PAO2.isEmpty()){
                     double valuePAO2 = calculateAverageFloats(values24PAO2, values18PAO2, values12PAO2, values06PAO2);
                     Log.e("Daily Records Sensor", "Values24PAO2: " + values24PAO2 + " Values18PAO2: " + values18PAO2 + " Values12PAO2: " + values12PAO2 + " Values06PAO2: " + values06PAO2 + "\nAverage: " + valuePAO2);
-                    etxtViewPaO2.setText(String.format("Average PaO2 from last 24 hours: %.2f", valuePAO2));
+                    etxtViewAveragePaO2.setText(String.format("Average PaO2 from last 24 hours: %.2f", valuePAO2));
                 }
                 else {
                     Log.e("Daily Records Sensor", "NO Values24PAO2: " + values24PAO2 + "Values18PAO2: " + values18PAO2 + "Values12PAO2: " + values12PAO2 + "Values06PAO2: " + values06PAO2);
