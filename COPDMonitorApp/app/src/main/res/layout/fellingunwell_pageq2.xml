@@ -98,7 +98,7 @@
                 android:id="@+id/rectangle"
                 android:layout_width="280dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="55dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/rounded_rectangle_whitedefault"
                 android:visibility="invisible" />
@@ -107,9 +107,9 @@
                 android:id="@+id/txtViewDescriptionSlider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70sp"
                 android:fontFamily="@font/interbold"
-                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
                 android:text="Choose Level"
                 android:textSize="22sp"
                 android:visibility="invisible" />
