@@ -11,6 +11,10 @@ The COPD mobile application includes the following key features:
 -  Physical Tests
 -  Patch Incorporation
 
+## Project Management
+
+[Mobile Application for COPD - Trello ](https://trello.com/b/ANUNz1XE/aplica%C3%A7%C3%A3o-m%C3%B3vel-an%C3%A1lise-l%C3%ADgica-de-biossinais-para-dpoc), where you will find information about tasks, progress, and assignment of activities.
+
 
 ## Project Folder Structure
 
@@ -20,8 +24,6 @@ The project is organized with the following folder structure:
 - **Documents**: Here, you will find all useful documents created throughout the development process.
 - **Sprints**: This folder is dedicated to the work conducted in each sprint of the project, housing files and records related to each stage.
 
-## Project Management
 
-[Mobile Application for COPD - Trello ](https://trello.com/b/ANUNz1XE/aplica%C3%A7%C3%A3o-m%C3%B3vel-an%C3%A1lise-l%C3%ADgica-de-biossinais-para-dpoc), where you will find information about tasks, progress, and assignment of activities.
 
 
