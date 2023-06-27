@@ -38,8 +38,9 @@
 
         <TextView
             android:id="@+id/txtViewDescriptionTest1MSTST"
-            android:layout_width="360dp"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:text="Test that assesses a person's functional capacity to perform repetitive movements of sitting down and standing up from a chair in one minute."
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
@@ -67,8 +68,8 @@
             android:layout_height="wrap_content"
             android:text="1. Find a sturdy chair and a clear, open space to perform the test."
             android:layout_gravity="center"
+            android:textAlignment="center"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="5dp"
             android:textStyle="normal"
             android:textColor="@color/greysolid"
             android:textSize="15sp" />
@@ -78,7 +79,7 @@
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:text="2. Stand up and sit down as many times as you can in one minute, making sure to fully sit down each time before standing up again."
-            android:layout_marginStart="5dp"
+            android:textAlignment="center"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:textStyle="normal"
@@ -119,7 +120,7 @@
                 android:layout_width="100dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginStart="125dp"
+                android:layout_marginStart="100dp"
                 android:text="Reset"
                 android:textColor="@color/greysolid"
                 android:textSize="15dp"

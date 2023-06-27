@@ -125,7 +125,7 @@
                 android:drawableRight="@drawable/ic_medication"
                 android:clickable="false"
                 android:onClick="goToMedicationPage"
-                android:textSize="12dp"
+                android:textSize="11dp"
                 android:text="Medication" />
 
             <Button

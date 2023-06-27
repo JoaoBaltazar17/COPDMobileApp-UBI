@@ -33,6 +33,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -533,8 +534,10 @@ public class OneMSTSTPage extends AppCompatActivity {
                 Toast.makeText(OneMSTSTPage.this, "Test has been sucessfully registered", Toast.LENGTH_LONG).show();
                 txtViewCount.setVisibility(View.VISIBLE);
                 txtViewPercentage.setVisibility(View.VISIBLE);
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                String roundedPerc = decimalFormat.format(testpercentage);
                 txtViewCount.setText("Count: " + count);
-                txtViewPercentage.setText("Test Percentage [0-100]: " + testpercentage);
+                txtViewPercentage.setText("Test Percentage [0-100]: " + roundedPerc);
 
             } else {
                 Toast.makeText(OneMSTSTPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();

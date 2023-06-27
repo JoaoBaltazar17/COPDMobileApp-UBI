@@ -695,8 +695,9 @@ public class SixMWTPage extends AppCompatActivity implements SensorEventListener
 
                 DecimalFormat decimalFormat = new DecimalFormat("#.##");
                 String roundedDistance = decimalFormat.format(distance);
+                String roundedPerc = decimalFormat.format(testpercentage);
                 txtViewDistance.setText("Distance: " + roundedDistance);
-                txtViewPercentage.setText("Test Percentage [0-100]: " + testpercentage);
+                txtViewPercentage.setText("Test Percentage [0-100]: " + roundedPerc);
 
             } else {
                 Toast.makeText(SixMWTPage.this, "We're sorry, but operation failed.", Toast.LENGTH_LONG).show();

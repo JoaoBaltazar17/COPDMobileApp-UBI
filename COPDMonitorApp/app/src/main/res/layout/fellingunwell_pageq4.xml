@@ -36,7 +36,7 @@
                 android:id="@+id/txtViewSOSClickableTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="55dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="17dp"
                 android:clickable="false"
                 android:drawableRight="@drawable/ic_sad"
@@ -57,7 +57,7 @@
 
         <TextView
             android:id="@+id/txtViewQuestion"
-            android:layout_width="390dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="90sp"
             android:text="@string/question4"
@@ -99,7 +99,7 @@
                 android:layout_width="280dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/rounded_rectangle_whitedefault"
                 android:visibility="invisible" />
 
@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/interbold"
                 android:text="Choose Level"
                 android:textAlignment="center"
@@ -124,19 +124,18 @@
             android:text="Confirm"
             android:clickable="false"
             android:backgroundTint="@color/grey"
-            android:layout_marginStart="95sp"
-            android:layout_marginTop="15sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5sp"
             android:onClick="onConfirmPagButtonClick" />
 
         <TextView
             android:id="@+id/txtViewPageNumeric"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150sp"
-            android:layout_marginTop="25sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15sp"
             android:fontFamily="@font/interbold"
             android:text="Page 4/4"
-            android:textAlignment="viewStart"
             android:textSize="22sp" />
 
         <TextView

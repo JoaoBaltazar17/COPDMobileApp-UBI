@@ -36,7 +36,7 @@
                 android:id="@+id/txtViewSOSClickableTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="55dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="17dp"
                 android:clickable="false"
                 android:drawableRight="@drawable/ic_sad"
@@ -84,8 +84,8 @@
                 android:id="@+id/txtViewInformation1"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="2dp"
                 android:gravity="center"
                 android:text="This is a support tool to help you manage your symptoms. Find more on NIH - National Library of Medicine."
                 android:textSize="15sp"
@@ -98,7 +98,6 @@
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
-                android:layout_marginStart="15dp"
                 android:gravity="center"
                 android:text="Click on the slider if you want to start the questionnaire."
                 android:textSize="19sp"
@@ -112,7 +111,7 @@
                 android:layout_width="280dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="0dp"
                 android:background="@drawable/rounded_rectangle_whitedefault"
                 android:visibility="invisible" />
 
@@ -121,7 +120,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/interbold"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="0dp"
+                android:gravity="center"
                 android:layout_gravity="center"
                 android:text="Choose Level"
                 android:textSize="22sp"
@@ -135,22 +135,21 @@
             android:layout_height="wrap_content"
             android:text="Confirm"
             android:clickable="false"
+            android:layout_gravity="center"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:backgroundTint="@color/grey"
-            android:layout_marginStart="95sp"
-            android:layout_marginTop="15sp"
+            android:layout_marginTop="-5sp"
             android:onClick="onConfirmPagButtonClick" />
 
         <TextView
             android:id="@+id/txtViewPageNumeric"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150sp"
-            android:layout_marginTop="25sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5sp"
             android:fontFamily="@font/interbold"
             android:text="Page 1/4"
-            android:textAlignment="viewStart"
             android:textSize="22sp" />
 
 
