@@ -45,7 +45,7 @@ Click the image below to watch a demo video showcasing the features and function
 
 The demo video provides a visual walkthrough of the app's usage and demonstrates how it can benefit individuals with COPD.
 
-We hope you find the COPD Mobile Application helpful in managing your
+
 
 
 
