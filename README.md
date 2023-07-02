@@ -37,7 +37,7 @@ To get started with the COPD Mobile Application, follow these steps:
 5. **Explore the features** of the app, including disease monitoring, real-time exacerbation instructions, physical tests, and patch incorporation.
 6. **Provide feedback** on your experience using the app, including any issues encountered, suggestions for improvements, or additional features you would like to see.
 
-## Demo Video
+## Demonstration Video
 
 Click the image below to watch a demo video showcasing the features and functionality of the COPD Mobile Application:
 
