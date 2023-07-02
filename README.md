@@ -24,6 +24,30 @@ The project is organized with the following folder structure:
 - **Documents**: Here, you will find all useful documents created throughout the development process.
 - **Sprints**: This folder is dedicated to the work conducted in each sprint of the project, housing files and records related to each stage.
 
+## Getting Started
+
+This application was built and planned in order to incorporate a sensory patch in the future. The application works correctly without this embedding, but with greater inaccuracy in results.
+
+To get started with the COPD Mobile Application, follow these steps:
+
+1. **Clone or download the COPDMonitorApp folder** from the project repository.
+2. **Set up the development environment** by installing the necessary programming tools, libraries, and dependencies.
+3. **Build and deploy the application** on a compatible mobile device or emulator/simulator.
+4. **Launch the app** and create a user account or log in if you already have one.
+5. **Explore the features** of the app, including disease monitoring, real-time exacerbation instructions, physical tests, and patch incorporation.
+6. **Provide feedback** on your experience using the app, including any issues encountered, suggestions for improvements, or additional features you would like to see.
+
+## Demo Video
+
+Click the image below to watch a demo video showcasing the features and functionality of the COPD Mobile Application:
+
+[![COPD Mobile App Demo](https://example.com/demo-video-thumbnail.jpg)](https://example.com/demo-video-link)
+
+The demo video provides a visual walkthrough of the app's usage and demonstrates how it can benefit individuals with COPD.
+
+We hope you find the COPD Mobile Application helpful in managing your
+
+
 
 
 
