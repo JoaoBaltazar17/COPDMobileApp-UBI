@@ -1,6 +1,6 @@
 # Mobile Application for COPD
 
-This project aims to develop a mobile application for individuals with Chronic Obstructive Pulmonary Disease (COPD). The application is designed to provide functionalities that facilitate disease monitoring and offer support during exacerbations, as well as include physical tests and patch incorporation for more efficient tracking.
+This project aims to develop a mobile application for individuals with Chronic Obstructive Pulmonary Disease (COPD). The application is designed to provide functionalities that facilitate disease monitoring and offer support during exacerbations, as well as include physical tests and **patch incorporation** for more efficient tracking.
 
 ## App Features
 
