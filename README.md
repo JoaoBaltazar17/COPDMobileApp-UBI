@@ -28,9 +28,7 @@ The project is organized with the following folder structure:
 
 This application was built and planned in order to incorporate a sensory patch in the future. The application works correctly without this embedding, but with greater inaccuracy in results.
 
-To get started with the COPD Mobile Application, follow these steps:
-
-To install the application, please download the file ```nothing2lose.apk``` and proceed to run it on your Android device.
+**To install the application**, please download the file ```nothing2lose.apk``` and proceed to run it on your Android device.
 
 ## Demonstration
 
