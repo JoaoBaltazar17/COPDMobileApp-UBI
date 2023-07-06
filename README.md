@@ -30,20 +30,12 @@ This application was built and planned in order to incorporate a sensory patch i
 
 To get started with the COPD Mobile Application, follow these steps:
 
-1. **Clone or download the COPDMonitorApp folder** from the project repository.
-2. **Set up the development environment** by installing the necessary programming tools, libraries, and dependencies.
-3. **Build and deploy the application** on a compatible mobile device or emulator/simulator.
-4. **Launch the app** and create a user account or log in if you already have one.
-5. **Explore the features** of the app, including disease monitoring, real-time exacerbation instructions, physical tests, and patch incorporation.
-6. **Provide feedback** on your experience using the app, including any issues encountered, suggestions for improvements, or additional features you would like to see.
+To install the application, please download the file ```nothing2lose.apk``` and proceed to run it on your Android device.
 
-## Demonstration Video
+## Demonstration
 
-Click the image below to watch a demo video showcasing the features and functionality of the COPD Mobile Application:
-
-[![COPD Mobile App Demo](https://example.com/demo-video-thumbnail.jpg)](https://example.com/demo-video-link)
-
-The demo video provides a visual walkthrough of the app's usage and demonstrates how it can benefit individuals with COPD.
+Access documents to get more insights about the app.
+[Home Page](Documents/PosterCOPDApp.png)
 
 
 
