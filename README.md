@@ -33,7 +33,8 @@ This application was built and planned in order to incorporate a sensory patch i
 ## Demonstration
 
 Access documents to get more insights about the app.
-[Home Page](Documents/PosterCOPDApp.png)
+
+[Poster](Documents/PosterCOPDApp.png)
 
 
 
