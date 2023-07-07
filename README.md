@@ -37,6 +37,8 @@ To get more information about this demonstration:
 [Apresentation Powerpoint](Documents/ProjectApresentation.ppt)
 
 
+Video:
+
 [![COPD Mobile App](https://img.youtube.com/vi/nRW00EfrVr8/0.jpg)](https://youtu.be/nRW00EfrVr8)
 
 
