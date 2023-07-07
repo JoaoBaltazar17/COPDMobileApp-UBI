@@ -33,7 +33,9 @@ This application was built and planned in order to incorporate a sensory patch i
 ## Demonstration Video with a Severe Virtual Patient
 
 To get more information about this demonstration:
+
 [Apresentation Powerpoint](Documents/ProjectApresentation.ppt)
+
 
 [![COPD Mobile App](https://youtu.be/nRW00EfrVr8)](https://youtu.be/nRW00EfrVr8)
 
