@@ -30,11 +30,15 @@ This application was built and planned in order to incorporate a sensory patch i
 
 **To install the application**, please download the file ```nothing2lose.apk``` and proceed to run it on your Android device.
 
-## Demonstration
+## Demonstration Video with a Severe Virtual Patient
 
-Access documents to get more insights about the app.
+To get more information about this demonstration:
+[Apresentation Powerpoint](Documents/ProjectApresentation.ppt)
 
-[Poster](Documents/PosterCOPDApp.png)
+[![COPD Mobile App](https://youtu.be/nRW00EfrVr8)](https://youtu.be/nRW00EfrVr8)
+
+
+
 
 
 
